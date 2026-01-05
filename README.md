@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Citizen Government Connection Platform (DCGCP)
 
-## Getting Started
+A smart, citizen-centric digital platform designed to bridge the communication gap between citizens and government services in Bangladesh.
 
-First, run the development server:
+> ⚠️ **Status:** This project is currently in early development (Work in Progress).
+
+---
+
+## 🌍 Project Vision
+
+The **Citizen Government Connection Platform** aims to create a transparent, efficient, and data-driven governance system where citizens can:
+
+- Report local issues directly to authorities
+- Track government responsiveness and resolution rates
+- Access essential public services digitally
+- Build trust through transparency and real-time data
+
+This platform is designed with Bangladesh’s socio-technical context in mind, combining **GovTech, AI, and citizen empowerment**.
+
+---
+
+## ✨ Planned Features (Roadmap)
+
+### 🧑‍🤝‍🧑 Citizen Services
+- Issue reporting with photo/video proof
+- Geolocation-based incident submission
+- Real-time report status tracking
+- Login & registration using mobile number
+- Institutional complaints submission
+
+### 🏛️ Government & Transparency
+- Public dashboard showing:
+  - Total reported issues
+  - Resolution percentage
+- Area-wise issue analytics
+- Performance insights for authorities
+
+### 🤖 AI-Powered Services (Planned)
+- AI-based media verification (fake/duplicate detection)
+- Chatbot for:
+  - National laws
+  - Health tips
+  - Agriculture guidance
+  - Education support
+- Predictive analysis for recurring issues & high-risk zones
+
+### 🚨 Emergency & Utility Support
+- Nearby hospitals & emergency services locator
+- National helpline integration (999, 333, 16263)
+
+---
+
+## 🛠️ Tech Stack (Current & Planned)
+
+- **Frontend:** Next.js (App Router), React, Tailwind CSS v4
+- **UI Components:** shadcn/ui
+- **Theme:** Light & Dark mode (next-themes)
+- **Backend:** Planned (Node.js / API-based)
+- **Database:** Planned
+- **AI Services:** Planned
+- **Authentication:** Planned (Mobile-based)
+
+---
+
+## 📁 Project Status
+
+- ✅ UI/UX design in progress
+- ✅ Auth pages (Login / Register)
+- ✅ Responsive Navbar & Theme Toggle
+- 🚧 Backend integration
+- 🚧 API & database design
+- 🚧 AI feature development
+
+---
+
+## 🚀 Getting Started (Development)
 
 ```bash
+git clone https://github.com/your-username/citizen-government-connection-platform.git
+cd citizen-government-connection-platform
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
