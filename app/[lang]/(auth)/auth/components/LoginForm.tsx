@@ -53,7 +53,7 @@ export default function LoginForm({ dict }: { dict: Record<string, string>}) {
           dark:bg-emerald-700 dark:hover:bg-emerald-600
         "
       >
-        {dict.signInBtn}<span className="text-base">→</span>
+        {dict.SignInBtn}<span className="text-base">→</span>
       </button>
 
       <div
