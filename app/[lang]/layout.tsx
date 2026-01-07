@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { ThemeProvider } from "./components/client/theme-provider";
+import "../globals.css";
+import { ThemeProvider } from "../components/client/theme-provider";
 export const metadata: Metadata = {
   title: "CGCP",
   description: "Citizen Government Connection platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
+
+  const { lang } =  await params;
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang}  suppressHydrationWarning>
       <body cz-shortcut-listen="true">
          <ThemeProvider
             attribute="class"
@@ -25,4 +29,8 @@ export default function RootLayout({
       </body>
     </html>
   );
+}
+
+export async function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'bn' }]
 }

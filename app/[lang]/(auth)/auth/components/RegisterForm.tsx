@@ -1,14 +1,14 @@
-export default function RegisterForm() {
+export default function RegisterForm({dict} : {dict:Record<string,string>}) {
   return (
     <form className="space-y-4">
       {/* Name */}
       <div>
         <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-          FULL NAME
+          {dict.nameLabel}
         </label>
         <input
           type="text"
-          placeholder="Your full name"
+          placeholder={dict.namePlaceholder}
           className="
             mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
             border-slate-200 bg-white text-slate-900
@@ -23,11 +23,11 @@ export default function RegisterForm() {
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            MOBILE NUMBER
+            {dict.numberLabel}
           </label>
           <input
             type="text"
-            placeholder="01XXXXXXXXX"
+            placeholder={dict.numberPlaceholder}
             className="
               mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
               border-slate-200 bg-white text-slate-900
@@ -40,11 +40,11 @@ export default function RegisterForm() {
 
         <div>
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            NID NUMBER
+            {dict.nidNumberLabel}
           </label>
           <input
             type="text"
-            placeholder="NID"
+            placeholder={dict.nidNumberPlaceholder}
             className="
               mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
               border-slate-200 bg-white text-slate-900
@@ -60,12 +60,12 @@ export default function RegisterForm() {
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            AGE
+            {dict.ageLabel}
           </label>
           <input
             type="number"
             min={0}
-            placeholder="e.g. 22"
+            placeholder={dict.agePlaceholder}
             className="
               mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
               border-slate-200 bg-white text-slate-900
@@ -78,7 +78,7 @@ export default function RegisterForm() {
 
         <div>
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            DATE OF BIRTH
+            {dict.dobLabel}
           </label>
           <input
             type="date"
@@ -96,11 +96,11 @@ export default function RegisterForm() {
       {/* Address */}
       <div>
         <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-          ADDRESS
+          {dict.addressLabel}
         </label>
         <textarea
           rows={3}
-          placeholder="Village/Area, Thana/Upazila, District"
+          placeholder={dict.addressPlaceholder}
           className="
             mt-1 w-full resize-none rounded-xl border px-3 py-2.5 text-sm outline-none transition
             border-slate-200 bg-white text-slate-900
@@ -115,11 +115,11 @@ export default function RegisterForm() {
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            PASSWORD
+            {dict.passwordLabel}
           </label>
           <input
             type="password"
-            placeholder="••••••••"
+            placeholder={dict.passwordPlaceholder}
             className="
               mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
               border-slate-200 bg-white text-slate-900
@@ -132,11 +132,11 @@ export default function RegisterForm() {
 
         <div>
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            CONFIRM PASSWORD
+            {dict.confirmPasswordLabel}
           </label>
           <input
             type="password"
-            placeholder="••••••••"
+            placeholder={dict.confirmPasswordPlaceholder}
             className="
               mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
               border-slate-200 bg-white text-slate-900
@@ -157,17 +157,17 @@ export default function RegisterForm() {
           dark:bg-emerald-700 dark:hover:bg-emerald-600
         "
       >
-        CREATE ACCOUNT <span className="text-base">→</span>
+        {dict.registerBtn} <span className="text-base">→</span>
       </button>
 
       <p className="text-center text-[11px] text-slate-500 dark:text-slate-400">
-        By registering, you agree to our{" "}
+        {dict.termsText}{" "}
         <span className="font-semibold text-slate-700 dark:text-slate-200">
-          Terms
+          {dict.terms}
         </span>{" "}
-        &{" "}
+        {dict.and}{" "}
         <span className="font-semibold text-slate-700 dark:text-slate-200">
-          Privacy
+          {dict.privacy}
         </span>
         .
       </p>

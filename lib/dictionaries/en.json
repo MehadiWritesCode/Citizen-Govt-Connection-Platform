@@ -1,0 +1,65 @@
+{
+  "loginRegUi": {
+    "title": "CITIZEN GOVERNMENT CONNECTION PLATFORM",
+    "subtitle": "PEOPLE'S REPUBLIC OF BANGLADESH",
+    "help": "Need Help?Call",
+    "num1": "333",
+    "num2": "16122",
+    "support": "GOVERNMENT SUPPORT",
+    "supportText": "The National Digital Service Portal is the primary point of access for citizen-centric government services.",
+    "links": "IMPORTANT LINKS",
+    "link1": "Primary Policy",
+    "link2": "Terms of Use",
+    "link3": "Data Security",
+    "contactUs": "CONTACT US",
+    "helpline": "Helpline: 333 or 999"
+  },
+  "auth": {
+    "toggleBtn": {
+      "login": "Login",
+      "register": "Register"
+    },
+
+    "login": {
+      "numberLabel": "PHONE NUMBER",
+      "numberPlaceholder": "01XXXXXXXXX",
+      "passwordLabel": "PASSWORD",
+      "passwordPlaceholder": "********",
+      "forgotPassword": "Forgot Password?",
+      "SignInBtn": "SIGN IN",
+      "officialNotice": "OFFICIAL NOTICE: This is a secure government portal. Providing false information is a punishable offense. For assistance, contact support at"
+    },
+
+    "register": {
+      "nameLabel": "FULL NAME",
+      "namePlaceholder": "Your Full Name",
+      "numberLabel": "PHONE NUMBER",
+      "numberPlaceholder": "01XXXXXXXXX",
+      "nidNumberLabel": "NID NUMBER",
+      "nidNumberPlaceholder": "NID",
+      "ageLabel": "AGE",
+      "agePlaceholder": "e.g. 22",
+      "dobLabel": "DATE OF BIRTH",
+      "addressLabel": "ADDRESS",
+      "addressPlaceholder": "Village/Area, Thana/Upazila, District",
+      "passwordLabel": "PASSWORD",
+      "passwordPlaceholder": "********",
+      "confirmPasswordLabel": "CONFIRM PASSWORD",
+      "confirmPasswordPlaceholder": "********",
+      "registerBtn": "CREATE ACCOUNT",
+      "termsText": "By creating an account, you agree to our",
+      "terms": "Terms",
+      "and": "&",
+      "privacy": "Privacy"
+    },
+
+    "authNavbar": {
+      "title": "Government of Bangladesh",
+      "subTitle": "Citizen Government Connection Platform",
+      "helpDesk": "HELP DESK",
+      "accesibility": "ACCESSIBILITY",
+      "language": "Language",
+      "theme": "theme"
+    }
+  }
+}

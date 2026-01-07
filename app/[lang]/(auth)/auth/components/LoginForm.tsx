@@ -1,13 +1,13 @@
-export default function LoginForm() {
+export default function LoginForm({ dict }: { dict: Record<string, string>}) {
   return (
     <form className="space-y-4">
       <div>
         <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-          MOBILE NUMBER
+          {dict.numberLabel}
         </label>
         <input
           type="text"
-          placeholder="01XXXXXXXXX"
+          placeholder={dict.numberPlaceholder}
           className="
             mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
             border-slate-200 bg-white text-slate-900
@@ -21,19 +21,19 @@ export default function LoginForm() {
       <div>
         <div className="flex items-center justify-between">
           <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-            PASSWORD
+            {dict.passwordLabel}
           </label>
           <button
             type="button"
             className="text-[11px] font-semibold text-red-600 hover:underline dark:text-red-400"
           >
-            Forgot Password?
+            {dict.forgotPassword}
           </button>
         </div>
 
         <input
           type="password"
-          placeholder="••••••••"
+          placeholder={dict.passwordPlaceholder}
           className="
             mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
             border-slate-200 bg-white text-slate-900
@@ -53,7 +53,7 @@ export default function LoginForm() {
           dark:bg-emerald-700 dark:hover:bg-emerald-600
         "
       >
-        SIGN IN <span className="text-base">→</span>
+        {dict.signInBtn}<span className="text-base">→</span>
       </button>
 
       <div
@@ -64,10 +64,7 @@ export default function LoginForm() {
         "
       >
         <span className="mt-0.5 text-emerald-700 dark:text-emerald-300">🛡️</span>
-        <p>
-          OFFICIAL NOTICE: This is a secure government portal. Providing false
-          information is a punishable offense. For assistance, contact support
-          at <b>999</b>.
+        <p>{dict.officialNotice} <b>999</b>.
         </p>
       </div>
     </form>

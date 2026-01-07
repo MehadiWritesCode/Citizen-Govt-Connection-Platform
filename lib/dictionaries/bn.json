@@ -1,0 +1,62 @@
+{
+  "loginRegUi": {
+    "title": "নাগরিক ডিজিটাল সংযোগ প্ল্যাটফর্ম",
+    "subtitle": "গণপ্রজাতন্ত্রী বাংলাদেশ সরকার",
+    "help": "সহযোগিতা প্রয়োজন? কল করুন",
+    "num1": "৩৩৩",
+    "num2": "১৬১২২",
+    "support": "সরকারি সহযোগিতা",
+    "supportText": "জাতীয় ডিজিটাল সেবা পোর্টাল হলো নাগরিক-কেন্দ্রিক সরকারি সেবা পাওয়ার প্রাথমিক মাধ্যম।",
+    "links": "গুরুত্বপূর্ণ লিংক",
+    "link1": "গোপনীয়তা নীতি",
+    "link2": "ব্যবহারের শর্তাবলী",
+    "link3": "ডেটা নিরাপত্তা",
+    "contactUs": "যোগাযোগ করুন",
+    "helpline": "হেল্পলাইন: ৩৩৩ অথবা ৯৯৯"
+  },
+  "auth": {
+    "toggleBtn": {
+      "login": "লগইন",
+      "register": "নিবন্ধন"
+    },
+    "login": {
+      "numberLabel": "মোবাইল নম্বর",
+      "numberPlaceholder": "০১XXXXXXXXX",
+      "passwordLabel": "পাসওয়ার্ড",
+      "passwordPlaceholder": "********",
+      "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?",
+      "SignInBtn": "লগইন করুন",
+      "officialNotice": "সরকারি সতর্কতা: এটি একটি নিরাপদ সরকারি পোর্টাল। ভুল তথ্য প্রদান দণ্ডনীয় অপরাধ। সহায়তার জন্য যোগাযোগ করুন "
+    },
+    "register": {
+      "nameLabel": "পূর্ণ নাম",
+      "namePlaceholder": "আপনার পূর্ণ নাম লিখুন",
+      "numberLabel": "মোবাইল নম্বর",
+      "numberPlaceholder": "০১XXXXXXXXX",
+      "nidNumberLabel": "এনআইডি (NID) নম্বর",
+      "nidNumberPlaceholder": "জাতীয় পরিচয়পত্র নম্বর",
+      "ageLabel": "বয়স",
+      "agePlaceholder": "উদা: ২২",
+      "dobLabel": "জন্ম তারিখ",
+      "addressLabel": "ঠিকানা",
+      "addressPlaceholder": "গ্রাম/এলাকা, থানা/উপজেলা, জেলা",
+      "passwordLabel": "পাসওয়ার্ড",
+      "passwordPlaceholder": "********",
+      "confirmPasswordLabel": "পাসওয়ার্ড নিশ্চিত করুন",
+      "confirmPasswordPlaceholder": "********",
+      "registerBtn": "অ্যাকাউন্ট তৈরি করুন",
+      "termsText": "অ্যাকাউন্ট তৈরি করার মাধ্যমে, আপনি আমাদের সাথে একমত হচ্ছেন",
+      "terms": "শর্তাবলী",
+      "and": "ও",
+      "privacy": "গোপনীয়তা নীতি"
+    },
+    "authNavbar": {
+    "title": "গণপ্রজাতন্ত্রী বাংলাদেশ সরকার",
+    "subTitle": "সিটিজেন গভর্নমেন্ট কানেকশন প্ল্যাটফর্ম",
+    "helpDesk": "সহায়তা কেন্দ্র",
+    "accesibility": "প্রবেশযোগ্যতা",
+    "language": "ভাষা",
+    "theme": "থিম"
+ }
+  }
+}
