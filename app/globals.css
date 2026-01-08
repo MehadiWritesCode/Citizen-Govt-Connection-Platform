@@ -121,3 +121,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -50; }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+.animate-dash {
+  animation: dash 3s linear infinite;
+}
