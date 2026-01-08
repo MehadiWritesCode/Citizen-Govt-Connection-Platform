@@ -66,7 +66,7 @@ This platform is designed with Bangladesh’s socio-technical context in mind, c
 
 - ✅ UI/UX design in progress
 - ✅ Auth pages (Login / Register)
-- ✅ Responsive Navbar & Theme Toggle
+- ✅ Responsive Navbar & Theme Toggle & Language toogle
 - 🚧 Backend integration
 - 🚧 API & database design
 - 🚧 AI feature development
