@@ -2,8 +2,8 @@
 
 import React from "react";
 import { ShieldCheck, Menu, X, Moon } from "lucide-react";
-import { redirect } from "next/navigation";
 import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
+import { useRouter } from "next/navigation";
 
 export type Lang = "bn" | "en";
 
@@ -14,7 +14,7 @@ type NavbarProps = {
 
 export default function Navbar({ isScrolled, lang }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
-
+  const router = useRouter();
   return (
     <nav
       className={[
@@ -89,7 +89,7 @@ export default function Navbar({ isScrolled, lang }: NavbarProps) {
 
 
             <button
-              onClick={() => redirect(`/${lang}/auth`)}
+              onClick={() => router.push(`/${lang}/auth`)}
               className="px-3 py-2 rounded-sm text-sm font-medium
                          text-slate-700 dark:text-slate-300
                          hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
@@ -184,7 +184,7 @@ export default function Navbar({ isScrolled, lang }: NavbarProps) {
             </div>
 
             <button
-              onClick={() => redirect(`/${lang}/auth`)}
+              onClick={() => router.push(`/${lang}/auth`)}
               className="px-4 py-3 text-left text-sm font-medium text-slate-700 dark:text-slate-200
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >

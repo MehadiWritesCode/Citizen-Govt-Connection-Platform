@@ -1,65 +1,71 @@
-export default function RegisterForm({dict} : {dict:Record<string,string>}) {
+export default function RegisterForm({ dict }: { dict: Record<string, string> }) {
   return (
-    <form className="space-y-4">
+    <form className="space-y-5">
       {/* Name */}
-      <div>
-        <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+      <div className="space-y-1.5">
+        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
           {dict.nameLabel}
         </label>
         <input
           type="text"
           placeholder={dict.namePlaceholder}
           className="
-            mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-            border-slate-200 bg-white text-slate-900
-            focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-            dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-            dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+            w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+            border-slate-200/80 placeholder:text-slate-400
+            outline-none transition
+            focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+            dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+            dark:placeholder:text-slate-500
+            dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
           "
         />
       </div>
 
       {/* Mobile + NID */}
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             {dict.numberLabel}
           </label>
           <input
             type="text"
             placeholder={dict.numberPlaceholder}
             className="
-              mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-              border-slate-200 bg-white text-slate-900
-              focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-              dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+              w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+              border-slate-200/80 placeholder:text-slate-400
+              outline-none transition
+              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+              dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+              dark:placeholder:text-slate-500
+              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
         </div>
 
-        <div>
-          <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             {dict.nidNumberLabel}
           </label>
           <input
             type="text"
             placeholder={dict.nidNumberPlaceholder}
             className="
-              mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-              border-slate-200 bg-white text-slate-900
-              focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-              dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+              w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+              border-slate-200/80 placeholder:text-slate-400
+              outline-none transition
+              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+              dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+              dark:placeholder:text-slate-500
+              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
         </div>
       </div>
 
       {/* Age + DOB */}
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             {dict.ageLabel}
           </label>
           <input
@@ -67,106 +73,121 @@ export default function RegisterForm({dict} : {dict:Record<string,string>}) {
             min={0}
             placeholder={dict.agePlaceholder}
             className="
-              mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-              border-slate-200 bg-white text-slate-900
-              focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-              dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+              w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+              border-slate-200/80 placeholder:text-slate-400
+              outline-none transition
+              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+              dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+              dark:placeholder:text-slate-500
+              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
         </div>
 
-        <div>
-          <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             {dict.dobLabel}
           </label>
           <input
             type="date"
             className="
-              mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-              border-slate-200 bg-white text-slate-900
-              focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-              dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+              w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+              border-slate-200/80
+              outline-none transition
+              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+              dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
         </div>
       </div>
 
       {/* Address */}
-      <div>
-        <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+      <div className="space-y-1.5">
+        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
           {dict.addressLabel}
         </label>
         <textarea
           rows={3}
           placeholder={dict.addressPlaceholder}
           className="
-            mt-1 w-full resize-none rounded-xl border px-3 py-2.5 text-sm outline-none transition
-            border-slate-200 bg-white text-slate-900
-            focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-            dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-            dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+            w-full resize-none rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+            border-slate-200/80 placeholder:text-slate-400
+            outline-none transition
+            focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+            dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+            dark:placeholder:text-slate-500
+            dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
           "
         />
       </div>
 
       {/* Passwords */}
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             {dict.passwordLabel}
           </label>
           <input
             type="password"
             placeholder={dict.passwordPlaceholder}
             className="
-              mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-              border-slate-200 bg-white text-slate-900
-              focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-              dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+              w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+              border-slate-200/80 placeholder:text-slate-400
+              outline-none transition
+              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+              dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+              dark:placeholder:text-slate-500
+              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
         </div>
 
-        <div>
-          <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             {dict.confirmPasswordLabel}
           </label>
           <input
             type="password"
             placeholder={dict.confirmPasswordPlaceholder}
             className="
-              mt-1 w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition
-              border-slate-200 bg-white text-slate-900
-              focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100
-              dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100
-              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/40
+              w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
+              border-slate-200/80 placeholder:text-slate-400
+              outline-none transition
+              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100
+              dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800
+              dark:placeholder:text-slate-500
+              dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
         </div>
       </div>
 
+      {/* Submit */}
       <button
         type="submit"
         className="
-          mt-2 flex w-full items-center justify-center gap-2 rounded-xl py-3
-          text-sm font-semibold text-white shadow-sm transition active:scale-[0.99]
-          bg-emerald-800 hover:bg-emerald-900
-          dark:bg-emerald-700 dark:hover:bg-emerald-600
+          mt-1 inline-flex w-full items-center justify-center gap-2
+          rounded-xl px-4 py-3 text-sm font-semibold
+          bg-slate-900 text-white
+          hover:opacity-95 transition
+          active:scale-[0.99]
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50
+          dark:bg-slate-100 dark:text-slate-900
         "
       >
-        {dict.registerBtn} <span className="text-base">→</span>
+        {dict.registerBtn}
+        <span className="text-base leading-none">→</span>
       </button>
 
-      <p className="text-center text-[11px] text-slate-500 dark:text-slate-400">
+      {/* Terms */}
+      <p className="text-center text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
         {dict.termsText}{" "}
-        <span className="font-semibold text-slate-700 dark:text-slate-200">
+        <span className="font-semibold text-slate-800 dark:text-slate-200">
           {dict.terms}
         </span>{" "}
         {dict.and}{" "}
-        <span className="font-semibold text-slate-700 dark:text-slate-200">
+        <span className="font-semibold text-slate-800 dark:text-slate-200">
           {dict.privacy}
         </span>
         .

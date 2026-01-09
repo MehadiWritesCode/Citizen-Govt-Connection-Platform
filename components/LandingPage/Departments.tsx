@@ -18,20 +18,32 @@ const categories: Category[] = [
 function toneClasses(tone: Category["tone"]) {
   const map = {
     emerald: {
-      badge: "bg-emerald-50 text-emerald-800 border-emerald-200/60 dark:bg-emerald-500/10 dark:text-emerald-200 dark:border-emerald-500/20",
+      badge:
+        "bg-emerald-50 text-emerald-800 border-emerald-200/60 dark:bg-emerald-500/10 dark:text-emerald-200 dark:border-emerald-500/20",
       dot: "bg-emerald-600",
+      ring: "focus-visible:ring-emerald-400/30",
+      link: "text-emerald-700 dark:text-emerald-300",
     },
     amber: {
-      badge: "bg-amber-50 text-amber-900 border-amber-200/60 dark:bg-amber-500/10 dark:text-amber-200 dark:border-amber-500/20",
+      badge:
+        "bg-amber-50 text-amber-900 border-amber-200/60 dark:bg-amber-500/10 dark:text-amber-200 dark:border-amber-500/20",
       dot: "bg-amber-600",
+      ring: "focus-visible:ring-amber-400/30",
+      link: "text-amber-800 dark:text-amber-200",
     },
     blue: {
-      badge: "bg-blue-50 text-blue-900 border-blue-200/60 dark:bg-blue-500/10 dark:text-blue-200 dark:border-blue-500/20",
+      badge:
+        "bg-blue-50 text-blue-900 border-blue-200/60 dark:bg-blue-500/10 dark:text-blue-200 dark:border-blue-500/20",
       dot: "bg-blue-600",
+      ring: "focus-visible:ring-blue-400/30",
+      link: "text-blue-800 dark:text-blue-200",
     },
     indigo: {
-      badge: "bg-indigo-50 text-indigo-900 border-indigo-200/60 dark:bg-indigo-500/10 dark:text-indigo-200 dark:border-indigo-500/20",
+      badge:
+        "bg-indigo-50 text-indigo-900 border-indigo-200/60 dark:bg-indigo-500/10 dark:text-indigo-200 dark:border-indigo-500/20",
       dot: "bg-indigo-600",
+      ring: "focus-visible:ring-indigo-400/30",
+      link: "text-indigo-800 dark:text-indigo-200",
     },
   };
   return map[tone];
@@ -41,7 +53,7 @@ export default function Departments() {
   return (
     <section className="bg-white dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-14 lg:py-16">
-        {/* Header (official style) */}
+        {/* Header */}
         <div className="mb-8 sm:mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
           <div className="space-y-2">
             <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">
@@ -56,9 +68,10 @@ export default function Departments() {
           </div>
 
           <button
-            className="inline-flex items-center justify-center gap-2 rounded-xl
+            type="button"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl
                        border border-slate-200/70 dark:border-slate-800
-                       bg-white dark:bg-slate-950
+                       bg-white/80 dark:bg-slate-950/70 backdrop-blur
                        px-4 py-2.5 text-sm font-semibold text-slate-900 dark:text-slate-100
                        hover:bg-slate-50 dark:hover:bg-slate-900
                        active:scale-[0.98] transition
@@ -72,27 +85,38 @@ export default function Departments() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {categories.map((cat) => {
             const t = toneClasses(cat.tone);
+
             return (
               <button
                 key={cat.title}
                 type="button"
-                className="group text-left w-full rounded-2xl
-                           border border-slate-200/70 dark:border-slate-800
-                           bg-white dark:bg-slate-950
-                           hover:bg-slate-50 dark:hover:bg-slate-900/40
-                           transition-colors
-                           active:scale-[0.99]
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
+                aria-label={`${cat.title} department`}
+                className={[
+                  "group text-left w-full rounded-3xl",
+                  "border border-slate-200/70 dark:border-slate-800",
+                  "bg-white/70 dark:bg-slate-950/60 backdrop-blur",
+                  "shadow-sm hover:shadow-[0_18px_50px_rgba(2,6,23,0.08)] dark:hover:shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
+                  "hover:bg-slate-50 dark:hover:bg-slate-900/40",
+                  "hover:border-slate-300/70 dark:hover:border-slate-700",
+                  "transition-all",
+                  "active:scale-[0.99]",
+                  "focus-visible:outline-none focus-visible:ring-2",
+                  t.ring,
+                ].join(" ")}
               >
-                {/* Card header */}
+                {/* Header */}
                 <div className="p-5 sm:p-6 border-b border-slate-200/70 dark:border-slate-800">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <div
-                        className={`h-12 w-12 rounded-xl border flex items-center justify-center text-2xl ${t.badge}`}
+                        className={[
+                          "h-12 w-12 rounded-2xl border flex items-center justify-center text-2xl",
+                          t.badge,
+                        ].join(" ")}
                       >
                         {cat.icon}
                       </div>
+
                       <div className="min-w-0">
                         <h4 className="text-base font-semibold text-slate-900 dark:text-slate-100 truncate">
                           {cat.title}
@@ -103,13 +127,13 @@ export default function Departments() {
                       </div>
                     </div>
 
-                    <div className="shrink-0 h-9 w-9 rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-950 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-slate-50 dark:group-hover:bg-slate-900 transition">
+                    <div className="shrink-0 h-9 w-9 rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/70 dark:bg-slate-950/60 backdrop-blur flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-slate-50 dark:group-hover:bg-slate-900 transition">
                       <ChevronRight className="w-4 h-4" />
                     </div>
                   </div>
                 </div>
 
-                {/* Card meta */}
+                {/* Body */}
                 <div className="p-5 sm:p-6">
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
                     <span className={`h-2 w-2 rounded-full ${t.dot}`} />
@@ -118,7 +142,7 @@ export default function Departments() {
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 gap-3">
-                    <div className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-950 p-3">
+                    <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 p-3">
                       <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
                         Open reports
                       </p>
@@ -127,7 +151,7 @@ export default function Departments() {
                       </p>
                     </div>
 
-                    <div className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-950 p-3">
+                    <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 p-3">
                       <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
                         <Clock3 className="w-3.5 h-3.5" />
                         Typical response
@@ -138,7 +162,7 @@ export default function Departments() {
                     </div>
                   </div>
 
-                  <div className="mt-4 text-sm font-semibold text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
+                  <div className={`mt-4 text-sm font-semibold inline-flex items-center gap-2 ${t.link}`}>
                     View reports <ArrowRight className="w-4 h-4 opacity-70" />
                   </div>
                 </div>
@@ -147,10 +171,11 @@ export default function Departments() {
           })}
         </div>
 
-        {/* Small note */}
-        <div className="mt-8 rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-4">
+        {/* Note */}
+        <div className="mt-8 rounded-3xl border border-slate-200/70 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/30 backdrop-blur p-4">
           <p className="text-sm text-slate-700 dark:text-slate-300">
-            Departments may prioritize reports marked as <span className="font-semibold">Critical</span> after verification.
+            Departments may prioritize reports marked as{" "}
+            <span className="font-semibold">Critical</span> after verification.
           </p>
         </div>
       </div>
