@@ -1,120 +1,206 @@
 import React from "react";
-import { Globe, Phone, ShieldCheck, ArrowRight, Mail, MapPin } from "lucide-react";
+import {
+  ShieldCheck,
+  Phone,
+  Mail,
+  MapPin,
+  Globe,
+  ArrowRight,
+  ExternalLink,
+} from "lucide-react";
 
-export default function Footer() {
+export default function FooterGov() {
   return (
-    <footer className="px-4 sm:px-6 pt-12 sm:pt-14 pb-10 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto">
-        {/* Top CTA (minimal, no blur, no loud colors) */}
-        <div className="mb-10 sm:mb-12 rounded-md border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-          <div className="p-5 sm:p-6 flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between">
-            <div className="space-y-1.5 max-w-2xl">
-              <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                Verified reports • safer navigation
-              </p>
-              <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
-                Improve your city experience with CivicSync.
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-[60ch]">
-                Report issues, track progress, and get safer route insights.
-              </p>
+    <footer className="bg-white dark:bg-slate-950 border-t border-slate-200/70 dark:border-slate-800">
+      {/* Official portal strip */}
+      <div className="bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/70 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="h-11 w-11 rounded-xl bg-emerald-600 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5 text-white" />
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button className="bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                Join Portal
-                <ArrowRight className="w-4 h-4 opacity-70" />
-              </button>
-
-              <button className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 px-5 py-2.5 rounded-sm text-sm font-semibold border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 active:scale-[0.98] transition-all">
-                Emergency List
-              </button>
+            <div className="space-y-1">
+              <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                Official city service portal
+              </p>
+              <p className="text-sm sm:text-base font-semibold text-slate-900 dark:text-slate-100">
+                CivicSync — Reporting, status tracking, and safe-route guidance
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 max-w-[70ch]">
+                Submit public issues, follow resolution timelines, and access safety advisories from verified sources.
+              </p>
             </div>
           </div>
-        </div>
 
-        {/* Main Grid */}
-        <div className="grid lg:grid-cols-12 gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-emerald-600 rounded-sm flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="font-semibold text-lg text-slate-900 dark:text-slate-100">
-                  Civic<span className="text-emerald-600">Sync</span>
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Urban safety & civic reporting
-                </p>
-              </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="#"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3 text-sm font-semibold hover:opacity-95 active:scale-[0.98] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950"
+            >
+              Access Portal
+              <ArrowRight className="w-4 h-4 opacity-80" />
+            </a>
+
+            <a
+              href="#"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 px-5 py-3 text-sm font-semibold border border-slate-200/70 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 active:scale-[0.98] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950"
+            >
+              Emergency Contacts
+              <ExternalLink className="w-4 h-4 opacity-70" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main footer */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <div className="grid gap-10 lg:grid-cols-12">
+          {/* Department / Identity */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                CivicSync Service Desk
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Urban safety & civic reporting
+              </p>
             </div>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-[62ch]">
-              A calm, transparent way to report city issues and navigate with verified community signals.
+            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed max-w-[60ch]">
+              Use this portal to file reports, review verified advisories, and track service requests. For immediate danger, contact emergency services.
             </p>
 
-            {/* Newsletter (quiet) */}
-            <div className="rounded-md border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 p-4">
-              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                Weekly updates
-              </p>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                Safety alerts & resolution summaries.
-              </p>
-
-              <div className="mt-3 flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <div className="absolute inset-y-0 left-3 flex items-center text-slate-400">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 py-2.5 pl-10 pr-3 rounded-sm text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-600 transition-colors"
-                  />
-                </div>
-
-                <button className="bg-emerald-600 text-white px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-emerald-700 active:scale-[0.98] transition-all">
-                  Subscribe
-                </button>
+            {/* Address / jurisdiction */}
+            <div className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+              <MapPin className="w-4 h-4 mt-0.5 text-emerald-700 dark:text-emerald-400" />
+              <div className="space-y-0.5">
+                <p className="font-medium text-slate-900 dark:text-slate-100">
+                  City Operations Center
+                </p>
+                <p className="text-xs text-slate-600 dark:text-slate-400">
+                  Zone A · Zone B · Zone C · Serving metropolitan districts
+                </p>
               </div>
-
-              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                No spam. Unsubscribe anytime.
-              </p>
             </div>
           </div>
 
           {/* Links */}
-          <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-6">
-            <FooterCol title="Resources" links={["Emergency List", "Guidebook", "Map API", "Status"]} />
-            <FooterCol title="Support" links={["Legal Info", "Privacy", "Contact", "Help Center"]} />
-            <FooterCol title="Community" links={["Explorer", "Safe Routes", "Departments", "Report Issue"]} />
+          <div className="lg:col-span-5 grid grid-cols-2 md:grid-cols-3 gap-8">
+            <FooterLinks
+              title="Services"
+              links={[
+                "Report an Issue",
+                "Track Request",
+                "Safe Routes",
+                "Safety Advisories",
+                "Public Notices",
+              ]}
+            />
+            <FooterLinks
+              title="Information"
+              links={["Service Standards", "Data Policy", "Accessibility", "FAQ", "Status Page"]}
+            />
+            <FooterLinks
+              title="Departments"
+              links={["Roads & Transport", "Lighting", "Waste & Sanitation", "Water & Drainage", "Public Safety"]}
+            />
+          </div>
+
+          {/* Emergency / Contact box */}
+          <div className="lg:col-span-3">
+            <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-5 space-y-4">
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  Contact & emergency
+                </p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                  For urgent hazards, call the emergency hotline.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <a
+                  href="#"
+                  className="group flex items-center justify-between gap-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-slate-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50"
+                >
+                  <span className="flex items-center gap-2 text-slate-900 dark:text-slate-100 font-semibold">
+                    <Phone className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+                    Emergency hotline
+                  </span>
+                  <span className="text-slate-600 dark:text-slate-300 text-sm font-semibold">
+                    999 / 112
+                  </span>
+                </a>
+
+                <a
+                  href="#"
+                  className="group flex items-center justify-between gap-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-slate-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50"
+                >
+                  <span className="flex items-center gap-2 text-slate-900 dark:text-slate-100 font-semibold">
+                    <Mail className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+                    Service desk
+                  </span>
+                  <span className="text-slate-600 dark:text-slate-300 text-sm font-medium">
+                    support@civicsync.gov
+                  </span>
+                </a>
+
+                <a
+                  href="#"
+                  className="group flex items-center justify-between gap-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-slate-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50"
+                >
+                  <span className="flex items-center gap-2 text-slate-900 dark:text-slate-100 font-semibold">
+                    <Globe className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+                    Official website
+                  </span>
+                  <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition" />
+                </a>
+              </div>
+
+              {/* Optional newsletter (restrained) */}
+              <div className="pt-3 border-t border-slate-200/70 dark:border-slate-800">
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  Notices (optional)
+                </p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                  Receive weekly advisories and service updates.
+                </p>
+
+                <div className="mt-3 flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
+                  />
+                  <button className="shrink-0 rounded-xl bg-emerald-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-emerald-700 active:scale-[0.98] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40">
+                    Subscribe
+                  </button>
+                </div>
+
+                <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+                  This service is informational. Do not use for emergencies.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              © 2026 CivicSync Portal.
-            </p>
-            <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700" />
-            <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-              <MapPin className="w-4 h-4 text-emerald-600" />
-              Zone A · Zone B · Zone C
-            </div>
-          </div>
+        {/* Legal / bottom */}
+        <div className="mt-10 pt-6 border-t border-slate-200/70 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-600 dark:text-slate-400 text-center md:text-left">
+            © 2026 CivicSync. An official digital service. Content provided “as is” for public information.
+          </p>
 
-          <div className="flex gap-3">
-            <IconBtn label="Website">
-              <Globe className="w-5 h-5" />
-            </IconBtn>
-            <IconBtn label="Hotline">
-              <Phone className="w-5 h-5" />
-            </IconBtn>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            {["Accessibility", "Privacy", "Terms", "Open Data"].map((x) => (
+              <a
+                key={x}
+                href="#"
+                className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/40 rounded"
+              >
+                {x}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -122,42 +208,25 @@ export default function Footer() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: string[] }) {
+function FooterLinks({ title, links }: { title: string; links: string[] }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
         {title}
       </p>
-      <div className="flex flex-col gap-2">
+      <ul className="space-y-2">
         {links.map((l) => (
-          <a
-            key={l}
-            href="#"
-            className="rounded-sm px-3 py-2 text-sm text-slate-700 dark:text-slate-300
-                       border border-slate-100 dark:border-slate-800
-                       bg-white dark:bg-slate-950
-                       hover:bg-slate-50 dark:hover:bg-slate-900
-                       active:scale-[0.98] transition-all flex items-center justify-between"
-          >
-            {l}
-            <ArrowRight className="w-4 h-4 opacity-50" />
-          </a>
+          <li key={l}>
+            <a
+              href="#"
+              className="text-sm text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/40 rounded"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
+              <span className="truncate">{l}</span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
-  );
-}
-
-function IconBtn({ children, label }: { children: React.ReactNode; label: string }) {
-  return (
-    <button
-      aria-label={label}
-      className="w-10 h-10 rounded-sm border border-slate-200 dark:border-slate-800
-                 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400
-                 hover:bg-slate-50 dark:hover:bg-slate-900
-                 active:scale-[0.96] transition-all flex items-center justify-center"
-    >
-      {children}
-    </button>
   );
 }
