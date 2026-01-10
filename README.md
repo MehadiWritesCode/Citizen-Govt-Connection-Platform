@@ -20,6 +20,8 @@ This platform is designed with Bangladesh’s socio-technical context in mind, c
 ---
 
 ## ✨ Planned Features (Roadmap)
+- Add landing page login and registration (completed)
+- Initial setup Theme toogle and language toogle (completed)
 
 ### 🧑‍🤝‍🧑 Citizen Services
 - Issue reporting with photo/video proof
@@ -76,7 +78,7 @@ This platform is designed with Bangladesh’s socio-technical context in mind, c
 ## 🚀 Getting Started (Development)
 
 ```bash
-git clone https://github.com/your-username/citizen-government-connection-platform.git
-cd citizen-government-connection-platform
+git clone
+cd cgcp
 npm install
 npm run dev
