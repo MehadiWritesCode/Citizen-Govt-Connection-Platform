@@ -6,8 +6,8 @@ import Image from "next/image";
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Dictionary } from "../../../../../dict_interface/dict_interface";
-export default function AuthNavbar({dict}:{dict:Dictionary}) {
 
+export default function AuthNavbar({dict}:{dict:Dictionary}) {
   const [openMobile, setOpenMobile] = useState(false);
   const [openLang, setOpenLang] = useState(false);
 

@@ -1,19 +1,45 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import { ShieldCheck, Menu, X, Moon } from "lucide-react";
 import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
-import { useRouter } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 
 export type Lang = "bn" | "en";
 
 type NavbarProps = {
   isScrolled: boolean;
   lang: string;
+  dict:{
+  title: string;
+  explorer: string;
+  departments: string;
+  safeRoutes: string;
+  loginRegister: string;
+  joinPortal: string;
+  }
 };
 
-export default function Navbar({ isScrolled, lang }: NavbarProps) {
+export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
+  const [openLang, setOpenLang] = useState(false);
+  const langRef = useRef<HTMLDivElement | null>(null);
+  const pathName = usePathname();
+
+
+  //handle language change
+    const handleLanguageChange =(newLanguage : string)=>{
+       if(!pathName) return;
+
+       const segments = pathName.split("/");
+       segments[1] = newLanguage;
+       const newPath = segments.join("/");
+       console.log(newPath)
+
+       router.push(newPath);
+       setOpenLang(false);
+  }
+
   const router = useRouter();
   return (
     <nav
@@ -28,20 +54,20 @@ export default function Navbar({ isScrolled, lang }: NavbarProps) {
       ].join(" ")}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Brand */}
+        {/* <title></title> */}
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-sm bg-emerald-600 flex items-center justify-center">
             <ShieldCheck className="w-5 h-5 text-white" />
           </div>
           <span className="font-semibold text-lg text-slate-900 dark:text-slate-100">
-            Civic<span className="text-emerald-600">Sync</span>
+            {dict.title}
           </span>
         </div>
 
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-8">
           <div className="flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-400">
-            {["Explorer", "Departments", "Safe Routes"].map((item) => (
+            {[`${dict.explorer}`, `${dict.departments}`, `${dict.safeRoutes}`].map((item) => (
               <a
                 key={item}
                 href="#"
@@ -57,34 +83,31 @@ export default function Navbar({ isScrolled, lang }: NavbarProps) {
 
           <div className="flex items-center gap-2">
             {/* Language (UI only) */}
-            <div className="relative">
-              <select
-                defaultValue={lang}
-                className="h-9 pl-3 pr-8 rounded-sm text-sm font-medium
-                           border border-slate-200 dark:border-slate-800
-                           bg-white dark:bg-slate-900
-                           text-slate-700 dark:text-slate-200
-                           hover:bg-slate-50 dark:hover:bg-slate-800
-                           focus:outline-none"
-                aria-label="Select language"
+
+              <div className="relative" ref={langRef}>
+              <button
+                onClick={() => setOpenLang((s) => !s)}
+                className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:ring-slate-800 dark:hover:bg-slate-900"
               >
-                <option value="en">EN</option>
-                <option value="bn">BN</option>
-              </select>
-              <svg
-                className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-                  clipRule="evenodd"
-                />
-              </svg>
+                🌐 <span className="text-slate-400">▾</span>
+              </button>
+
+              {openLang && (
+                <div className="absolute right-0 mt-2 z-50 w-48 overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-slate-200 dark:bg-slate-950 dark:ring-slate-800">
+                  <button
+                  onClick={()=> handleLanguageChange("bn")}
+                  className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                    বাংলা <span className="text-xs text-slate-400">BN</span>
+                  </button>
+                  <button
+                      onClick={()=> handleLanguageChange("en")}
+                  className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                    English <span className="text-xs text-slate-400">EN</span>
+                  </button>
+                </div>
+              )}
             </div>
 
-            {/* Theme (UI only) */}
             <ModeToggleBtn />
 
 
@@ -94,7 +117,7 @@ export default function Navbar({ isScrolled, lang }: NavbarProps) {
                          text-slate-700 dark:text-slate-300
                          hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
             >
-              Login / Register
+              {dict.loginRegister}
             </button>
 
             <button
@@ -104,7 +127,7 @@ export default function Navbar({ isScrolled, lang }: NavbarProps) {
                          hover:bg-slate-800 dark:hover:bg-slate-200
                          transition-colors"
             >
-              Join Portal
+              {dict.joinPortal}
             </button>
           </div>
         </div>

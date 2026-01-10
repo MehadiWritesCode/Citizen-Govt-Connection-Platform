@@ -1,4 +1,6 @@
+import { HeroDictionary } from './hero_interface';
 export interface Dictionary {
+
   loginRegUi: {
     title: string;
     subtitle: string;
@@ -58,5 +60,23 @@ export interface Dictionary {
        language:string,
        theme:string
      }
-  }
+  },
+
+
+  landingPage:{
+
+ navbar:{
+   title: string;
+  explorer: string;
+  departments: string;
+  safeRoutes: string;
+  loginRegister: string;
+  joinPortal: string;
+  },
+
+  hero:HeroDictionary,
+
+
+ }
+
 }

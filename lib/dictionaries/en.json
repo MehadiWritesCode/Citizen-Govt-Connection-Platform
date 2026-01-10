@@ -61,5 +61,74 @@
       "language": "Language",
       "theme": "theme"
     }
+  },
+
+  "landingPage":{
+
+    "navbar":{
+    "title": "CGCP",
+    "explorer": "Explorer",
+    "departments": "Departments",
+    "safeRoutes": "Safe Routes",
+    "loginRegister": "Login / Register",
+    "joinPortal": "Join Portal"
+    },
+
+    "hero":{
+      
+    "officialBadge": "Official civic service • Verified updates • Public reporting",
+    "serviceStatusLabel": "Service status:",
+    "serviceStatusValue": "Operational",
+
+    "categoryTag": "City reporting & safety guidance",
+
+    "headingMain": "Report issues. Track progress.",
+    "headingSub": "Navigate with verified advisories.",
+
+    "description": "CivicSync helps residents submit public service reports, follow resolution timelines, and access community-verified route safety information.",
+
+    "primaryCta": "Submit a report",
+    "secondaryCta": "Find safe routes",
+
+    "metricsVerified": "Verified updates",
+    "metricsVerifiedValue": "Hourly",
+    "metricsResponse": "Avg response time",
+    "metricsResponseValue": "< 24h",
+    "metricsResolution": "Resolution success",
+    "metricsResolutionValue": "98%",
+
+    "communityReportsTitle": "Community reports",
+    "communityReportsSubtitle": "Recent submissions and verified resolutions",
+
+    "tabRecent": "Recent",
+    "tabResolved": "Resolved",
+
+    "emptyState": "No items found.",
+
+    "footnote": "Data is community-submitted and may be verified through city departments where available.",
+
+    "items": {
+      "brokenDrainage": "Broken Drainage Pipe",
+      "streetLight": "Street Light Outage",
+      "illegalDumping": "Illegal Dumping",
+      "pothole": "Pothole Emergency",
+      "sidewalk": "Sidewalk Crack Repair",
+      "trafficSignal": "Traffic Signal Reset",
+
+      "time2min": "2 mins ago",
+      "time15min": "15 mins ago",
+      "time1hour": "1 hour ago",
+      "time3hour": "3 hours ago",
+      "timeYesterday": "Yesterday",
+      "time2days": "2 days ago",
+
+      "statusCritical": "Critical",
+      "statusAssigned": "Assigned",
+      "statusVerified": "Verified",
+      "statusResolving": "Resolving",
+      "statusResolved": "Resolved"
+    }
   }
+  }
+
 }

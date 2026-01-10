@@ -10,59 +10,61 @@ import {
   ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
+import { HeroDictionary } from "../../dict_interface/hero_interface";
 
 type HeroProps = {
   activeTab: "recent" | "resolved";
   setActiveTab: React.Dispatch<React.SetStateAction<"recent" | "resolved">>;
+  dict:HeroDictionary
 };
 
-export default function Hero({ activeTab, setActiveTab }: HeroProps) {
+export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
   const items = [
     {
-      title: "Broken Drainage Pipe",
-      time: "2 mins ago",
-      status: "Critical",
+      title: `${dict.items.brokenDrainage}`,
+      time: `${dict.items.time2min}`,
+      status: `${dict.items.statusCritical}`,
       icon: "💧",
       pill: "text-red-800 bg-red-50 dark:bg-red-500/10 dark:text-red-200",
       tab: "recent" as const,
     },
     {
-      title: "Street Light Outage",
-      time: "15 mins ago",
-      status: "Assigned",
+      title: `${dict.items.streetLight}`,
+      time: `${dict.items.time15min}`,
+      status: `${dict.items.statusAssigned}`,
       icon: "💡",
       pill: "text-amber-900 bg-amber-50 dark:bg-amber-500/10 dark:text-amber-200",
       tab: "recent" as const,
     },
     {
-      title: "Illegal Dumping",
-      time: "1 hour ago",
-      status: "Verified",
+      title: `${dict.items.illegalDumping}`,
+      time:`${dict.items.time1hour}`,
+      status: `${dict.items.statusVerified}`,
       icon: "♻️",
       pill:
         "text-emerald-900 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-200",
       tab: "recent" as const,
     },
     {
-      title: "Pothole Emergency",
-      time: "3 hours ago",
-      status: "Resolving",
+      title: `${dict.items.pothole}`,
+      time: `${dict.items.time3hour}`,
+      status: `${dict.items.statusResolving}`,
       icon: "🚧",
       pill: "text-blue-900 bg-blue-50 dark:bg-blue-500/10 dark:text-blue-200",
       tab: "recent" as const,
     },
     {
-      title: "Sidewalk Crack Repair",
-      time: "Yesterday",
-      status: "Resolved",
+      title: `${dict.items.sidewalk}`,
+      time: `${dict.items.timeYesterday}`,
+      status: `${dict.items.statusResolved}`,
       icon: "🧱",
       pill: "text-slate-800 bg-slate-100 dark:bg-slate-800 dark:text-slate-200",
       tab: "resolved" as const,
     },
     {
-      title: "Traffic Signal Reset",
-      time: "2 days ago",
-      status: "Resolved",
+      title: `${dict.items.trafficSignal}`,
+      time: `${dict.items.time2days}`,
+      status: `${dict.items.statusResolved}`,
       icon: "🚦",
       pill: "text-slate-800 bg-slate-100 dark:bg-slate-800 dark:text-slate-200",
       tab: "resolved" as const,
@@ -92,16 +94,16 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
               <ShieldCheck className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
             </span>
             <span className="truncate">
-              Official civic service • Verified updates • Public reporting
+              {dict.officialBadge}
             </span>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
             <CheckCircle2 className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
             <span>
-              Service status:{" "}
+              {dict.serviceStatusLabel}{" "}
               <span className="font-semibold text-slate-800 dark:text-slate-200">
-                Operational
+                {dict.serviceStatusValue}
               </span>
             </span>
           </div>
@@ -115,20 +117,18 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2 rounded-2xl border border-slate-200/70 bg-white/80 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-950/70 dark:text-slate-300">
               <Activity className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
-              City reporting & safety guidance
+              {dict.categoryTag}
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl lg:text-[44px] leading-[1.12]">
-              Report issues. Track progress.
+              {dict.headingMain}
               <span className="block mt-1 text-slate-700 dark:text-slate-300">
-                Navigate with verified advisories.
+                {dict.headingSub}
               </span>
             </h1>
 
             <p className="max-w-[60ch] text-sm leading-relaxed text-slate-700 dark:text-slate-300 sm:text-base">
-              CivicSync helps residents submit public service reports, follow
-              resolution timelines, and access community-verified route safety
-              information.
+             {dict.description}
             </p>
 
             {/* CTAs */}
@@ -139,7 +139,7 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
                 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
               >
                 <Plus className="h-5 w-5" />
-                Submit a report
+                {dict.primaryCta}
                 <ArrowRight className="h-4 w-4 opacity-70" />
               </button>
 
@@ -149,16 +149,16 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
                 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
               >
                 <Navigation className="h-5 w-5 text-emerald-700 dark:text-emerald-400" />
-                Find safe routes
+                {dict.secondaryCta}
               </button>
             </div>
 
             {/* Trust metrics row (lighter visual weight) */}
             <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-3">
               {[
-                { k: "Verified updates", v: "Hourly" },
-                { k: "Avg response time", v: "< 24h" },
-                { k: "Resolution success", v: "98%" },
+                { k: `${dict.metricsVerified}`, v: `${dict.metricsVerifiedValue}` },
+                { k: `${dict.metricsResponse}`, v: `${dict.metricsResponseValue}` },
+                { k: `${dict.metricsResolution}`, v: `${dict.metricsResolutionValue}` },
               ].map((m) => (
                 <div
                   key={m.k}
@@ -183,10 +183,10 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 sm:text-lg">
-                      Community reports
+                      {dict.communityReportsTitle}
                     </h3>
                     <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-                      Recent submissions and verified resolutions
+                      {dict.communityReportsSubtitle}
                     </p>
                   </div>
 
@@ -203,7 +203,7 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
                             : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
                         }`}
                     >
-                      Recent
+                      {dict.tabRecent}
                     </button>
                     <button
                       onClick={() => setActiveTab("resolved")}
@@ -216,7 +216,7 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
                             : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
                         }`}
                     >
-                      Resolved
+                      {dict.tabResolved}
                     </button>
                   </div>
                 </div>
@@ -257,15 +257,14 @@ export default function Hero({ activeTab, setActiveTab }: HeroProps) {
 
                 {list.length === 0 && (
                   <div className="rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-3 text-sm text-slate-700 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-950/55 dark:text-slate-300">
-                    No items found.
+                    {dict.emptyState}
                   </div>
                 )}
               </div>
 
               {/* Footnote */}
               <div className="border-t border-slate-200/70 bg-white/60 px-5 py-4 text-xs text-slate-600 backdrop-blur dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-400 sm:px-6">
-                Data is community-submitted and may be verified through city
-                departments where available.
+                {dict.footnote}
               </div>
             </div>
           </div>

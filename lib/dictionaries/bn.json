@@ -58,5 +58,74 @@
     "language": "ভাষা",
     "theme": "থিম"
  }
+  },
+
+
+    "landingPage": {
+    "navbar": {
+      "title": "সিজিসিপি",
+      "explorer": "অন্বেষণ",
+      "departments": "বিভাগসমূহ",
+      "safeRoutes": "নিরাপদ রুটসমূহ",
+      "loginRegister": "লগইন / নিবন্ধন",
+      "joinPortal": "পোর্টালে যোগ দিন"
+    },
+
+    
+    "hero": {
+    "officialBadge": "আনুষ্ঠানিক নাগরিক সেবা • যাচাইকৃত হালনাগাদ • জনসাধারণের প্রতিবেদন",
+    "serviceStatusLabel": "সেবার অবস্থা:",
+    "serviceStatusValue": "চলমান",
+
+    "categoryTag": "নগর প্রতিবেদন ও নিরাপত্তা নির্দেশনা",
+
+    "headingMain": "সমস্যা জানান। অগ্রগতি অনুসরণ করুন।",
+    "headingSub": "যাচাইকৃত নির্দেশনার সাথে নিরাপদে চলুন।",
+
+    "description": "CivicSync নাগরিকদের জনসেবা সংক্রান্ত সমস্যা জানাতে, সমাধানের অগ্রগতি অনুসরণ করতে এবং কমিউনিটি-যাচাইকৃত নিরাপদ রুটের তথ্য পেতে সহায়তা করে।",
+
+    "primaryCta": "প্রতিবেদন জমা দিন",
+    "secondaryCta": "নিরাপদ রুট খুঁজুন",
+
+    "metricsVerified": "যাচাইকৃত হালনাগাদ",
+    "metricsVerifiedValue": "প্রতি ঘণ্টায়",
+    "metricsResponse": "গড় সাড়া সময়",
+    "metricsResponseValue": "২৪ ঘণ্টার কম",
+    "metricsResolution": "সমাধানের সাফল্য",
+    "metricsResolutionValue": "৯৮%",
+
+    "communityReportsTitle": "কমিউনিটি প্রতিবেদনসমূহ",
+    "communityReportsSubtitle": "সাম্প্রতিক জমা ও যাচাইকৃত সমাধান",
+
+    "tabRecent": "সাম্প্রতিক",
+    "tabResolved": "সমাধানকৃত",
+
+    "emptyState": "কোনো তথ্য পাওয়া যায়নি।",
+
+    "footnote": "তথ্যসমূহ কমিউনিটির মাধ্যমে জমা দেওয়া হয়েছে এবং প্রয়োজনে সংশ্লিষ্ট সিটি বিভাগ দ্বারা যাচাই করা হতে পারে।",
+
+    "items": {
+      "brokenDrainage": "ভাঙা ড্রেনেজ পাইপ",
+      "streetLight": "স্ট্রিট লাইট বিকল",
+      "illegalDumping": "অবৈধ বর্জ্য ফেলা",
+      "pothole": "রাস্তায় গর্ত (জরুরি)",
+      "sidewalk": "ফুটপাত ফাটল মেরামত",
+      "trafficSignal": "ট্রাফিক সিগন্যাল রিসেট",
+
+      "time2min": "২ মিনিট আগে",
+      "time15min": "১৫ মিনিট আগে",
+      "time1hour": "১ ঘণ্টা আগে",
+      "time3hour": "৩ ঘণ্টা আগে",
+      "timeYesterday": "গতকাল",
+      "time2days": "২ দিন আগে",
+
+      "statusCritical": "জরুরি",
+      "statusAssigned": "নিয়োজিত",
+      "statusVerified": "যাচাইকৃত",
+      "statusResolving": "সমাধানাধীন",
+      "statusResolved": "সমাধান হয়েছে"
+    }
+  }
+
   }
 }
