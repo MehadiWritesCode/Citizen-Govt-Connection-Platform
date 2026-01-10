@@ -71,7 +71,7 @@
       "joinPortal": "পোর্টালে যোগ দিন"
     },
 
-    
+
     "hero": {
     "officialBadge": "আনুষ্ঠানিক নাগরিক সেবা • যাচাইকৃত হালনাগাদ • জনসাধারণের প্রতিবেদন",
     "serviceStatusLabel": "সেবার অবস্থা:",
@@ -125,7 +125,60 @@
       "statusResolving": "সমাধানাধীন",
       "statusResolved": "সমাধান হয়েছে"
     }
+  },
+
+    "safetyNavigator": {
+    "stripTitle": "নিরাপত্তা নেভিগেটর • যাচাইকৃত প্রতিবেদন",
+    "dataRefreshLabel": "ডাটা হালনাগাদ:",
+    "dataRefreshValue": "৫ মিনিট",
+
+    "modeSafeRoute": "নিরাপদ রুট",
+    "modeAllReports": "সব প্রতিবেদন",
+
+    "legendVerified": "যাচাইকৃত",
+    "legendCritical": "জরুরি",
+
+    "alertAriaLabel": "জরুরি সতর্কতার বিস্তারিত দেখুন",
+
+    "alertTitle": "গুরুতর রাস্তার ক্ষতি",
+    "alertDesc": "এলাকা সীমাবদ্ধ। কাজ চলছে। বিকল্প রুট ব্যবহারের পরামর্শ দেওয়া হচ্ছে।",
+    "alertReportedPill": "প্রতিবেদন · ২ ঘণ্টা আগে",
+    "alertAvoidPill": "এড়িয়ে চলুন",
+
+    "controlZoomIn": "জুম ইন",
+    "controlZoomOut": "জুম আউট",
+    "controlLocate": "অবস্থান নির্ধারণ",
+    "controlLayers": "স্তরসমূহ",
+
+    "safetyScoreTitle": "নিরাপত্তা স্কোর",
+    "safetyScoreSubtitle": "জোন এ · প্রস্তাবিত",
+    "safetyScoreHint": "সাম্প্রতিক প্রতিবেদন, আলোকসজ্জা ও টহল কার্যক্রমের ভিত্তিতে।",
+
+    "recalculateBtn": "পুনরায় গণনা করুন",
+
+    "sidebarTitle": "নিরাপত্তা নেভিগেটর",
+    "sidebarDescPrefix": "যাচাইকৃত প্রতিবেদন ও রক্ষণাবেক্ষণ লগের ভিত্তিতে রুট খুঁজুন। ব্যবহার করুন",
+    "sidebarDescHighlight": "সব প্রতিবেদন",
+    "sidebarDescSuffix": "ঝুঁকিপূর্ণ স্থান পর্যালোচনার জন্য।",
+
+    "placeholderFrom": "বর্তমান অবস্থান",
+    "placeholderTo": "গন্তব্য",
+    "searchRouteBtn": "রুট অনুসন্ধান করুন",
+
+    "routeIntelligence": "রুট বিশ্লেষণ",
+    "routeUpdated": "হালনাগাদ · ৫ মিনিট আগে",
+
+    "statNightSafetyLabel": "রাত্রিকালীন নিরাপত্তা",
+    "statNightSafetyValue": "উত্তম",
+    "statLightingLabel": "আলোকসজ্জা",
+    "statLightingValue": "উচ্চ",
+    "statSurveillanceLabel": "নজরদারি",
+    "statSurveillanceValue": "সক্রিয়",
+
+    "advisoryTitle": "পরামর্শ নোট",
+    "advisoryText": "সবুজ রুটগুলোতে গত ৪৮ ঘণ্টায় কোনো রক্ষণাবেক্ষণ সমস্যা রিপোর্ট করা হয়নি।"
   }
+  
 
   }
 }

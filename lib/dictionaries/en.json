@@ -75,7 +75,6 @@
     },
 
     "hero":{
-      
     "officialBadge": "Official civic service • Verified updates • Public reporting",
     "serviceStatusLabel": "Service status:",
     "serviceStatusValue": "Operational",
@@ -128,7 +127,62 @@
       "statusResolving": "Resolving",
       "statusResolved": "Resolved"
     }
+  },
+
+  "safetyNavigator":{
+    "stripTitle": "Safety Navigator • Verified reports",
+    "dataRefreshLabel": "Data refresh:",
+    "dataRefreshValue": "5 min",
+
+    "modeSafeRoute": "Safe route",
+    "modeAllReports": "All reports",
+
+    "legendVerified": "Verified",
+    "legendCritical": "Critical",
+
+    "alertAriaLabel": "Open critical alert details",
+
+    "alertTitle": "Critical road damage",
+    "alertDesc": "Area restricted. Crews on site. Recommended detour available.",
+    "alertReportedPill": "Reported · 2h ago",
+    "alertAvoidPill": "Avoid",
+
+    "controlZoomIn": "Zoom in",
+    "controlZoomOut": "Zoom out",
+    "controlLocate": "Locate",
+    "controlLayers": "Layers",
+
+    "safetyScoreTitle": "Safety score",
+    "safetyScoreSubtitle": "Zone A · recommended",
+    "safetyScoreHint": "Based on recent reports, lighting, and patrol activity.",
+
+    "recalculateBtn": "Recalculate",
+
+    "sidebarTitle": "Safety Navigator",
+    "sidebarDescPrefix": "Find routes informed by verified reports and maintenance logs. Use",
+    "sidebarDescHighlight": "All reports",
+    "sidebarDescSuffix": "to review risk locations.",
+
+    "placeholderFrom": "Current location",
+    "placeholderTo": "Destination",
+    "searchRouteBtn": "Search route",
+
+    "routeIntelligence": "Route intelligence",
+    "routeUpdated": "Updated · 5 min ago",
+
+    "statNightSafetyLabel": "Night safety",
+    "statNightSafetyValue": "Optimal",
+    "statLightingLabel": "Lighting",
+    "statLightingValue": "High",
+    "statSurveillanceLabel": "Surveillance",
+    "statSurveillanceValue": "Active",
+
+    "advisoryTitle": "Advisory note",
+    "advisoryText": "Green routes indicate no reported maintenance issues in the last 48 hours."
   }
+
+
+
   }
 
 }

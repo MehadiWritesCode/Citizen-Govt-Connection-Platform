@@ -51,7 +51,7 @@ function toneClasses(tone: Category["tone"]) {
 
 export default function Departments() {
   return (
-    <section className="bg-white dark:bg-slate-950">
+    <section className="bg-white dark:bg-slate-950" id="departments">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-14 lg:py-16">
         {/* Header */}
         <div className="mb-8 sm:mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">

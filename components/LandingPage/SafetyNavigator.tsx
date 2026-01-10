@@ -18,6 +18,7 @@ import {
   AlertTriangle,
   ShieldCheck,
 } from "lucide-react";
+import { SafetyNavigatorDictionary } from "../../dict_interface/safety_navigator";
 
 type MapMode = "safe-route" | "all-reports";
 
@@ -41,7 +42,12 @@ const ui = {
     "rounded-full px-2.5 py-1 text-[11px] font-semibold border border-slate-200/70 dark:border-slate-800",
 };
 
-export default function SafetyNavigatorLite() {
+interface MapDictionary{
+  dict:SafetyNavigatorDictionary
+}
+
+export default function SafetyNavigatorLite({dict}:MapDictionary) {
+
   const [mapMode, setMapMode] = useState<MapMode>("safe-route");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -50,42 +56,42 @@ export default function SafetyNavigatorLite() {
   const stats = useMemo(
     () => [
       {
-        label: "Night safety",
-        val: "Optimal",
+        label: `${dict.statNightSafetyLabel}`,
+        val: `${dict.statNightSafetyValue}`,
         icon: <Moon className="w-4 h-4" />,
         tone: "text-blue-700 dark:text-blue-300",
         bg: "bg-blue-50 dark:bg-blue-500/10",
       },
       {
-        label: "Lighting",
-        val: "High",
+        label: `${dict.statLightingLabel}`,
+        val: `${dict.statLightingValue}`,
         icon: <Zap className="w-4 h-4" />,
         tone: "text-amber-800 dark:text-amber-300",
         bg: "bg-amber-50 dark:bg-amber-500/10",
       },
       {
-        label: "Surveillance",
-        val: "Active",
+        label: `${dict.statSurveillanceLabel}`,
+        val: `${dict.statSurveillanceValue}`,
         icon: <Eye className="w-4 h-4" />,
         tone: "text-emerald-800 dark:text-emerald-300",
         bg: "bg-emerald-50 dark:bg-emerald-500/10",
       },
     ],
-    []
+    [dict]
   );
 
   return (
-    <section className={ui.shell}>
+    <section className={ui.shell} id="safeRoutes">
       {/* Slim official strip */}
       <div className={cx("border-b", "border-slate-200/70 dark:border-slate-800", ui.soft)}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
           <div className={cx("flex items-center gap-2 text-xs font-semibold", ui.textSub)}>
             <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
-            Safety Navigator • Verified reports
+            {dict.stripTitle}`
           </div>
           <div className={cx("text-xs", ui.textSub)}>
-            Data refresh:{" "}
-            <span className="font-semibold text-slate-700 dark:text-slate-200">5 min</span>
+            {dict.dataRefreshLabel}`{" "}
+            <span className="font-semibold text-slate-700 dark:text-slate-200">{dict.dataRefreshValue}`</span>
           </div>
         </div>
       </div>
@@ -117,7 +123,7 @@ export default function SafetyNavigatorLite() {
                           : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
                       )}
                     >
-                      Safe route
+                      {dict.modeSafeRoute}`
                     </button>
                     <button
                       type="button"
@@ -130,7 +136,7 @@ export default function SafetyNavigatorLite() {
                           : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
                       )}
                     >
-                      All reports
+                      {dict.modeAllReports}`
                     </button>
                   </div>
 
@@ -138,11 +144,11 @@ export default function SafetyNavigatorLite() {
                   <div className="hidden sm:flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
                     <span className="inline-flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                      Verified
+                      {dict.legendVerified}`
                     </span>
                     <span className="inline-flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-red-600" />
-                      Critical
+                      {dict.legendCritical}`
                     </span>
                   </div>
                 </div>
@@ -214,7 +220,7 @@ export default function SafetyNavigatorLite() {
                 <button
                   type="button"
                   onClick={() => setSelectedPin(selectedPin === "critical" ? null : "critical")}
-                  aria-label="Open critical alert details"
+                  aria-label={`${dict.alertAriaLabel}`}
                   className="absolute left-[56%] top-[42%]"
                 >
                   <span className="absolute -inset-6 rounded-full bg-red-500/10 animate-pulse" />
@@ -243,17 +249,17 @@ export default function SafetyNavigatorLite() {
                       </div>
                       <div className="min-w-0">
                         <p className={cx("text-sm font-semibold", ui.text)}>
-                          Critical road damage
+                          {dict.alertTitle}
                         </p>
                         <p className={cx("mt-1 text-xs leading-relaxed", ui.textSub)}>
-                          Area restricted. Crews on site. Recommended detour available.
+                          {dict.alertDesc}
                         </p>
                         <div className="mt-3 flex items-center gap-2 flex-wrap">
                           <span className={cx(ui.pill, "bg-slate-50 dark:bg-slate-900/40 text-slate-700 dark:text-slate-200")}>
-                            Reported · 2h ago
+                            {dict.alertReportedPill}
                           </span>
                           <span className={cx(ui.pill, "bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-200 border-red-200/60 dark:border-red-500/20")}>
-                            Avoid
+                            {dict.alertAvoidPill}
                           </span>
                         </div>
                       </div>
@@ -264,10 +270,10 @@ export default function SafetyNavigatorLite() {
                 {/* Controls */}
                 <div className="absolute top-[68px] left-4 z-10 flex flex-col gap-2">
                   {[
-                    { icon: <Plus className="w-5 h-5" />, label: "Zoom in" },
-                    { icon: <Minus className="w-5 h-5" />, label: "Zoom out" },
-                    { icon: <LocateFixed className="w-5 h-5" />, label: "Locate" },
-                    { icon: <Layers className="w-5 h-5" />, label: "Layers" },
+                    { icon: <Plus className="w-5 h-5" />, label: `${dict.controlZoomIn}` },
+                    { icon: <Minus className="w-5 h-5" />, label: `${dict.controlZoomOut}` },
+                    { icon: <LocateFixed className="w-5 h-5" />, label:`${dict.controlLocate}` },
+                    { icon: <Layers className="w-5 h-5" />, label: `${dict.controlLayers}` },
                   ].map((b) => (
                     <button
                       key={b.label}
@@ -297,8 +303,8 @@ export default function SafetyNavigatorLite() {
                         </span>
                       </div>
                       <div>
-                        <p className={cx("text-sm font-semibold", ui.text)}>Safety score</p>
-                        <p className={cx("text-xs", ui.textSub)}>Zone A · recommended</p>
+                        <p className={cx("text-sm font-semibold", ui.text)}>{dict.safetyScoreTitle}</p>
+                        <p className={cx("text-xs", ui.textSub)}>{dict.safetyScoreSubtitle}</p>
                       </div>
                     </div>
 
@@ -306,13 +312,13 @@ export default function SafetyNavigatorLite() {
                       <div className="h-full bg-emerald-600 w-[92%]" />
                     </div>
                     <p className={cx("mt-2 text-[11px]", ui.textSub)}>
-                      Based on recent reports, lighting, and patrol activity.
+                      {dict.safetyScoreHint}
                     </p>
                   </div>
 
                   <button type="button" className={cx(ui.btn, ui.btnPrimary, "rounded-2xl px-4 py-3")}>
                     <Navigation2 className="w-5 h-5" />
-                    Recalculate
+                    {dict.recalculateBtn}
                   </button>
                 </div>
               </div>
@@ -323,12 +329,12 @@ export default function SafetyNavigatorLite() {
           <aside className="lg:col-span-4 space-y-6">
             <div className="space-y-2">
               <h2 className={cx("text-2xl sm:text-3xl font-semibold tracking-tight", ui.text)}>
-                Safety Navigator
+                {dict.sidebarTitle}
               </h2>
               <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
-                Find routes informed by verified reports and maintenance logs. Use{" "}
-                <span className="font-semibold text-slate-900 dark:text-slate-100">All reports</span>{" "}
-                to review risk locations.
+                {dict.sidebarDescPrefix}{" "}
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{dict.sidebarDescHighlight}</span>{" "}
+                {dict.sidebarDescSuffix}
               </p>
             </div>
 
@@ -338,25 +344,25 @@ export default function SafetyNavigatorLite() {
                 icon={<MapPin className="w-5 h-5" />}
                 value={from}
                 onChange={setFrom}
-                placeholder="Current location"
+                placeholder={dict.placeholderFrom}
               />
               <Field
                 icon={<Navigation2 className="w-5 h-5" />}
                 value={to}
                 onChange={setTo}
-                placeholder="Destination"
+                placeholder={dict.placeholderTo}
               />
 
               <button type="button" className={cx(ui.btn, ui.btnPrimary, "w-full py-3")}>
-                <Search className="w-4 h-4" /> Search route
+                <Search className="w-4 h-4" /> {dict.searchRouteBtn}
               </button>
             </div>
 
             {/* Stats (compact) */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <p className={cx("text-xs font-semibold", ui.textSub)}>Route intelligence</p>
-                <p className={cx("text-[11px]", ui.textSub)}>Updated · 5 min ago</p>
+                <p className={cx("text-xs font-semibold", ui.textSub)}>{dict.routeIntelligence}</p>
+                <p className={cx("text-[11px]", ui.textSub)}>{dict.routeUpdated}</p>
               </div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
@@ -376,10 +382,10 @@ export default function SafetyNavigatorLite() {
             <div className={cx(ui.soft, ui.border, "rounded-2xl p-4")}>
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                <p className={cx("text-sm font-semibold", ui.text)}>Advisory note</p>
+                <p className={cx("text-sm font-semibold", ui.text)}>{dict.advisoryTitle}</p>
               </div>
               <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                Green routes indicate no reported maintenance issues in the last 48 hours.
+                {dict.advisoryText}
               </p>
             </div>
           </aside>

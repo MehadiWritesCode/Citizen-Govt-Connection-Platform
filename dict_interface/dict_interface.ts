@@ -1,4 +1,5 @@
 import { HeroDictionary } from './hero_interface';
+import { SafetyNavigatorDictionary } from './safety_navigator';
 export interface Dictionary {
 
   loginRegUi: {
@@ -75,7 +76,7 @@ export interface Dictionary {
   },
 
   hero:HeroDictionary,
-
+  safetyNavigator:SafetyNavigatorDictionary,
 
  }
 

@@ -29,7 +29,7 @@ export default  function LandingPage({ lang ,dict }:landingInterface) {
     <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans selection:bg-emerald-100">
       <Navbar isScrolled={isScrolled} lang={lang} dict={dict.landingPage.navbar}/>
       <Hero activeTab={activeTab} setActiveTab={setActiveTab} dict={dict.landingPage.hero} />
-      <SafetyNavigator />
+      <SafetyNavigator dict={dict.landingPage.safetyNavigator}/>
       <Departments />
       <TrustImpact />
       <Footer />

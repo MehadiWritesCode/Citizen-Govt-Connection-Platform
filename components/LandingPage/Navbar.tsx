@@ -1,52 +1,50 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { ShieldCheck, Menu, X, Moon } from "lucide-react";
+import { ShieldCheck, Menu, X } from "lucide-react";
 import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
-import { usePathname,useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export type Lang = "bn" | "en";
 
 type NavbarProps = {
   isScrolled: boolean;
   lang: string;
-  dict:{
-  title: string;
-  explorer: string;
-  departments: string;
-  safeRoutes: string;
-  loginRegister: string;
-  joinPortal: string;
-  }
+  dict: {
+    title: string;
+    explorer: string;
+    departments: string;
+    safeRoutes: string;
+    loginRegister: string;
+    joinPortal: string;
+  };
 };
 
-export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
+export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
+  const router = useRouter(); // ✅ moved up
+  const pathName = usePathname();
+
   const [open, setOpen] = React.useState(false);
   const [openLang, setOpenLang] = useState(false);
   const langRef = useRef<HTMLDivElement | null>(null);
-  const pathName = usePathname();
 
+  // handle language change
+  const handleLanguageChange = (newLanguage: string) => {
+    if (!pathName) return;
 
-  //handle language change
-    const handleLanguageChange =(newLanguage : string)=>{
-       if(!pathName) return;
+    const segments = pathName.split("/");
+    segments[1] = newLanguage;
+    const newPath = segments.join("/");
 
-       const segments = pathName.split("/");
-       segments[1] = newLanguage;
-       const newPath = segments.join("/");
-       console.log(newPath)
+    router.push(newPath);
+    setOpenLang(false);
+  };
 
-       router.push(newPath);
-       setOpenLang(false);
-  }
-
-  const router = useRouter();
   return (
     <nav
       className={[
         "fixed inset-x-0 top-0 z-50",
         "transition-colors duration-300",
-        // Always keep a subtle separation line (best practice)
         "border-b",
         isScrolled
           ? "bg-white/96 dark:bg-slate-950/96 border-slate-200 dark:border-slate-800"
@@ -54,7 +52,6 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
       ].join(" ")}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* <title></title> */}
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-sm bg-emerald-600 flex items-center justify-center">
             <ShieldCheck className="w-5 h-5 text-white" />
@@ -67,14 +64,18 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-8">
           <div className="flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-400">
-            {[`${dict.explorer}`, `${dict.departments}`, `${dict.safeRoutes}`].map((item) => (
+            {[
+              { label: dict.explorer, href: "#explorer" },
+              { label: dict.departments, href: "#departments" },
+              { label: dict.safeRoutes, href: "#safeRoutes" },
+            ].map((item) => (
               <a
-                key={item}
-                href="#"
+                key={item.href}
+                href={item.href}
                 className="px-2 py-1 rounded-sm hover:bg-slate-100 dark:hover:bg-slate-900
                            hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>
@@ -82,9 +83,8 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
           <div className="h-5 w-px bg-slate-200 dark:bg-slate-800" />
 
           <div className="flex items-center gap-2">
-            {/* Language (UI only) */}
-
-              <div className="relative" ref={langRef}>
+            {/* Language (desktop dropdown) */}
+            <div className="relative" ref={langRef}>
               <button
                 onClick={() => setOpenLang((s) => !s)}
                 className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:ring-slate-800 dark:hover:bg-slate-900"
@@ -95,13 +95,15 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
               {openLang && (
                 <div className="absolute right-0 mt-2 z-50 w-48 overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-slate-200 dark:bg-slate-950 dark:ring-slate-800">
                   <button
-                  onClick={()=> handleLanguageChange("bn")}
-                  className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                    onClick={() => handleLanguageChange("bn")}
+                    className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                  >
                     বাংলা <span className="text-xs text-slate-400">BN</span>
                   </button>
                   <button
-                      onClick={()=> handleLanguageChange("en")}
-                  className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                    onClick={() => handleLanguageChange("en")}
+                    className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                  >
                     English <span className="text-xs text-slate-400">EN</span>
                   </button>
                 </div>
@@ -109,7 +111,6 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
             </div>
 
             <ModeToggleBtn />
-
 
             <button
               onClick={() => router.push(`/${lang}/auth`)}
@@ -132,7 +133,7 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
           </div>
         </div>
 
-        {/* Mobile: only hamburger */}
+        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
           className="lg:hidden w-9 h-9 rounded-sm border border-slate-200 dark:border-slate-800
@@ -146,27 +147,33 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
         </button>
       </div>
 
-      {/* Mobile Menu: includes theme + lang */}
+      {/* Mobile Menu */}
       {open && (
         <div className="lg:hidden mx-4 sm:mx-6 mb-3 rounded-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
           <div className="flex flex-col divide-y divide-slate-200 dark:divide-slate-800">
-            {["Explorer", "Departments", "Safe Routes"].map((item) => (
+            {[
+              { label: dict.explorer, href: "#explorer" },
+              { label: dict.departments, href: "#departments" },
+              { label: dict.safeRoutes, href: "#safeRoutes" },
+            ].map((item) => (
               <a
-                key={item}
-                href="#"
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
                 className="px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-200
                            hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
-                {item}
+                {item.label}
               </a>
             ))}
 
-            {/* Theme + Language row */}
+            {/* Theme + Language row (mobile) */}
             <div className="px-4 py-3">
               <div className="flex items-center gap-2">
                 <div className="relative flex-1">
                   <select
-                    defaultValue={lang}
+                    value={lang}
+                    onChange={(e) => handleLanguageChange(e.target.value)} // ✅ added
                     className="w-full h-9 pl-3 pr-8 rounded-sm text-sm font-medium
                                border border-slate-200 dark:border-slate-800
                                bg-white dark:bg-slate-950
@@ -190,19 +197,8 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
                   </svg>
                 </div>
 
-                <button
-                  type="button"
-                  className="h-9 w-9 rounded-sm
-                             border border-slate-200 dark:border-slate-800
-                             bg-white dark:bg-slate-950
-                             text-slate-700 dark:text-slate-200
-                             hover:bg-slate-100 dark:hover:bg-slate-800
-                             transition-colors"
-                  aria-label="Toggle theme"
-                  title="Toggle theme"
-                >
-                  <Moon className="w-4 h-4 mx-auto" />
-                </button>
+                {/* ✅ use your existing theme toggle button */}
+                <ModeToggleBtn />
               </div>
             </div>
 
@@ -211,14 +207,14 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
               className="px-4 py-3 text-left text-sm font-medium text-slate-700 dark:text-slate-200
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
-              Login / Register
+              {dict.loginRegister}
             </button>
 
             <button
               className="px-4 py-3 text-left text-sm font-semibold text-emerald-600 dark:text-emerald-400
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
-              Join Portal
+              {dict.joinPortal}
             </button>
           </div>
         </div>
@@ -226,4 +222,3 @@ export default  function  Navbar({ isScrolled, lang,dict }: NavbarProps) {
     </nav>
   );
 }
-

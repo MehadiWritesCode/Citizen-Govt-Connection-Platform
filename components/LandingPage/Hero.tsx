@@ -143,14 +143,14 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
                 <ArrowRight className="h-4 w-4 opacity-70" />
               </button>
 
-              <button
+              <a href="#safeRoutes"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200/70 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm backdrop-blur transition hover:bg-slate-50 active:scale-[0.98] dark:border-slate-800 dark:bg-slate-950/70 dark:text-slate-100 dark:hover:bg-slate-900 sm:w-auto
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50
                 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
               >
                 <Navigation className="h-5 w-5 text-emerald-700 dark:text-emerald-400" />
                 {dict.secondaryCta}
-              </button>
+              </a>
             </div>
 
             {/* Trust metrics row (lighter visual weight) */}
