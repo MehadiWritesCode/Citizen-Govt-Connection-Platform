@@ -63,12 +63,13 @@
 
     "landingPage": {
     "navbar": {
-      "title": "সিজিসিপি",
+      "title": "সি. জি. সি. পি",
       "explorer": "অন্বেষণ",
       "departments": "বিভাগসমূহ",
       "safeRoutes": "নিরাপদ রুটসমূহ",
       "loginRegister": "লগইন / নিবন্ধন",
-      "joinPortal": "পোর্টালে যোগ দিন"
+      "aiAssitance": "এআই সহায়তা",
+      "language":"ভাষা"
     },
 
 
@@ -178,7 +179,7 @@
     "advisoryTitle": "পরামর্শ নোট",
     "advisoryText": "সবুজ রুটগুলোতে গত ৪৮ ঘণ্টায় কোনো রক্ষণাবেক্ষণ সমস্যা রিপোর্ট করা হয়নি।"
   }
-  
+
 
   }
 }

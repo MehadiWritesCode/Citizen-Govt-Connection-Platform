@@ -71,7 +71,8 @@
     "departments": "Departments",
     "safeRoutes": "Safe Routes",
     "loginRegister": "Login / Register",
-    "joinPortal": "Join Portal"
+    "aiAssitance": "AI Assistance",
+    "language" :"language"
     },
 
     "hero":{

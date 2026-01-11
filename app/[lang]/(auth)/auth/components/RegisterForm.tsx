@@ -1,12 +1,15 @@
+import CreateUser from "../action";
+
 export default function RegisterForm({ dict }: { dict: Record<string, string> }) {
   return (
-    <form className="space-y-5">
+    <form className="space-y-5" action={CreateUser}>
       {/* Name */}
       <div className="space-y-1.5">
         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
           {dict.nameLabel}
         </label>
         <input
+          name="name"
           type="text"
           placeholder={dict.namePlaceholder}
           className="
@@ -28,6 +31,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.numberLabel}
           </label>
           <input
+           name="phone"
             type="text"
             placeholder={dict.numberPlaceholder}
             className="
@@ -47,6 +51,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.nidNumberLabel}
           </label>
           <input
+            name="nid"
             type="text"
             placeholder={dict.nidNumberPlaceholder}
             className="
@@ -69,6 +74,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.ageLabel}
           </label>
           <input
+           name="age"
             type="number"
             min={0}
             placeholder={dict.agePlaceholder}
@@ -89,6 +95,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.dobLabel}
           </label>
           <input
+            name="dob"
             type="date"
             className="
               w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
@@ -108,6 +115,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
           {dict.addressLabel}
         </label>
         <textarea
+          name="address"
           rows={3}
           placeholder={dict.addressPlaceholder}
           className="
@@ -129,6 +137,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.passwordLabel}
           </label>
           <input
+           name="password"
             type="password"
             placeholder={dict.passwordPlaceholder}
             className="
@@ -148,6 +157,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.confirmPasswordLabel}
           </label>
           <input
+            name="confirmPassword"
             type="password"
             placeholder={dict.confirmPasswordPlaceholder}
             className="
@@ -195,3 +205,4 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
     </form>
   );
 }
+

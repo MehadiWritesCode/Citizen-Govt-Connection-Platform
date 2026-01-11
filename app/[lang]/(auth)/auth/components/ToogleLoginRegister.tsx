@@ -46,3 +46,5 @@ export default function ToogleLoginRegister({ dict }: { dict:AuthDict}) {
     </div>
   );
 }
+
+

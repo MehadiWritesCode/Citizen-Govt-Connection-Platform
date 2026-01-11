@@ -72,7 +72,8 @@ export interface Dictionary {
   departments: string;
   safeRoutes: string;
   loginRegister: string;
-  joinPortal: string;
+  aiAssitance: string;
+  language:string
   },
 
   hero:HeroDictionary,

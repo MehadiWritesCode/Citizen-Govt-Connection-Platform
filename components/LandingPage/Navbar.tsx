@@ -16,7 +16,8 @@ type NavbarProps = {
     departments: string;
     safeRoutes: string;
     loginRegister: string;
-    joinPortal: string;
+    aiAssitance: string;
+    language:string
   };
 };
 
@@ -89,7 +90,7 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
                 onClick={() => setOpenLang((s) => !s)}
                 className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:ring-slate-800 dark:hover:bg-slate-900"
               >
-                🌐 <span className="text-slate-400">▾</span>
+                🌐 <span className="text-slate-700">{dict.language}▾</span>
               </button>
 
               {openLang && (
@@ -122,13 +123,14 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             </button>
 
             <button
+            onClick={()=> router.push(`/govt-ai`)}
               className="px-4 py-2 rounded-sm text-sm font-semibold
                          bg-slate-900 dark:bg-slate-100
                          text-white dark:text-slate-900
                          hover:bg-slate-800 dark:hover:bg-slate-200
                          transition-colors"
             >
-              {dict.joinPortal}
+            {dict.aiAssitance}
             </button>
           </div>
         </div>
@@ -214,7 +216,7 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
               className="px-4 py-3 text-left text-sm font-semibold text-emerald-600 dark:text-emerald-400
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
-              {dict.joinPortal}
+              {dict.aiAssitance}
             </button>
           </div>
         </div>

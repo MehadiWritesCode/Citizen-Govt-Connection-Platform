@@ -107,3 +107,4 @@ export default function LoginForm({ dict }: { dict: Record<string, string> }) {
     </form>
   );
 }
+
