@@ -1,4 +1,5 @@
 import { ShieldCheck, Phone, Mail, Globe, ExternalLink } from "lucide-react";
+import Image from "next/image";
 
 export default function FooterGovPremium() {
   return (
@@ -12,9 +13,19 @@ export default function FooterGovPremium() {
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-600/10 ring-1 ring-emerald-600/15 dark:ring-emerald-400/20">
-              <ShieldCheck className="h-5 w-5 text-emerald-700 dark:text-emerald-300" />
-            </div>
+          <div
+            className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
+                  flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
+          >
+            <Image
+              src="/images/logo.png"
+              alt="App Logo"
+              width={36}
+              height={36}
+              className="object-contain"
+              priority
+            />
+          </div>
 
             <div className="leading-tight">
               <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">

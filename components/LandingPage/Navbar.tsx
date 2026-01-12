@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { ShieldCheck, Menu, X } from "lucide-react";
 import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 export type Lang = "bn" | "en";
 
@@ -17,7 +18,7 @@ type NavbarProps = {
     safeRoutes: string;
     loginRegister: string;
     aiAssitance: string;
-    language:string
+    language: string;
   };
 };
 
@@ -54,9 +55,20 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-sm bg-emerald-600 flex items-center justify-center">
-            <ShieldCheck className="w-5 h-5 text-white" />
+          <div
+            className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
+                  flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
+          >
+            <Image
+              src="/images/logo.png"
+              alt="App Logo"
+              width={36}
+              height={36}
+              className="object-contain"
+              priority
+            />
           </div>
+
           <span className="font-semibold text-lg text-slate-900 dark:text-slate-100">
             {dict.title}
           </span>
@@ -123,14 +135,14 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             </button>
 
             <button
-            onClick={()=> router.push(`/govt-ai`)}
+              onClick={() => router.push(`/govt-ai`)}
               className="px-4 py-2 rounded-sm text-sm font-semibold
                          bg-slate-900 dark:bg-slate-100
                          text-white dark:text-slate-900
                          hover:bg-slate-800 dark:hover:bg-slate-200
                          transition-colors"
             >
-            {dict.aiAssitance}
+              {dict.aiAssitance}
             </button>
           </div>
         </div>
@@ -199,7 +211,7 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
                   </svg>
                 </div>
 
-                {/* ✅ use your existing theme toggle button */}
+                {/* use your existing theme toggle button */}
                 <ModeToggleBtn />
               </div>
             </div>

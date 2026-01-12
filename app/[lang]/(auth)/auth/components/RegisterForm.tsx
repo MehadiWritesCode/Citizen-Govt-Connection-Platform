@@ -1,8 +1,45 @@
-import CreateUser from "../action";
+import { CreateUser, type ActionResult } from "../register.action";
+import AuthButton from "./AuthButton";
+import { useActionState, useEffect } from "react";
 
-export default function RegisterForm({ dict }: { dict: Record<string, string> }) {
+export default function RegisterForm({
+  dict,
+}: {
+  dict: Record<string, string>;
+}) {
+  const intialState: ActionResult = { ok: true };
+  const [state, action] = useActionState(CreateUser, intialState);
+
+  // !field error scrolling view-----------------------
+  useEffect(() => {
+    if (state.ok) return;
+    if (!("field" in state) || !state.field) return;
+
+    const el = document.querySelector(`[data-field="${state.field}"]`) as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | null;
+
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => el.focus(), 250);
+  }, [state.ok, "field" in state ? state.field : null]);
+
+  //fiedl error text show
+  const fieldError = (field: string) =>
+    !state.ok && "field" in state && state.field === field
+      ? state.message
+      : null;
+
+  // global error show text
+  const globalError =
+    !state.ok && (!("field" in state) || !state.field) ? state.message : null;
+
+  // !------------------------------------------------------------------------
+
   return (
-    <form className="space-y-5" action={CreateUser}>
+    <form className="space-y-5" action={action}>
       {/* Name */}
       <div className="space-y-1.5">
         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
@@ -10,6 +47,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
         </label>
         <input
           name="name"
+          data-field="name"
           type="text"
           placeholder={dict.namePlaceholder}
           className="
@@ -22,6 +60,11 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
           "
         />
+        {fieldError("name") && (
+          <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+            {fieldError("name")}
+          </p>
+        )}
       </div>
 
       {/* Mobile + NID */}
@@ -31,7 +74,8 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.numberLabel}
           </label>
           <input
-           name="phone"
+            name="phone"
+            data-field="phone"
             type="text"
             placeholder={dict.numberPlaceholder}
             className="
@@ -44,6 +88,11 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
               dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
+          {fieldError("phone") && (
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              {fieldError("phone")}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -52,6 +101,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
           </label>
           <input
             name="nid"
+            data-field="nid"
             type="text"
             placeholder={dict.nidNumberPlaceholder}
             className="
@@ -64,6 +114,12 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
               dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
+
+          {fieldError("nid") && (
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              {fieldError("nid")}
+            </p>
+          )}
         </div>
       </div>
 
@@ -74,7 +130,8 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.ageLabel}
           </label>
           <input
-           name="age"
+            name="age"
+            data-field="age"
             type="number"
             min={0}
             placeholder={dict.agePlaceholder}
@@ -88,6 +145,11 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
               dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
+          {fieldError("age") && (
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              {fieldError("age")}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -96,6 +158,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
           </label>
           <input
             name="dob"
+            data-field="dob"
             type="date"
             className="
               w-full rounded-xl border bg-white px-3 py-3 text-sm text-slate-900
@@ -106,6 +169,12 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
               dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
+
+          {fieldError("dob") && (
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              {fieldError("dob")}
+            </p>
+          )}
         </div>
       </div>
 
@@ -116,6 +185,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
         </label>
         <textarea
           name="address"
+          data-field="address"
           rows={3}
           placeholder={dict.addressPlaceholder}
           className="
@@ -128,6 +198,12 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
           "
         />
+
+        {fieldError("address") && (
+          <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+            {fieldError("address")}
+          </p>
+        )}
       </div>
 
       {/* Passwords */}
@@ -137,7 +213,8 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
             {dict.passwordLabel}
           </label>
           <input
-           name="password"
+            name="password"
+            data-field="password"
             type="password"
             placeholder={dict.passwordPlaceholder}
             className="
@@ -150,6 +227,12 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
               dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
+
+          {fieldError("password") && (
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              {fieldError("password")}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -158,6 +241,7 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
           </label>
           <input
             name="confirmPassword"
+            data-field="confirmPassword"
             type="password"
             placeholder={dict.confirmPasswordPlaceholder}
             className="
@@ -170,25 +254,23 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
               dark:focus:border-emerald-400 dark:focus:ring-emerald-900/35
             "
           />
+
+          {fieldError("confirmPassword") && (
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              {fieldError("confirmPassword")}
+            </p>
+          )}
         </div>
       </div>
 
+      {!state.ok && (!("field" in state) || !state.field) && state.message && (
+        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-950/40 dark:text-red-200">
+          {state.message}
+        </div>
+      )}
+
       {/* Submit */}
-      <button
-        type="submit"
-        className="
-          mt-1 inline-flex w-full items-center justify-center gap-2
-          rounded-xl px-4 py-3 text-sm font-semibold
-          bg-slate-900 text-white
-          hover:opacity-95 transition
-          active:scale-[0.99]
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50
-          dark:bg-slate-100 dark:text-slate-900
-        "
-      >
-        {dict.registerBtn}
-        <span className="text-base leading-none">→</span>
-      </button>
+      <AuthButton Btnlabel={dict.registerBtn} />
 
       {/* Terms */}
       <p className="text-center text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -205,4 +287,3 @@ export default function RegisterForm({ dict }: { dict: Record<string, string> })
     </form>
   );
 }
-

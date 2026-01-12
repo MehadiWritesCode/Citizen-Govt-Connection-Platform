@@ -51,14 +51,20 @@ export default function AuthNavbar({dict}:{dict:Dictionary}) {
       <header className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-700/10 ring-1 ring-emerald-700/20 dark:bg-emerald-400/10 dark:ring-emerald-300/20">
-            <Image
-              src={"/images/logo.png"}
-              width={36}
-              height={36}
-              alt="CGCP Logo"
-            />
-          </div>
+                    <div
+                      className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
+                            flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
+                    >
+                      <Image
+                        src="/images/logo.png"
+                        alt="App Logo"
+                        width={36}
+                        height={36}
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+
 
           <div className="leading-tight">
             <p className="text-sm font-semibold">{dict.auth.authNavbar.title}</p>

@@ -15,10 +15,10 @@ import { HeroDictionary } from "../../dict_interface/hero_interface";
 type HeroProps = {
   activeTab: "recent" | "resolved";
   setActiveTab: React.Dispatch<React.SetStateAction<"recent" | "resolved">>;
-  dict:HeroDictionary
+  dict: HeroDictionary;
 };
 
-export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
+export default function Hero({ activeTab, setActiveTab, dict }: HeroProps) {
   const items = [
     {
       title: `${dict.items.brokenDrainage}`,
@@ -38,11 +38,10 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
     },
     {
       title: `${dict.items.illegalDumping}`,
-      time:`${dict.items.time1hour}`,
+      time: `${dict.items.time1hour}`,
       status: `${dict.items.statusVerified}`,
       icon: "♻️",
-      pill:
-        "text-emerald-900 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-200",
+      pill: "text-emerald-900 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-200",
       tab: "recent" as const,
     },
     {
@@ -93,9 +92,7 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-600/10 ring-1 ring-emerald-600/15 dark:ring-emerald-400/20">
               <ShieldCheck className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
             </span>
-            <span className="truncate">
-              {dict.officialBadge}
-            </span>
+            <span className="truncate">{dict.officialBadge}</span>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
@@ -120,7 +117,13 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
               {dict.categoryTag}
             </div>
 
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl lg:text-[44px] leading-[1.12]">
+            <h1
+              className="max-w-[26ch] sm:max-w-[24ch] lg:max-w-[22ch]
+    text-3xl font-semibold tracking-tight
+    text-slate-900 dark:text-slate-100
+    sm:text-4xl lg:text-[40px]
+    leading-[1.05]"
+            >
               {dict.headingMain}
               <span className="block mt-1 text-slate-700 dark:text-slate-300">
                 {dict.headingSub}
@@ -128,22 +131,22 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
             </h1>
 
             <p className="max-w-[60ch] text-sm leading-relaxed text-slate-700 dark:text-slate-300 sm:text-base">
-             {dict.description}
+              {dict.description}
             </p>
 
-            {/* CTAs */}
+            {/* CTA'S */}
             <div className="flex flex-col gap-3 sm:flex-row">
               <button
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 active:scale-[0.98] dark:bg-slate-100 dark:text-slate-900 sm:w-auto
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/60
                 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
               >
-                <Plus className="h-5 w-5" />
                 {dict.primaryCta}
                 <ArrowRight className="h-4 w-4 opacity-70" />
               </button>
 
-              <a href="#safeRoutes"
+              <a
+                href="#safeRoutes"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200/70 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm backdrop-blur transition hover:bg-slate-50 active:scale-[0.98] dark:border-slate-800 dark:bg-slate-950/70 dark:text-slate-100 dark:hover:bg-slate-900 sm:w-auto
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50
                 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
@@ -156,9 +159,18 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
             {/* Trust metrics row (lighter visual weight) */}
             <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-3">
               {[
-                { k: `${dict.metricsVerified}`, v: `${dict.metricsVerifiedValue}` },
-                { k: `${dict.metricsResponse}`, v: `${dict.metricsResponseValue}` },
-                { k: `${dict.metricsResolution}`, v: `${dict.metricsResolutionValue}` },
+                {
+                  k: `${dict.metricsVerified}`,
+                  v: `${dict.metricsVerifiedValue}`,
+                },
+                {
+                  k: `${dict.metricsResponse}`,
+                  v: `${dict.metricsResponseValue}`,
+                },
+                {
+                  k: `${dict.metricsResolution}`,
+                  v: `${dict.metricsResolutionValue}`,
+                },
               ].map((m) => (
                 <div
                   key={m.k}
@@ -177,7 +189,7 @@ export default function Hero({ activeTab, setActiveTab,dict}: HeroProps) {
 
           {/* Right */}
           <div className="lg:col-span-6">
-            <div className="rounded-3xl border border-slate-200/70 bg-white/70 shadow-[0_20px_60px_rgba(2,6,23,0.08)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/60 dark:shadow-[0_20px_60px_rgba(0,0,0,0.45)] overflow-hidden">
+            <div className="rounded-2xl border border-slate-200/70 bg-white/80 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-950/60 overflow-hidden">
               {/* Feed header */}
               <div className="border-b border-slate-200/70 bg-white/60 px-5 py-5 backdrop-blur dark:border-slate-800 dark:bg-slate-950/40 sm:px-6">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
