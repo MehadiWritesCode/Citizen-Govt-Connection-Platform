@@ -41,8 +41,8 @@ export default function MessageListUI() {
                 className={[
                   "max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed",
                   isUser
-                    ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                    : "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100",
+                    ? "bg-slate-900 text-white dark:bg-[#532D8C] dark:text-white"
+                    : "bg-slate-100 text-slate-900 dark:bg-transparent dark:text-slate-100",
                 ].join(" ")}
               >
                 <div className="whitespace-pre-wrap">{m.text}</div>

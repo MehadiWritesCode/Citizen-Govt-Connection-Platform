@@ -1,16 +1,14 @@
 "use client";
-
-import React from "react";
 import { Menu } from "lucide-react";
+import { ModeToggleBtn } from "../../../components/client/ThemeToogleBtn";
 
 type Props = {
-  title: string;
   onMenu: () => void;
 };
 
-export default function TopbarUI({ title, onMenu }: Props) {
+export default function TopbarUI({ onMenu }: Props) {
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
+    <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-[#212121]">
       <div className="mx-auto max-w-3xl px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2 min-w-0">
           <button
@@ -22,12 +20,13 @@ export default function TopbarUI({ title, onMenu }: Props) {
             <Menu className="h-5 w-5" />
           </button>
 
-          <span className="text-sm font-semibold truncate">{title}</span>
+
         </div>
 
-        <button className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">
+        <ModeToggleBtn/>
+        {/* <button className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">
           New chat
-        </button>
+        </button> */}
       </div>
     </header>
   );

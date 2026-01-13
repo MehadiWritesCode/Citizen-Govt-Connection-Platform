@@ -2,6 +2,7 @@
 
 import { supabaseServer } from "../../../../lib/supabase_postgresql/server";
 import { redirect } from "next/navigation";
+import { supabaseBrowser } from "../../../../lib/supabase_postgresql/browser";
 //Return type
 export type ActionResult =
   | { ok: true}

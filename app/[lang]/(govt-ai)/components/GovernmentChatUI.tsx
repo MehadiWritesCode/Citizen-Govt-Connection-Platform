@@ -8,11 +8,12 @@ import ComposerUI from "./ComposerUI";
 
 
 export default function GovernmentChatUI() {
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-white text-slate-900 dark:bg-[#212121] dark:text-slate-100">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -26,7 +27,7 @@ export default function GovernmentChatUI() {
 
       {/* Main */}
       <div className="md:pl-72">
-        <TopbarUI title="New chat" onMenu={() => setSidebarOpen(true)} />
+        <TopbarUI onMenu={() => setSidebarOpen(true)} />
 
         <MessageListUI />
 

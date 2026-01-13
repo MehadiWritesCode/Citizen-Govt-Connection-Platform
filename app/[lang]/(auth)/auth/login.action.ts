@@ -48,5 +48,5 @@ export async function SignInUser(
 
   if(!profile || profileError) return {ok:false ,message:"Profile Not Found!"}
 
-  redirect('/')
+  redirect('/user-dashboard');
 }
