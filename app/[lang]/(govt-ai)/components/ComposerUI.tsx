@@ -2,22 +2,27 @@
 
 import { RefObject } from "react";
 import { Paperclip, Send } from "lucide-react";
+import { SendToAi } from "../actions/sendAi";
+import { usePathname } from "next/navigation";
+
 
 type Props = {
   fileInputRef: RefObject<HTMLInputElement | null>;
 };
 
 export default function ComposerUI({ fileInputRef }: Props) {
-
+const pathname = usePathname();
+const taken = pathname.split("/")[1];
+const lang = taken === "en" ? "en" : "bn";
   return (
-    <form
+    <form action={SendToAi}
       className="fixed inset-x-0 bottom-0 border-t border-slate-200/70 bg-white/95 backdrop-blur
                  dark:border-slate-800 dark:bg-[#212121] md:pl-72"
       aria-label="Message composer"
     >
       <div className="mx-auto max-w-3xl px-4 py-4">
         <div className="flex items-end gap-2">
-          <input ref={fileInputRef} type="file" className="hidden" multiple />
+          <input name="file" ref={fileInputRef} type="file" className="hidden" multiple />
 
           <button
             type="button"
@@ -29,9 +34,12 @@ export default function ComposerUI({ fileInputRef }: Props) {
           >
             <Paperclip className="h-5 w-5" />
           </button>
+          {/* hidden input */}
+          <input type="hidden" name="lang" value={lang} />
 
           <input
             type="text"
+            name="msg"
             placeholder="Type your message…"
             className="flex-1 h-11 rounded-xl border border-slate-300 px-4 text-sm
                        focus:outline-none focus:ring-2
