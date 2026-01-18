@@ -23,11 +23,9 @@ export async function SendToAi(formData: FormData) {
   })
 
   if(!response.ok){
-   // console.error("Error from AI API:", response.statusText);
     return;
   }
 
   const data = await response.json();
-  // console.log("AI response received successfully.");
-  // console.log(data.reply)
+  
 }

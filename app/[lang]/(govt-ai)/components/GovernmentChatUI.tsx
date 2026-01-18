@@ -10,7 +10,7 @@ import ComposerUI from "./ComposerUI";
 export default function GovernmentChatUI() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
 
   return (
     <div className="min-h-screen bg-white text-slate-900 dark:bg-[#212121] dark:text-slate-100">
@@ -31,7 +31,7 @@ export default function GovernmentChatUI() {
 
         <MessageListUI />
 
-        <ComposerUI fileInputRef={fileInputRef} />
+        <ComposerUI  />
       </div>
     </div>
   );

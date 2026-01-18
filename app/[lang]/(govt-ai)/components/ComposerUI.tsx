@@ -1,28 +1,55 @@
 "use client";
 
-import { RefObject } from "react";
+import { useRef, useState } from "react";
 import { Paperclip, Send } from "lucide-react";
-import { SendToAi } from "../actions/sendAi";
 import { usePathname } from "next/navigation";
 
+export default function ComposerUI() {
+  const pathname = usePathname();
+  const taken = pathname.split("/")[1];
+  const lang = taken === "en" ? "en" : "bn";
 
-type Props = {
-  fileInputRef: RefObject<HTMLInputElement | null>;
-};
+  const [text, setText] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
 
-export default function ComposerUI({ fileInputRef }: Props) {
-const pathname = usePathname();
-const taken = pathname.split("/")[1];
-const lang = taken === "en" ? "en" : "bn";
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const SendData = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const data = text.trim();
+    if (!data) {
+      setText("");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("message", data);
+    files.forEach((file)=>{
+      formData.append("files", file);
+    })
+
+    setText("");
+   // await sendMessage(data);
+  };
+
   return (
-    <form action={SendToAi}
+    <form
+      onSubmit={SendData}
       className="fixed inset-x-0 bottom-0 border-t border-slate-200/70 bg-white/95 backdrop-blur
                  dark:border-slate-800 dark:bg-[#212121] md:pl-72"
       aria-label="Message composer"
     >
       <div className="mx-auto max-w-3xl px-4 py-4">
         <div className="flex items-end gap-2">
-          <input name="file" ref={fileInputRef} type="file" className="hidden" multiple />
+          <input
+            onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
+            name="file"
+            ref={fileInputRef}
+            type="file"
+            className="hidden"
+            multiple
+          />
 
           <button
             type="button"
@@ -34,12 +61,11 @@ const lang = taken === "en" ? "en" : "bn";
           >
             <Paperclip className="h-5 w-5" />
           </button>
-          {/* hidden input */}
-          <input type="hidden" name="lang" value={lang} />
 
           <input
             type="text"
-            name="msg"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
             placeholder="Type your message…"
             className="flex-1 h-11 rounded-xl border border-slate-300 px-4 text-sm
                        focus:outline-none focus:ring-2
