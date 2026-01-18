@@ -47,14 +47,14 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
     <aside
       className={[
         "fixed z-40 top-0 left-0 h-full w-72 border-r border-slate-200/70 bg-white/95 backdrop-blur",
-        "dark:border-slate-800 dark:bg-[#181818]",
+        "dark:border-[#1F2937] dark:bg-[#0B1220]",
         "transition-transform md:translate-x-0",
         sidebarOpen ? "translate-x-0" : "-translate-x-full",
       ].join(" ")}
     >
       <div className="h-full flex flex-col">
         {/* Header */}
-        <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200/70 dark:border-slate-800">
+        <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200/70 dark:border-[#1F2937]">
           <div className="flex items-center gap-2">
             <div
               className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-transparent
@@ -133,7 +133,7 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
 
         {/* Bottom */}
 
-        <div className="px-4 py-3 border-t border-slate-200/70 dark:border-slate-800">
+        <div className="px-4 py-3 border-t border-slate-200/70 dark:border-[#1F2937]">
           {/* User info (UI only) */}
 
           {label === "Guest" ? (
@@ -146,7 +146,7 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
       text-slate-700
       hover:bg-slate-100 hover:text-slate-900
       transition
-      dark:border-slate-800 dark:bg-transparent
+      dark:border-[#1F2937] dark:bg-transparent
       dark:text-slate-200 dark:hover:bg-gray-500
     "
             >
@@ -154,7 +154,7 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
               Login
             </button>
           ) : (
-            <div className="mb-3 flex items-center gap-3 rounded-xl border border-slate-200/70 bg-white/80 px-3 py-2 dark:border-slate-800 dark:bg-transparent dark:hover:bg-[#242424]">
+            <div className="mb-3 flex items-center gap-3 rounded-xl border border-slate-200/70 bg-white/80 px-3 py-2 dark:border-[#1F2937] dark:bg-transparent dark:hover:bg-[#242424]">
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-600 dark:bg-transparent dark:text-slate-300">
                 <User className="h-4 w-4" />
               </span>
@@ -171,7 +171,7 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
           )}
 
           {/* Home button */}
-          <button className="w-full mb-2 flex items-center justify-center gap-2 rounded-xl border border-slate-200/70 bg-white/80 px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-slate-800 dark:bg-transparent dark:hover:bg-[#242424]">
+          <button className="w-full mb-2 flex items-center justify-center gap-2 rounded-xl border border-slate-200/70 bg-white/80 px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-[#1F2937] dark:bg-transparent dark:hover:bg-[#242424]">
             <Home className="h-4 w-4" />
             Home
           </button>

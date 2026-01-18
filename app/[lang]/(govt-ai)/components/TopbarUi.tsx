@@ -8,7 +8,7 @@ type Props = {
 
 export default function TopbarUI({ onMenu }: Props) {
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-[#212121]">
+    <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/90 backdrop-blur dark:border-[#1F2937] dark:bg-[#070B12]">
       <div className="mx-auto max-w-3xl px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2 min-w-0">
           <button

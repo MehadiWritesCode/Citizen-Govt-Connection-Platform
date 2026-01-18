@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ChatProvider } from "../components/chatContext";
 
 export const metadata: Metadata = {
   title: "CGCP",
@@ -11,6 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-        <div>{children}</div>
+        <ChatProvider initialLang="bn">
+         <div>{children}</div>
+        </ChatProvider>
   );
 }

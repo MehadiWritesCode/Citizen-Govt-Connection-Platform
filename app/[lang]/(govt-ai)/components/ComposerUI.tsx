@@ -1,18 +1,25 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect,useState } from "react";
 import { Paperclip, Send } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useChat } from "./chatContext";
 
 export default function ComposerUI() {
+
+  const {sendMessage,setLang,loading} = useChat();
+
   const pathname = usePathname();
   const taken = pathname.split("/")[1];
   const lang = taken === "en" ? "en" : "bn";
 
-  const [text, setText] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
+  useEffect(()=>{
+    setLang(lang);
+  },[lang,setLang])
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [text, setText] = useState("");
+  // const [files, setFiles] = useState<File[]>([]);
+  // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const SendData = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,29 +30,29 @@ export default function ComposerUI() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("message", data);
-    files.forEach((file)=>{
-      formData.append("files", file);
-    })
+    // const formData = new FormData();
+    // formData.append("message", data);
+    // files.forEach((file)=>{
+    // formData.append("files", file);
+    // })
 
     setText("");
-   // await sendMessage(data);
+    await sendMessage(data);
   };
 
   return (
     <form
       onSubmit={SendData}
       className="fixed inset-x-0 bottom-0 border-t border-slate-200/70 bg-white/95 backdrop-blur
-                 dark:border-slate-800 dark:bg-[#212121] md:pl-72"
+                 dark:border-[#1F2937] dark:bg-[#070B12] md:pl-72"
       aria-label="Message composer"
     >
       <div className="mx-auto max-w-3xl px-4 py-4">
         <div className="flex items-end gap-2">
           <input
-            onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
+            // onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
             name="file"
-            ref={fileInputRef}
+            // ref={fileInputRef}
             type="file"
             className="hidden"
             multiple
@@ -54,7 +61,7 @@ export default function ComposerUI() {
           <button
             type="button"
             className="h-11 w-11 rounded-xl border border-slate-200/70 bg-white/80
-                       hover:bg-slate-100 dark:border-slate-800 dark:bg-[#303030]
+                       hover:bg-slate-100 dark:border-[#1F2937] dark:bg-[#303030]
                        dark:hover:bg-[#242424] flex items-center justify-center"
             aria-label="Attach file"
             title="Attach file"
@@ -69,18 +76,19 @@ export default function ComposerUI() {
             placeholder="Type your message…"
             className="flex-1 h-11 rounded-xl border border-slate-300 px-4 text-sm
                        focus:outline-none focus:ring-2
-                       dark:border-slate-700 dark:bg-[#303030]]"
+                       dark:border-slate-700 dark:bg-[#303030]"
           />
 
           <button
             type="submit"
+            disabled={loading}
             className="h-11 w-11 rounded-xl bg-slate-900 text-white
-                       dark:bg-[#532D8C] dark:text-white
+                       dark:bg-[#1D4ED8] dark:text-white dark:hover:bg-[#2563EB]
                        flex items-center justify-center cursor-pointer"
             aria-label="Send"
             title="Send"
           >
-            <Send className="h-4 w-4" />
+            <Send className="h-4 w-4 text-[#F8FAFC]" />
           </button>
         </div>
 

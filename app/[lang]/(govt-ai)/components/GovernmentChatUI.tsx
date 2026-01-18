@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import SidebarUI from "./SidebarUi";
 import TopbarUI from "./TopbarUi";
 import MessageListUI from "./MessageListUI";
@@ -11,9 +11,8 @@ export default function GovernmentChatUI() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-
   return (
-    <div className="min-h-screen bg-white text-slate-900 dark:bg-[#212121] dark:text-slate-100">
+    <div className="min-h-screen bg-white text-slate-900 dark:bg-[#070B12] dark:text-slate-100">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -36,3 +35,4 @@ export default function GovernmentChatUI() {
     </div>
   );
 }
+
