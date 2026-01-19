@@ -2,14 +2,23 @@
 
 import { createContext, useContext, useMemo, useState } from "react";
 
-export type ChatMsg = { role: "user" | "assistant"; content: string };
+export type attachment = {
+  name: string;
+  type: string;
+  url?: string;
+};
+export type ChatMsg = {
+  role: "user" | "assistant";
+  content: string;
+  attachments?: attachment[];
+};
 
 type context = {
   lang: "bn" | "en";
   setLang: (lang: "bn" | "en") => void;
   messages: ChatMsg[];
   loading: boolean;
-  sendMessage: (text: string) => Promise<void>;
+  sendMessage: (formData: FormData) => Promise<void>;
 };
 
 const ChatContext = createContext<context | null>(null);
@@ -30,26 +39,40 @@ export function ChatProvider({
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const sendMessage = async (text: string) => {
-    const userText = text.trim();
-    if (!userText) return;
+  const sendMessage = async (formData: FormData) => {
+    const fileList = formData.getAll("files") as File[];
+
+    const attachments: attachment[] = fileList.map((f) => ({
+      name: f.name,
+      type: f.type,
+      url: f.type.startsWith("image/") ? URL.createObjectURL(f) : undefined,
+    }));
+
+    const userText = (formData.get("message")?.toString() ?? "").trim();
+    formData.set("lang", lang);
+
+    if (!userText && formData.getAll("files").length === 0) return;
 
     //show user message in ui
-    let nextMsg: ChatMsg[] = [];
-    setMessages((prev) => {
-      nextMsg = [...prev, { role: "user", content: userText }];
-      return nextMsg;
-    });
+    const nextMsg: ChatMsg[] =
+      userText || attachments.length
+        ? [...messages, { role: "user", content: userText, attachments }]
+        : messages;
+
+    if (userText || attachments.length) setMessages(nextMsg);
+
+    formData.set(
+      "messages",
+      JSON.stringify(
+        nextMsg.map((m) => ({ role: m.role, content: m.content })),
+      ),
+    );
 
     setLoading(true);
     try {
       const response = await fetch(`/api/govt-ai/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          lang,
-          messages: nextMsg.map((m) => ({ role: m.role, content: m.content })),
-        }),
+        body: formData,
       });
 
       const data = await response.json();
@@ -67,7 +90,7 @@ export function ChatProvider({
           role: "assistant",
           content:
             lang === "bn"
-              ? "দুঃখিত, সার্ভার সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।"
+              ? "দুঃখিত, সার্ভার সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।"
               : "Sorry, there was a server issue. Please try again later.",
         },
       ]);
@@ -83,4 +106,3 @@ export function ChatProvider({
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 }
-

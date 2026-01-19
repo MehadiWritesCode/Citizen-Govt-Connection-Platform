@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Landmark } from "lucide-react";
 import { useChat } from "./chatContext";
+import Image from "next/image";
 
 export default function MessageListUI() {
   const { messages, loading } = useChat();
@@ -37,11 +38,32 @@ export default function MessageListUI() {
                 className={[
                   "max-w-[82%] rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap",
                   isUser
-                    ? "bg-slate-900 text-white dark:bg-[#1D4ED8] dark:text-[#F8FAFC]"
+                    ? "bg-slate-900 text-white dark:bg-transparent dark:text-[#F8FAFC]"
                     : "bg-slate-100 text-slate-900 dark:bg-transparent dark:text-slate-100",
                 ].join(" ")}
               >
                 {m.content}
+                {m.attachments?.length ? (
+                  <div className="mt-2 space-y-2">
+                    {m.attachments.map((a, i) => (
+                      <div key={i}>
+                        {a.url && a.type.startsWith("image/") ? (
+                          <Image
+                            width={220}
+                            height={220}
+                            src={a.url}
+                            alt={a.name}
+                            className="max-w-[220px] rounded-xl border border-slate-200/40"
+                          />
+                        ) : (
+                          <div className="text-xs rounded-lg border border-slate-200/40 px-2 py-1">
+                             {a.name}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           );
@@ -49,7 +71,6 @@ export default function MessageListUI() {
 
         {/* Show ONLY while reply is not yet added */}
         {loading && (
-
           <div className="flex justify-start gap-2">
             <div
               className="mt-1 h-7 w-7 flex items-center justify-center rounded-full

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+export const runtime = "nodejs";
 
 type OpenAIStyleMsg = {
   role: "user" | "assistant" | "system";
@@ -12,6 +13,15 @@ type GeminiStyleMsg = {
 };
 
 type IncomingMsg = OpenAIStyleMsg | GeminiStyleMsg;
+
+type GeminiPart =
+  | { text: string }
+  | {
+      inlineData: {
+        mimeType: string;
+        data: string;
+      };
+    };
 
 type GeminiMsg = {
   role: "user" | "model";
@@ -36,17 +46,34 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as { messages?: IncomingMsg[]; lang?: "bn" | "en" };
+    const form = await req.formData();
 
-    const messages: IncomingMsg[] = Array.isArray(body.messages) ? body.messages : [];
-    const lang: "bn" | "en" = body.lang ?? "bn";
+    const lang = (form.get("lang")?.toString() === "en" ? "en" : "bn") as
+      | "bn"
+      | "en";
+    const rawHistory = form.get("messages")?.toString() ?? "[]";
 
-    if (!process.env.GEMINI_API_KEY) {
-      return NextResponse.json({ error: "Missing GEMINI_API_KEY" }, { status: 500 });
+    let messages: IncomingMsg[] = [];
+    try {
+      messages = JSON.parse(rawHistory);
+      if (!Array.isArray(messages)) messages = [];
+    } catch {
+      messages = [];
     }
 
-    if (messages.length === 0) {
-      return NextResponse.json({ error: "No messages provided" }, { status: 400 });
+    const files = form.getAll("files").filter(Boolean) as File[];
+    const message = (form.get("message")?.toString() ?? "").trim();
+
+    const hasImage = files.some((f) => f.type?.startsWith("image/"));
+    if (!message && !hasImage) {
+      return NextResponse.json({ error: "Empty input" }, { status: 400 });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return NextResponse.json(
+        { error: "Missing GEMINI_API_KEY" },
+        { status: 500 },
+      );
     }
 
     const systemInstruction =
@@ -59,40 +86,41 @@ export async function POST(req: Request) {
       systemInstruction,
     });
 
-    // Find last non-empty text message (safer than just taking last element)
-    let lastText = "";
-    for (let i = messages.length - 1; i >= 0; i--) {
-      const t = getText(messages[i]);
-      if (t) {
-        lastText = t;
-        break;
-      }
-    }
-
-    if (!lastText) {
-      return NextResponse.json({ error: "Last message is empty" }, { status: 400 });
-    }
-
-    // Build history: everything before the last non-empty message
-    const lastIndex = messages.map(getText).lastIndexOf(lastText);
-
     const history: GeminiMsg[] = messages
-      .slice(0, lastIndex)
+     .filter((m) => m.role !== "system")
       .map((m) => {
         const text = getText(m);
         const role: "user" | "model" =
           m.role === "assistant" || m.role === "model" ? "model" : "user";
-
         return { role, parts: [{ text }] };
       })
       .filter((h) => h.parts[0].text.length > 0);
+    // history must start with user
+      while (history.length && history[0].role !== "user") {
+      history.shift();
+    }
+
+    const parts: GeminiPart[] = [];
+    if (message) parts.push({ text: message });
+
+    for (const f of files) {
+      if (!f.type?.startsWith("image/")) continue;
+      const bytes = Buffer.from(await f.arrayBuffer());
+      parts.push({
+        inlineData: { mimeType: f.type, data: bytes.toString("base64") },
+      });
+    }
 
     const chat = model.startChat({ history });
-    const result = await chat.sendMessage(lastText);
+    const result = await chat.sendMessage(parts);
+
 
     return NextResponse.json({ reply: result.response.text() });
   } catch (error) {
     console.error("Gemini error:", error);
-    return NextResponse.json({ error: "AI service unavailable" }, { status: 500 });
+    return NextResponse.json(
+      { error: "AI service unavailable" },
+      { status: 500 },
+    );
   }
 }

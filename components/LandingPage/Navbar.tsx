@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { ShieldCheck, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useEffect,useRef,useState } from "react";
 import { Paperclip, Send } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useChat } from "./chatContext";
@@ -18,26 +18,28 @@ export default function ComposerUI() {
   },[lang,setLang])
 
   const [text, setText] = useState("");
-  // const [files, setFiles] = useState<File[]>([]);
-  // const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const SendData = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const data = text.trim();
-    if (!data) {
+    if (!data && files.length === 0) {
       setText("");
       return;
     }
 
-    // const formData = new FormData();
-    // formData.append("message", data);
-    // files.forEach((file)=>{
-    // formData.append("files", file);
-    // })
+    const formData = new FormData();
+    formData.append("message", data);
+    files.forEach((file)=>{
+    formData.append("files", file);
+    })
 
     setText("");
-    await sendMessage(data);
+    setFiles([]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    await sendMessage(formData);
   };
 
   return (
@@ -50,9 +52,10 @@ export default function ComposerUI() {
       <div className="mx-auto max-w-3xl px-4 py-4">
         <div className="flex items-end gap-2">
           <input
-            // onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
+            onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
             name="file"
-            // ref={fileInputRef}
+            accept="image/*"
+            ref={fileInputRef}
             type="file"
             className="hidden"
             multiple
@@ -60,6 +63,7 @@ export default function ComposerUI() {
 
           <button
             type="button"
+            onClick={()=> fileInputRef.current?.click()}
             className="h-11 w-11 rounded-xl border border-slate-200/70 bg-white/80
                        hover:bg-slate-100 dark:border-[#1F2937] dark:bg-[#303030]
                        dark:hover:bg-[#242424] flex items-center justify-center"
