@@ -16,9 +16,15 @@ export type ChatMsg = {
 type context = {
   lang: "bn" | "en";
   setLang: (lang: "bn" | "en") => void;
+
   messages: ChatMsg[];
+  setMessages: React.Dispatch<React.SetStateAction<ChatMsg[]>>;
+
   loading: boolean;
   sendMessage: (formData: FormData) => Promise<void>;
+
+  activeChatId: string | null;
+  setActiveChatId: (id: string | null) => void;
 };
 
 const ChatContext = createContext<context | null>(null);
@@ -35,9 +41,11 @@ export function ChatProvider({
   children: React.ReactNode;
   initialLang?: "bn" | "en";
 }) {
+
   const [lang, setLang] = useState<"bn" | "en">(initialLang);
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [activeChatId, setActiveChatId] = useState<string | null>(null);
 
   const sendMessage = async (formData: FormData) => {
     const fileList = formData.getAll("files") as File[];
@@ -68,6 +76,8 @@ export function ChatProvider({
       ),
     );
 
+    if(activeChatId) formData.set("chatId",activeChatId);
+
     setLoading(true);
     try {
       const response = await fetch(`/api/govt-ai/chat`, {
@@ -79,6 +89,9 @@ export function ChatProvider({
       if (!response.ok) {
         throw new Error(data.error || "Request failed!");
       }
+
+      if(data.chatId) setActiveChatId(data.chatId);
+
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: data.reply ?? "" },
@@ -100,8 +113,8 @@ export function ChatProvider({
   };
 
   const value = useMemo(
-    () => ({ lang, setLang, messages, loading, sendMessage }),
-    [lang, messages, loading],
+    () => ({ lang, setLang, messages,setMessages, loading, sendMessage,activeChatId,setActiveChatId }),
+    [lang, messages, loading,activeChatId],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

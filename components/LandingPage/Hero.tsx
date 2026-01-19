@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
 import {
   ArrowRight,
   Navigation,
-  Plus,
   Clock,
   Activity,
   ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
 import { HeroDictionary } from "../../dict_interface/hero_interface";
+import LandingPage from './LandingPage';
 
 type HeroProps = {
   activeTab: "recent" | "resolved";
@@ -85,30 +84,8 @@ export default function Hero({ activeTab, setActiveTab, dict }: HeroProps) {
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.12),transparent_48%)] dark:bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.10),transparent_52%)]" />
 
-      {/* Official header band */}
-      <div className="relative border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-slate-800 dark:bg-slate-950/55">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-600/10 ring-1 ring-emerald-600/15 dark:ring-emerald-400/20">
-              <ShieldCheck className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
-            </span>
-            <span className="truncate">{dict.officialBadge}</span>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-            <CheckCircle2 className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
-            <span>
-              {dict.serviceStatusLabel}{" "}
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
-                {dict.serviceStatusValue}
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Main hero */}
-      <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:pb-16 lg:pt-14">
+      <div className="mt-15 relative mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:pb-16 lg:pt-14">
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
           {/* Left */}
           <div className="lg:col-span-6 space-y-6">

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { supabaseServer } from "../../../../lib/supabase_postgresql/server";
 export const runtime = "nodejs";
 
 type OpenAIStyleMsg = {
@@ -47,6 +48,11 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
 export async function POST(req: Request) {
   try {
     const form = await req.formData();
+    const supabase = supabaseServer();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    let chatId = form.get("chatId")?.toString() ?? null;
 
     const lang = (form.get("lang")?.toString() === "en" ? "en" : "bn") as
       | "bn"
@@ -81,13 +87,47 @@ export async function POST(req: Request) {
         ? "তুমি বাংলাদেশ সরকারের একটি সহায়ক তথ্য সেবা। সংক্ষিপ্ত, পরিষ্কার ও ভদ্রভাবে উত্তর দাও আর সালাম দিবা আসসালামু আলাইকুম।"
         : "You are a government information assistant. Answer clearly and politely.";
 
+    //insert chat history in database -------
+    if (user) {
+      if (!chatId) {
+        const { data, error } = await supabase
+          .from("chats")
+          .insert({
+            user_id: user.id,
+            title:
+              message.slice(0, 60) ||
+              (lang === "bn" ? "নতুন চ্যাট" : "New chat"),
+          })
+          .select("id")
+          .single();
+
+        if (error) {
+          console.error("Chat create error:", error);
+          return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+        chatId = data.id;
+      }
+
+      //user message insert in the database ------
+      const { error } = await supabase.from("messages").insert({
+        chat_id: chatId,
+        user_id: user.id,
+        role: "user",
+        content: message ?? "",
+      });
+
+      if (error) {
+        console.error("User message insert error:", error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+    }
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash-lite",
       systemInstruction,
     });
 
     const history: GeminiMsg[] = messages
-     .filter((m) => m.role !== "system")
+      .filter((m) => m.role !== "system")
       .map((m) => {
         const text = getText(m);
         const role: "user" | "model" =
@@ -96,7 +136,7 @@ export async function POST(req: Request) {
       })
       .filter((h) => h.parts[0].text.length > 0);
     // history must start with user
-      while (history.length && history[0].role !== "user") {
+    while (history.length && history[0].role !== "user") {
       history.shift();
     }
 
@@ -114,8 +154,27 @@ export async function POST(req: Request) {
     const chat = model.startChat({ history });
     const result = await chat.sendMessage(parts);
 
+    const replyText = result.response.text(); // store reply text
+    if (user && chatId) {
+      const { error } = await supabase.from("messages").insert({
+        chat_id: chatId,
+        user_id: user.id,
+        role: "assistant",
+        content: replyText ?? "",
+      });
 
-    return NextResponse.json({ reply: result.response.text() });
+      if (error) {
+        console.error("Assistant message insert error:", error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+
+      await supabase
+        .from("chats")
+        .update({ updated_at: new Date().toISOString() })
+        .eq("id", chatId);
+       }
+
+    return NextResponse.json({ reply: replyText, chatId });
   } catch (error) {
     console.error("Gemini error:", error);
     return NextResponse.json(

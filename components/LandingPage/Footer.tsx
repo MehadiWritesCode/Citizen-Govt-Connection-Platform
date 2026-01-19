@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function FooterGovPremium() {
   return (
-    <footer className="relative border-t border-slate-200/70 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
+    <footer className="relative border-t border-slate-200/70 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-[#0B1220]">
       {/* soft separator band so it won't blend with previous section */}
       <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-b from-transparent to-white/90 dark:to-slate-950/80" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200/80 to-transparent dark:via-slate-800/80" />

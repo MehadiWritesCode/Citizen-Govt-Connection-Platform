@@ -96,7 +96,7 @@ const { data: signInData, error: signInError } =
   });
 
   if (error) return { ok: false, message: error.message };
-  redirect("/");
+  redirect("/user-dashboard");
 }
 
 

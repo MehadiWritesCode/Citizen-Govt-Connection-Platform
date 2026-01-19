@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import ServicesMenu from "./ServicesMenu";
 
 export type Lang = "bn" | "en";
 
@@ -42,6 +43,12 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
     setOpenLang(false);
   };
 
+  const services = String(dict.explorer);
+
+  const desktopServicesBtn =
+    "inline-flex items-center gap-1.5 leading-none px-2 py-1 rounded-sm hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 transition-colors";
+  const mobileServicesBtn =
+    "px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center w-full justify-between";
   return (
     <nav
       className={[
@@ -77,8 +84,9 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-8">
           <div className="flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-400">
+            <ServicesMenu explorer={services} design={desktopServicesBtn} />
             {[
-              { label: dict.explorer, href: "#explorer" },
+              // { label: dict.explorer, href: "#explorer" },
               { label: dict.departments, href: "#departments" },
               { label: dict.safeRoutes, href: "#safeRoutes" },
             ].map((item) => (
@@ -165,8 +173,8 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
       {open && (
         <div className="lg:hidden mx-4 sm:mx-6 mb-3 rounded-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
           <div className="flex flex-col divide-y divide-slate-200 dark:divide-slate-800">
+            <ServicesMenu explorer={services} design={mobileServicesBtn} />
             {[
-              { label: dict.explorer, href: "#explorer" },
               { label: dict.departments, href: "#departments" },
               { label: dict.safeRoutes, href: "#safeRoutes" },
             ].map((item) => (
@@ -183,35 +191,33 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
 
             {/* Theme + Language row (mobile) */}
             <div className="px-4 py-3">
-              <div className="flex items-center gap-2">
-                <div className="relative flex-1">
-                  <select
-                    value={lang}
-                    onChange={(e) => handleLanguageChange(e.target.value)} // ✅ added
-                    className="w-full h-9 pl-3 pr-8 rounded-sm text-sm font-medium
-                               border border-slate-200 dark:border-slate-800
-                               bg-white dark:bg-slate-950
-                               text-slate-700 dark:text-slate-200
-                               focus:outline-none"
-                    aria-label="Select language"
+              <div className="flex items-center gap-2 w-full justify-between">
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenLang((s) => !s)}
+                    className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:ring-slate-800 dark:hover:bg-slate-900"
                   >
-                    <option value="en">EN</option>
-                    <option value="bn">BN</option>
-                  </select>
-                  <svg
-                    className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    🌐 <span className="text-slate-700">{dict.language}▾</span>
+                  </button>
 
-                {/* use your existing theme toggle button */}
+                  {openLang && (
+                    <div className="absolute left-0 mt-2 z-50 w-48 overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-slate-200 dark:bg-slate-950 dark:ring-slate-800">
+                      <button
+                        onClick={() => handleLanguageChange("bn")}
+                        className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                      >
+                        বাংলা <span className="text-xs text-slate-400">BN</span>
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange("en")}
+                        className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                      >
+                        English{" "}
+                        <span className="text-xs text-slate-400">EN</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <ModeToggleBtn />
               </div>
             </div>
@@ -225,6 +231,7 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             </button>
 
             <button
+            onClick={()=> router.push('/govt-ai')}
               className="px-4 py-3 text-left text-sm font-semibold text-emerald-600 dark:text-emerald-400
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >

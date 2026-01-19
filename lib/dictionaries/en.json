@@ -67,7 +67,7 @@
 
     "navbar":{
     "title": "CGCP",
-    "explorer": "Explorer",
+    "explorer": "Services",
     "departments": "Departments",
     "safeRoutes": "Safe Routes",
     "loginRegister": "Profile",
@@ -76,9 +76,6 @@
     },
 
     "hero":{
-    "officialBadge": "Official civic service • Verified updates • Public reporting",
-    "serviceStatusLabel": "Service status:",
-    "serviceStatusValue": "Operational",
 
     "categoryTag": "City reporting & safety guidance",
 

@@ -87,11 +87,11 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
           <div className={cx("flex items-center gap-2 text-xs font-semibold", ui.textSub)}>
             <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
-            {dict.stripTitle}`
+            {dict.stripTitle}
           </div>
           <div className={cx("text-xs", ui.textSub)}>
-            {dict.dataRefreshLabel}`{" "}
-            <span className="font-semibold text-slate-700 dark:text-slate-200">{dict.dataRefreshValue}`</span>
+            {dict.dataRefreshLabel}{" "}
+            <span className="font-semibold text-slate-700 dark:text-slate-200">{dict.dataRefreshValue}</span>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                           : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
                       )}
                     >
-                      {dict.modeSafeRoute}`
+                      {dict.modeSafeRoute}
                     </button>
                     <button
                       type="button"
@@ -136,7 +136,7 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                           : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
                       )}
                     >
-                      {dict.modeAllReports}`
+                      {dict.modeAllReports}
                     </button>
                   </div>
 
@@ -144,11 +144,11 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                   <div className="hidden sm:flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
                     <span className="inline-flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                      {dict.legendVerified}`
+                      {dict.legendVerified}
                     </span>
                     <span className="inline-flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-red-600" />
-                      {dict.legendCritical}`
+                      {dict.legendCritical}
                     </span>
                   </div>
                 </div>

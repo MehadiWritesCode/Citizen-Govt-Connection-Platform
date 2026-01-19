@@ -64,7 +64,7 @@
     "landingPage": {
     "navbar": {
       "title": "সি. জি. সি. পি",
-      "explorer": "অন্বেষণ",
+      "explorer": "সেবা",
       "departments": "বিভাগসমূহ",
       "safeRoutes": "নিরাপদ রুটসমূহ",
       "loginRegister": "প্রোফাইল",
@@ -74,9 +74,6 @@
 
 
     "hero": {
-    "officialBadge": "আনুষ্ঠানিক নাগরিক সেবা • যাচাইকৃত হালনাগাদ • জনসাধারণের প্রতিবেদন",
-    "serviceStatusLabel": "সেবার অবস্থা:",
-    "serviceStatusValue": "চলমান",
 
     "categoryTag": "নগর প্রতিবেদন ও নিরাপত্তা নির্দেশনা",
 

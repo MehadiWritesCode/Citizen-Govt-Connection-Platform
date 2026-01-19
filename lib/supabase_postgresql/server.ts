@@ -15,7 +15,7 @@ export function supabaseServer() {
           const cookieStore = await cookies();
           cookiesToSet.forEach(({ name, value, options }) => {
             cookieStore.set(name, value, options);
-          });
+         });
         },
       },
     }

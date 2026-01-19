@@ -5,44 +5,57 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { supabaseBrowser } from "../../../../lib/supabase_postgresql/browser";
 import { useRouter } from "next/navigation";
+import { useChat } from "./chatContext";
 
 type Props = {
   sidebarOpen: boolean;
   setSidebarOpen: (v: boolean) => void;
 };
 
-const chats = [
-  { id: "1", title: "NID issue" },
-  { id: "2", title: "Passport help" },
-];
+type chatRow = {
+  id: string;
+  title: string | null;
+  updated_at?: string | null;
+};
 
 export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
   const [label, setLabel] = useState("Guest");
   const supabase = supabaseBrowser();
   const router = useRouter();
 
-  useEffect(() => {
-    async function loadUser() {
-      // 1️⃣ get session
-      const { data } = await supabase.auth.getSession();
+  const { activeChatId, setActiveChatId, setMessages } = useChat();
 
-      if (!data.session?.user) {
+  const [chats, setChats] = useState<chatRow[]>([]); // to show chats list
+  useEffect(() => {
+    async function loadUserAndChats() {
+      const { data } = await supabase.auth.getSession();
+      const user = data.session?.user;
+
+      if (!user) {
         setLabel("Guest");
+        setChats([]);
         return;
       }
 
-      // 2️⃣ get profile name
       const { data: profile } = await supabase
         .from("profiles")
         .select("name")
-        .eq("id", data.session.user.id)
+        .eq("id", user.id)
         .single();
 
       setLabel(profile?.name ?? "User");
+
+      const { data: chatRows } = await supabase
+        .from("chats")
+        .select("id,title,updated_at")
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false });
+      setChats(chatRows ?? []);
     }
 
-    loadUser();
-  }, []);
+    loadUserAndChats();
+  }, [activeChatId]);
+
   return (
     <aside
       className={[
@@ -85,25 +98,28 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
 
         {/* New chat */}
         <div className="p-3">
-<button
-  className="flex items-center gap-2 w-full rounded-xl
+          <button
+            onClick={() => {
+              setActiveChatId(null);
+              setMessages([]); // chat clear
+              setSidebarOpen(false);
+            }}
+            className="flex items-center gap-2 w-full rounded-xl
              bg-slate-900 text-white
              dark:bg-transparent dark:text-white
              px-3 py-2 text-sm font-semibold
              dark:hover:bg-[#242424]"
->
-  <PlusCircle className="h-4 w-4 text-slate-300" />
-  New chat
-</button>
-          {/* <button className="text-left w-full rounded-xl bg-slate-900 text-white dark:bg-transparent dark:text-white px-3 py-2 text-sm font-semibold dark:hover:bg-[#242424]">
-            + New chat
-          </button> */}
+          >
+            <PlusCircle className="h-4 w-4 text-slate-300" />
+            New chat
+          </button>
         </div>
 
         {/* Chat list */}
         <div className="px-2 pb-3 flex-1 overflow-auto">
-          {chats.map((c, idx) => {
-            const isActive = idx === 0;
+          {chats.map((c) => {
+            const isActive = c.id === activeChatId;
+
             return (
               <div
                 key={c.id}
@@ -114,12 +130,43 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
                     : "hover:bg-slate-100 dark:hover:bg-[#242424]",
                 ].join(" ")}
               >
-                <button className="flex-1 flex items-center gap-2 text-left min-w-0">
+                <button
+                  onClick={async () => {
+                    setActiveChatId(c.id);
+
+                    const { data: msgs, error } = await supabase
+                      .from("messages")
+                      .select("role,content,created_at")
+                      .eq("chat_id", c.id)
+                      .order("created_at", { ascending: true });
+
+                    if (!error) {
+                      setMessages(
+                        (msgs ?? []).map((m) => ({
+                          role: m.role as "user" | "assistant",
+                          content: m.content ?? "",
+                        })),
+                      );
+                    }
+
+                    setSidebarOpen(false);
+                  }}
+                  className="flex-1 flex items-center gap-2 text-left min-w-0"
+                >
                   <MessageSquare className="h-4 w-4 text-slate-500" />
                   <span className="truncate">{c.title}</span>
                 </button>
 
                 <button
+                  onClick={async (e) => {
+                    e.stopPropagation();
+                    await supabase.from("chats").delete().eq("id", c.id);
+                    setChats((prev) => prev.filter((x) => x.id !== c.id));
+                        if (activeChatId === c.id) {
+                          setActiveChatId(null);
+                          setMessages([]);
+                        }
+                  }}
                   className="opacity-0 group-hover:opacity-100 transition text-slate-400 hover:text-red-500"
                   aria-label="Delete chat"
                   title="Delete chat"
@@ -147,8 +194,7 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
       hover:bg-slate-100 hover:text-slate-900
       transition
       dark:border-[#1F2937] dark:bg-transparent
-      dark:text-slate-200 dark:hover:bg-gray-500
-    "
+      dark:text-slate-200 dark:hover:bg-gray-500 "
             >
               <User className="h-4 w-4 opacity-70" />
               Login
@@ -171,7 +217,9 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
           )}
 
           {/* Home button */}
-          <button className="w-full mb-2 flex items-center justify-center gap-2 rounded-xl border border-slate-200/70 bg-white/80 px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-[#1F2937] dark:bg-transparent dark:hover:bg-[#242424]">
+          <button
+           onClick={()=> router.push('/')}
+          className="w-full mb-2 flex items-center justify-center gap-2 rounded-xl border border-slate-200/70 bg-white/80 px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-[#1F2937] dark:bg-transparent dark:hover:bg-[#242424]">
             <Home className="h-4 w-4" />
             Home
           </button>
