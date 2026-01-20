@@ -18,7 +18,7 @@ import {
   AlertTriangle,
   ShieldCheck,
 } from "lucide-react";
-import { SafetyNavigatorDictionary } from "../../dict_interface/safety_navigator";
+import { SafetyNavigatorDictionary } from "../../../dict_interface/safety_navigator";
 
 type MapMode = "safe-route" | "all-reports";
 
@@ -38,16 +38,14 @@ const ui = {
     "bg-slate-900 text-white hover:opacity-95 dark:bg-slate-100 dark:text-slate-900",
   btnGhost:
     "bg-white/70 dark:bg-slate-950/60 hover:bg-slate-50 dark:hover:bg-slate-900",
-  pill:
-    "rounded-full px-2.5 py-1 text-[11px] font-semibold border border-slate-200/70 dark:border-slate-800",
+  pill: "rounded-full px-2.5 py-1 text-[11px] font-semibold border border-slate-200/70 dark:border-slate-800",
 };
 
-interface MapDictionary{
-  dict:SafetyNavigatorDictionary
+interface MapDictionary {
+  dict: SafetyNavigatorDictionary;
 }
 
-export default function SafetyNavigatorLite({dict}:MapDictionary) {
-
+export default function SafetyNavigatorLite({ dict }: MapDictionary) {
   const [mapMode, setMapMode] = useState<MapMode>("safe-route");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -77,21 +75,34 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
         bg: "bg-emerald-50 dark:bg-emerald-500/10",
       },
     ],
-    [dict]
+    [dict],
   );
 
   return (
     <section className={ui.shell} id="safeRoutes">
       {/* Slim official strip */}
-      <div className={cx("border-b", "border-slate-200/70 dark:border-slate-800", ui.soft)}>
+      <div
+        className={cx(
+          "border-b",
+          "border-slate-200/70 dark:border-slate-800",
+          ui.soft,
+        )}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          <div className={cx("flex items-center gap-2 text-xs font-semibold", ui.textSub)}>
+          <div
+            className={cx(
+              "flex items-center gap-2 text-xs font-semibold",
+              ui.textSub,
+            )}
+          >
             <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
             {dict.stripTitle}
           </div>
           <div className={cx("text-xs", ui.textSub)}>
             {dict.dataRefreshLabel}{" "}
-            <span className="font-semibold text-slate-700 dark:text-slate-200">{dict.dataRefreshValue}</span>
+            <span className="font-semibold text-slate-700 dark:text-slate-200">
+              {dict.dataRefreshValue}
+            </span>
           </div>
         </div>
       </div>
@@ -104,14 +115,25 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
               className={cx(
                 ui.card,
                 ui.border,
-                "relative overflow-hidden h-[360px] sm:h-[440px] lg:h-[520px]"
+                "relative overflow-hidden h-[360px] sm:h-[440px] lg:h-[520px]",
               )}
             >
               {/* Top bar inside map */}
-              <div className={cx("absolute inset-x-0 top-0 z-10", ui.soft, "border-b border-slate-200/70 dark:border-slate-800")}>
+              <div
+                className={cx(
+                  "absolute inset-x-0 top-0 z-10",
+                  ui.soft,
+                  "border-b border-slate-200/70 dark:border-slate-800",
+                )}
+              >
                 <div className="px-4 sm:px-5 py-3 flex items-center justify-between gap-3">
                   {/* Mode toggle */}
-                  <div className={cx(ui.border, "rounded-xl p-1 bg-white/70 dark:bg-slate-950/60")}>
+                  <div
+                    className={cx(
+                      ui.border,
+                      "rounded-xl p-1 bg-white/70 dark:bg-slate-950/60",
+                    )}
+                  >
                     <button
                       type="button"
                       onClick={() => setMapMode("safe-route")}
@@ -120,7 +142,7 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30",
                         mapMode === "safe-route"
                           ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900",
                       )}
                     >
                       {dict.modeSafeRoute}
@@ -133,7 +155,7 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30",
                         mapMode === "all-reports"
                           ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900",
                       )}
                     >
                       {dict.modeAllReports}
@@ -219,7 +241,11 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                 {/* Critical pin */}
                 <button
                   type="button"
-                  onClick={() => setSelectedPin(selectedPin === "critical" ? null : "critical")}
+                  onClick={() =>
+                    setSelectedPin(
+                      selectedPin === "critical" ? null : "critical",
+                    )
+                  }
                   aria-label={`${dict.alertAriaLabel}`}
                   className="absolute left-[56%] top-[42%]"
                 >
@@ -238,9 +264,11 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                     selectedPin === "critical"
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-2 pointer-events-none",
-                    "transition-all duration-200"
+                    "transition-all duration-200",
                   )}
-                  style={{ filter: "drop-shadow(0 10px 25px rgba(15,23,42,0.12))" }}
+                  style={{
+                    filter: "drop-shadow(0 10px 25px rgba(15,23,42,0.12))",
+                  }}
                 >
                   <div className={cx(ui.card, ui.border, "overflow-hidden")}>
                     <div className="p-4 flex items-start gap-3">
@@ -251,14 +279,29 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                         <p className={cx("text-sm font-semibold", ui.text)}>
                           {dict.alertTitle}
                         </p>
-                        <p className={cx("mt-1 text-xs leading-relaxed", ui.textSub)}>
+                        <p
+                          className={cx(
+                            "mt-1 text-xs leading-relaxed",
+                            ui.textSub,
+                          )}
+                        >
                           {dict.alertDesc}
                         </p>
                         <div className="mt-3 flex items-center gap-2 flex-wrap">
-                          <span className={cx(ui.pill, "bg-slate-50 dark:bg-slate-900/40 text-slate-700 dark:text-slate-200")}>
+                          <span
+                            className={cx(
+                              ui.pill,
+                              "bg-slate-50 dark:bg-slate-900/40 text-slate-700 dark:text-slate-200",
+                            )}
+                          >
                             {dict.alertReportedPill}
                           </span>
-                          <span className={cx(ui.pill, "bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-200 border-red-200/60 dark:border-red-500/20")}>
+                          <span
+                            className={cx(
+                              ui.pill,
+                              "bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-200 border-red-200/60 dark:border-red-500/20",
+                            )}
+                          >
                             {dict.alertAvoidPill}
                           </span>
                         </div>
@@ -270,10 +313,22 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                 {/* Controls */}
                 <div className="absolute top-[68px] left-4 z-10 flex flex-col gap-2">
                   {[
-                    { icon: <Plus className="w-5 h-5" />, label: `${dict.controlZoomIn}` },
-                    { icon: <Minus className="w-5 h-5" />, label: `${dict.controlZoomOut}` },
-                    { icon: <LocateFixed className="w-5 h-5" />, label:`${dict.controlLocate}` },
-                    { icon: <Layers className="w-5 h-5" />, label: `${dict.controlLayers}` },
+                    {
+                      icon: <Plus className="w-5 h-5" />,
+                      label: `${dict.controlZoomIn}`,
+                    },
+                    {
+                      icon: <Minus className="w-5 h-5" />,
+                      label: `${dict.controlZoomOut}`,
+                    },
+                    {
+                      icon: <LocateFixed className="w-5 h-5" />,
+                      label: `${dict.controlLocate}`,
+                    },
+                    {
+                      icon: <Layers className="w-5 h-5" />,
+                      label: `${dict.controlLayers}`,
+                    },
                   ].map((b) => (
                     <button
                       key={b.label}
@@ -285,7 +340,7 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                         ui.border,
                         "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900",
                         "active:scale-[0.98] transition",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50"
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50",
                       )}
                     >
                       {b.icon}
@@ -303,8 +358,12 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                         </span>
                       </div>
                       <div>
-                        <p className={cx("text-sm font-semibold", ui.text)}>{dict.safetyScoreTitle}</p>
-                        <p className={cx("text-xs", ui.textSub)}>{dict.safetyScoreSubtitle}</p>
+                        <p className={cx("text-sm font-semibold", ui.text)}>
+                          {dict.safetyScoreTitle}
+                        </p>
+                        <p className={cx("text-xs", ui.textSub)}>
+                          {dict.safetyScoreSubtitle}
+                        </p>
                       </div>
                     </div>
 
@@ -316,7 +375,14 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                     </p>
                   </div>
 
-                  <button type="button" className={cx(ui.btn, ui.btnPrimary, "rounded-2xl px-4 py-3")}>
+                  <button
+                    type="button"
+                    className={cx(
+                      ui.btn,
+                      ui.btnPrimary,
+                      "rounded-2xl px-4 py-3",
+                    )}
+                  >
                     <Navigation2 className="w-5 h-5" />
                     {dict.recalculateBtn}
                   </button>
@@ -328,12 +394,19 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="space-y-2">
-              <h2 className={cx("text-2xl sm:text-3xl font-semibold tracking-tight", ui.text)}>
+              <h2
+                className={cx(
+                  "text-2xl sm:text-3xl font-semibold tracking-tight",
+                  ui.text,
+                )}
+              >
                 {dict.sidebarTitle}
               </h2>
               <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
                 {dict.sidebarDescPrefix}{" "}
-                <span className="font-semibold text-slate-900 dark:text-slate-100">{dict.sidebarDescHighlight}</span>{" "}
+                <span className="font-semibold text-slate-900 dark:text-slate-100">
+                  {dict.sidebarDescHighlight}
+                </span>{" "}
                 {dict.sidebarDescSuffix}
               </p>
             </div>
@@ -353,7 +426,10 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
                 placeholder={dict.placeholderTo}
               />
 
-              <button type="button" className={cx(ui.btn, ui.btnPrimary, "w-full py-3")}>
+              <button
+                type="button"
+                className={cx(ui.btn, ui.btnPrimary, "w-full py-3")}
+              >
                 <Search className="w-4 h-4" /> {dict.searchRouteBtn}
               </button>
             </div>
@@ -361,18 +437,37 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
             {/* Stats (compact) */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <p className={cx("text-xs font-semibold", ui.textSub)}>{dict.routeIntelligence}</p>
-                <p className={cx("text-[11px]", ui.textSub)}>{dict.routeUpdated}</p>
+                <p className={cx("text-xs font-semibold", ui.textSub)}>
+                  {dict.routeIntelligence}
+                </p>
+                <p className={cx("text-[11px]", ui.textSub)}>
+                  {dict.routeUpdated}
+                </p>
               </div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
                 {stats.map((stat) => (
-                  <div key={stat.label} className={cx(ui.card, ui.border, "p-4 flex items-center justify-between")}>
+                  <div
+                    key={stat.label}
+                    className={cx(
+                      ui.card,
+                      ui.border,
+                      "p-4 flex items-center justify-between",
+                    )}
+                  >
                     <div className="flex items-center gap-3">
-                      <div className={cx("p-2.5 rounded-xl", stat.bg, stat.tone)}>{stat.icon}</div>
-                      <span className={cx("text-sm font-semibold", ui.text)}>{stat.label}</span>
+                      <div
+                        className={cx("p-2.5 rounded-xl", stat.bg, stat.tone)}
+                      >
+                        {stat.icon}
+                      </div>
+                      <span className={cx("text-sm font-semibold", ui.text)}>
+                        {stat.label}
+                      </span>
                     </div>
-                    <span className={cx("text-xs font-semibold", stat.tone)}>{stat.val}</span>
+                    <span className={cx("text-xs font-semibold", stat.tone)}>
+                      {stat.val}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -382,7 +477,9 @@ export default function SafetyNavigatorLite({dict}:MapDictionary) {
             <div className={cx(ui.soft, ui.border, "rounded-2xl p-4")}>
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                <p className={cx("text-sm font-semibold", ui.text)}>{dict.advisoryTitle}</p>
+                <p className={cx("text-sm font-semibold", ui.text)}>
+                  {dict.advisoryTitle}
+                </p>
               </div>
               <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                 {dict.advisoryText}

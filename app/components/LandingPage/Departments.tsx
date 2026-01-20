@@ -77,7 +77,7 @@ export default function Departments() {
                        active:scale-[0.98] transition
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50"
           >
-            View all departments <ArrowRight className="w-4 h-4 opacity-70" />
+            View departments Performance<ArrowRight className="w-4 h-4 opacity-70" />
           </button>
         </div>
 

@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { ModeToggleBtn } from "../../app/components/client/ThemeToogleBtn";
+import { ModeToggleBtn } from "../../componentsUi/client/ThemeToogleBtn";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import ServicesMenu from "./ServicesMenu";
+import { supabaseBrowser } from "../../../lib/supabase_postgresql/browser";
 
 export type Lang = "bn" | "en";
 
@@ -24,7 +25,7 @@ type NavbarProps = {
 };
 
 export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
-  const router = useRouter(); // ✅ moved up
+  const router = useRouter();
   const pathName = usePathname();
 
   const [open, setOpen] = React.useState(false);
@@ -134,7 +135,15 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             <ModeToggleBtn />
 
             <button
-              onClick={() => router.push(`/${lang}/auth`)}
+            onClick={async () => {
+                const supabase = supabaseBrowser();
+                const {data:{user}} = await supabase.auth.getUser();
+                if(user){
+                  router.push(`/${lang}/user-dashboard`);
+                  return;
+                }
+                router.push(`/${lang}/auth`)}}
+
               className="px-3 py-2 rounded-sm text-sm font-medium
                          text-slate-700 dark:text-slate-300
                          hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
@@ -223,7 +232,15 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             </div>
 
             <button
-              onClick={() => router.push(`/${lang}/auth`)}
+              onClick={async () => {
+                const supabase = supabaseBrowser();
+                const {data:{user}} = await supabase.auth.getUser();
+                if(user){
+                  router.push(`/${lang}/user-dashboard`);
+                  return;
+                }
+                router.push(`/${lang}/auth`)}}
+
               className="px-4 py-3 text-left text-sm font-medium text-slate-700 dark:text-slate-200
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
@@ -231,7 +248,7 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             </button>
 
             <button
-            onClick={()=> router.push('/govt-ai')}
+              onClick={() => router.push("/govt-ai")}
               className="px-4 py-3 text-left text-sm font-semibold text-emerald-600 dark:text-emerald-400
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >

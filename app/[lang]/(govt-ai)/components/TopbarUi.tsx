@@ -1,6 +1,6 @@
 "use client";
 import { Menu } from "lucide-react";
-import { ModeToggleBtn } from "../../../components/client/ThemeToogleBtn";
+import { ModeToggleBtn } from "../../../componentsUi/client/ThemeToogleBtn";
 
 type Props = {
   onMenu: () => void;
@@ -19,11 +19,9 @@ export default function TopbarUI({ onMenu }: Props) {
           >
             <Menu className="h-5 w-5" />
           </button>
-
-
         </div>
 
-        <ModeToggleBtn/>
+        <ModeToggleBtn />
         {/* <button className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">
           New chat
         </button> */}

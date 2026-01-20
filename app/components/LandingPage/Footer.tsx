@@ -1,7 +1,13 @@
-import { ShieldCheck, Phone, Mail, Globe, ExternalLink } from "lucide-react";
+"use client";
+
+import { Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 
 export default function FooterGovPremium() {
+const router = useRouter();
+
   return (
     <footer className="relative border-t border-slate-200/70 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-[#0B1220]">
       {/* soft separator band so it won't blend with previous section */}
@@ -55,7 +61,7 @@ export default function FooterGovPremium() {
             </a>
 
             <a
-              href="#"
+              onClick={()=> router.push('/contact')}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm backdrop-blur transition hover:bg-slate-50 active:scale-[0.98]
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/40
                          dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-900"
@@ -105,8 +111,8 @@ export default function FooterGovPremium() {
             {["Privacy", "Terms", "Accessibility", "Open Data"].map((x) => (
               <a
                 key={x}
-                href="#"
-                className="text-slate-700 hover:text-slate-900 transition dark:text-slate-300 dark:hover:text-white"
+                onClick={()=> router.push(`/${x.toLowerCase().replace(/\s+/g, '-')}`)}
+                className="text-slate-700 hover:text-slate-900 transition dark:text-slate-300 dark:hover:text-white hover:cursor-pointer hover:underline"
               >
                 {x}
               </a>

@@ -8,8 +8,8 @@ import {
   ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
-import { HeroDictionary } from "../../dict_interface/hero_interface";
-import LandingPage from './LandingPage';
+import { HeroDictionary } from "../../../dict_interface/hero_interface";
+import LandingPage from "./LandingPage";
 
 type HeroProps = {
   activeTab: "recent" | "resolved";

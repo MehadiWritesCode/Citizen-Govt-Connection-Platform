@@ -1,35 +1,33 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ModeToggleBtn } from "../../../../components/client/ThemeToogleBtn";
+import { ModeToggleBtn } from "../../../../componentsUi/client/ThemeToogleBtn";
 import Image from "next/image";
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from "next/navigation";
 
 import { Dictionary } from "../../../../../dict_interface/dict_interface";
 
-export default function AuthNavbar({dict}:{dict:Dictionary}) {
+export default function AuthNavbar({ dict }: { dict: Dictionary }) {
   const [openMobile, setOpenMobile] = useState(false);
   const [openLang, setOpenLang] = useState(false);
 
   const langRef = useRef<HTMLDivElement | null>(null);
 
-
-    //Language change section
+  //Language change section
   const pathName = usePathname();
   const router = useRouter();
 
-  const handleLanguageChange =(newLanguage : string)=>{
-       if(!pathName) return;
+  const handleLanguageChange = (newLanguage: string) => {
+    if (!pathName) return;
 
-       const segments = pathName.split("/");
-       segments[1] = newLanguage;
-       const newPath = segments.join("/");
-       console.log(newPath)
+    const segments = pathName.split("/");
+    segments[1] = newLanguage;
+    const newPath = segments.join("/");
+    console.log(newPath);
 
-       router.push(newPath);
-       setOpenLang(false);
-  }
-
+    router.push(newPath);
+    setOpenLang(false);
+  };
 
   // outside click close (lang dropdown)
   useEffect(() => {
@@ -42,7 +40,6 @@ export default function AuthNavbar({dict}:{dict:Dictionary}) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-
   return (
     <div className="w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       {/* top strip */}
@@ -51,23 +48,24 @@ export default function AuthNavbar({dict}:{dict:Dictionary}) {
       <header className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
         {/* Brand */}
         <div className="flex items-center gap-3">
-                    <div
-                      className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
+          <div
+            className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
                             flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
-                    >
-                      <Image
-                        src="/images/logo.png"
-                        alt="App Logo"
-                        width={36}
-                        height={36}
-                        className="object-contain"
-                        priority
-                      />
-                    </div>
-
+          >
+            <Image
+              src="/images/logo.png"
+              alt="App Logo"
+              width={36}
+              height={36}
+              className="object-contain"
+              priority
+            />
+          </div>
 
           <div className="leading-tight">
-            <p className="text-sm font-semibold">{dict.auth.authNavbar.title}</p>
+            <p className="text-sm font-semibold">
+              {dict.auth.authNavbar.title}
+            </p>
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
               {dict.auth.authNavbar.subtitle}
             </p>
@@ -92,19 +90,22 @@ export default function AuthNavbar({dict}:{dict:Dictionary}) {
                 onClick={() => setOpenLang((s) => !s)}
                 className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:ring-slate-800 dark:hover:bg-slate-900"
               >
-                🌐 {dict.auth.authNavbar.language} <span className="text-slate-400">▾</span>
+                🌐 {dict.auth.authNavbar.language}{" "}
+                <span className="text-slate-400">▾</span>
               </button>
 
               {openLang && (
                 <div className="absolute right-0 mt-2 z-50 w-48 overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-slate-200 dark:bg-slate-950 dark:ring-slate-800">
                   <button
-                  onClick={()=> handleLanguageChange("bn")}
-                  className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                    onClick={() => handleLanguageChange("bn")}
+                    className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                  >
                     বাংলা <span className="text-xs text-slate-400">BN</span>
                   </button>
                   <button
-                      onClick={()=> handleLanguageChange("en")}
-                  className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                    onClick={() => handleLanguageChange("en")}
+                    className="flex w-full items-center justify-between px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                  >
                     English <span className="text-xs text-slate-400">EN</span>
                   </button>
                 </div>
@@ -132,8 +133,7 @@ export default function AuthNavbar({dict}:{dict:Dictionary}) {
       {openMobile && (
         <div className="border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950 md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3">
-            <button
-            className="rounded-lg px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+            <button className="rounded-lg px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
               {dict.auth.authNavbar.helpDesk}
             </button>
 
@@ -148,13 +148,17 @@ export default function AuthNavbar({dict}:{dict:Dictionary}) {
               </summary>
               <div className="border-t border-slate-200 dark:border-slate-800">
                 <button
-                onClick={() => handleLanguageChange("bn")}
-                className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                  onClick={() => handleLanguageChange("bn")}
+                  className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                >
                   বাংলা
                 </button>
                 <button
-                onClick={()=>{handleLanguageChange("en")}}
-                className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900">
+                  onClick={() => {
+                    handleLanguageChange("en");
+                  }}
+                  className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+                >
                   English
                 </button>
               </div>
