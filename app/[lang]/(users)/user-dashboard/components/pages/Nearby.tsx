@@ -1,11 +1,13 @@
-"use client";
-
+"use client"
 import { Hospital, ShieldCheck, Phone } from "lucide-react";
 
 import PageTitle from "../ui/PageTitle";
 import Service from "../ui/Service";
 
-export default function Nearby() {
+
+
+export default  function Nearby() {
+
   return (
     <div className="space-y-4">
       <PageTitle

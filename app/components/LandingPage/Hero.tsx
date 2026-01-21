@@ -5,11 +5,10 @@ import {
   Navigation,
   Clock,
   Activity,
-  ShieldCheck,
-  CheckCircle2,
+
 } from "lucide-react";
 import { HeroDictionary } from "../../../dict_interface/hero_interface";
-import LandingPage from "./LandingPage";
+import { useRouter } from "next/navigation";
 
 type HeroProps = {
   activeTab: "recent" | "resolved";
@@ -18,6 +17,7 @@ type HeroProps = {
 };
 
 export default function Hero({ activeTab, setActiveTab, dict }: HeroProps) {
+  const router = useRouter();
   const items = [
     {
       title: `${dict.items.brokenDrainage}`,
@@ -114,6 +114,7 @@ export default function Hero({ activeTab, setActiveTab, dict }: HeroProps) {
             {/* CTA'S */}
             <div className="flex flex-col gap-3 sm:flex-row">
               <button
+              onClick={()=>router.push('/user-dashboard')}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 active:scale-[0.98] dark:bg-slate-100 dark:text-slate-900 sm:w-auto
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/60
                 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"

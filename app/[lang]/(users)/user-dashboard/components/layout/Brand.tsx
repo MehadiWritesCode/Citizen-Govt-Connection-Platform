@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 export default function Brand({ compact }: { compact?: boolean }) {
+
   return (
     <div className="flex items-center gap-2">
                 <div
@@ -30,7 +31,7 @@ export default function Brand({ compact }: { compact?: boolean }) {
         </div>
       ) : (
         <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-          GovConnect
+          CGCP
         </div>
       )}
     </div>

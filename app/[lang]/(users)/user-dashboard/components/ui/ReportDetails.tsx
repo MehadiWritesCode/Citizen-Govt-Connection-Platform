@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import type { Report, Status } from "../../types";
 import { cx, formatDate } from "../../lib/util";
 import StatusBadge from "./StatusBadge";

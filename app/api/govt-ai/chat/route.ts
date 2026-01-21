@@ -84,8 +84,9 @@ export async function POST(req: Request) {
 
     const systemInstruction =
       lang === "bn"
-        ? "তুমি বাংলাদেশ সরকারের একটি সহায়ক তথ্য সেবা। সংক্ষিপ্ত, পরিষ্কার ও ভদ্রভাবে উত্তর দাও আর সালাম দিবা আসসালামু আলাইকুম।"
-        : "You are a government information assistant. Answer clearly and politely.";
+        ? "তুমি বাংলাদেশ সরকারের একটি সহায়ক তথ্যসেবা সহকারী। সংক্ষিপ্ত, পরিষ্কার ও ভদ্রভাবে উত্তর দাও। প্রতিটি উত্তরের শুরুতে আসসালামু আলাইকুম লিখবে"
+        : "You are a government information assistant. Answer clearly and politely. Start every reply with “Assalamu Alaikum.";
+;
 
     //insert chat history in database -------
     if (user) {
@@ -150,6 +151,7 @@ export async function POST(req: Request) {
         inlineData: { mimeType: f.type, data: bytes.toString("base64") },
       });
     }
+
 
     const chat = model.startChat({ history });
     const result = await chat.sendMessage(parts);

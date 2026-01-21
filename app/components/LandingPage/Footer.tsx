@@ -56,7 +56,7 @@ const router = useRouter();
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50
                          dark:bg-slate-100 dark:text-slate-900"
             >
-              Access Portal
+              Transparency Dashboard
               <ExternalLink className="h-4 w-4 opacity-70" />
             </a>
 
@@ -88,17 +88,18 @@ const router = useRouter();
 
             <a
               href="mailto:support@civicsync.gov"
-              className="inline-flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition"
+              className="hover:underline inline-flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition"
             >
               <Mail className="h-4 w-4 text-emerald-700 dark:text-emerald-300" />
-              support@civicsync.gov
+              bd.support@cgcp.gov
             </a>
 
             <span className="hidden sm:inline-block h-4 w-px bg-slate-200/80 dark:bg-slate-800/80" />
 
             <a
-              href="#"
-              className="inline-flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition"
+             target="_blank" rel="noopener noreferrer"
+              href="https://bangladesh.gov.bd/index.php"
+              className="hover:underline inline-flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition"
             >
               <Globe className="h-4 w-4 text-emerald-700 dark:text-emerald-300" />
               Official website

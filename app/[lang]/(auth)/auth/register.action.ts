@@ -1,7 +1,33 @@
 "use server";
 
-import { supabaseServer } from "../../../../lib/supabase_postgresql/server";
+import { supabaseServer } from "@/lib/supabase_postgresql/server";
 import { redirect } from "next/navigation";
+
+//Nearby services
+export async function NearbyServices (userId:string,address:string){
+  const supabase = supabaseServer();
+  const apiKey = process.env.LOCATIONIQ_API_KEY
+
+
+  try{
+   const  geoResponse = await fetch(`https://us1.locationiq.com/v1/search?key=${apiKey}&q=${encodeURIComponent(address + ", Bangladesh")}&format=json`)
+   const geoData = await geoResponse.json();
+   if (!geoData?.[0]) return {ok:false,messsage:"Location not found"};
+
+   const {latitude,longitude} = geoData[0];
+
+   const nearbyResponse = await fetch(`https://us1.locationiq.com/v1/nearby?key=${apiKey}&lat=${latitude}&lon=${longitude}&tag=hospital,police,fire_station&radius=5000&format=json`)
+   const nearbyData = await nearbyResponse.json();
+
+
+  }catch(err){
+    
+  }
+}
+
+
+
+
 
 //Return type
 export type ActionResult =
