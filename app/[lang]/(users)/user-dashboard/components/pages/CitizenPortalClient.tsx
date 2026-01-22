@@ -27,11 +27,17 @@ import ReportDetails from "../ui/ReportDetails";
 import PagePath from "../layout/PagePath";
 import { viewTitle } from "../../lib/util";
 
-
+interface NearbyLocation {
+  service_name: string;
+  service_type: string;
+  map_link: string;
+}
 interface Props {
   userName:string
+  nearbyLocations:NearbyLocation[]
 }
-export default function CitizenPortalMVP({userName}:Props) {
+export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
+
   const [view, setView] = useState<View>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -227,7 +233,7 @@ export default function CitizenPortalMVP({userName}:Props) {
                 <MyReports reports={reports} onOpen={(r) => setSelected(r)} />
               )}
 
-              {view === "nearby" && <Nearby />}
+              {view === "nearby" && <Nearby nearbyLocations={nearbyLocations} />}
 
               {view === "profile" && (
                 <Profile/>

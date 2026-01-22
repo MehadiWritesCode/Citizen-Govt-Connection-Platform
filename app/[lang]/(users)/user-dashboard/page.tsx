@@ -27,5 +27,12 @@ export default async function Page() {
     }
   }
 
-  return <CitizenPortalMVP userName={userName} />;
+  const {data:nearby ,error} = await supabase
+  .from("nearby")
+  .select("service_name,service_type,map_link")
+  .eq("user_id",user.id)
+
+ const  nearbyData = nearby || [];
+
+  return <CitizenPortalMVP userName={userName} nearbyLocations={nearbyData} />;
 }
