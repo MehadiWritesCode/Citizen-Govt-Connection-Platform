@@ -1,6 +1,7 @@
 "use server"
 
-import { supabaseServer } from "@/lib/supabase_postgresql/server"; //../../../../../..
+import { supabaseServer } from "@/lib/supabase_postgresql/server";
+import { NearbyServices } from "../../../../(auth)/auth/nearbyService.action";
 
 type response = {
   ok:boolean,
@@ -31,7 +32,9 @@ export const handleUpdateProfile = async(prevState:response,formData:FormData):P
 
     if(error) return {ok:false,message:error.message};
 
+    await NearbyServices(user.id,address);
     return {ok:true,message:"Profile Updated Successfull!"}
+
   }catch(error){
     return {ok:false, message:"An unexpected error occured"}
   }
