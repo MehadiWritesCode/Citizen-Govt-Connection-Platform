@@ -1,10 +1,10 @@
 "use client";
 
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Bell, ChevronDown, Plus, ShieldCheck, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { User} from "lucide-react";
+import { User } from "lucide-react";
 import { Report, Status, View } from "../../types";
 import { useToasts } from "../../hooks/useToasts";
 import { nextReportId } from "../../lib/report";
@@ -26,6 +26,7 @@ import Drawer from "../ui/Drawer";
 import ReportDetails from "../ui/ReportDetails";
 import PagePath from "../layout/PagePath";
 import { viewTitle } from "../../lib/util";
+import NotificationDropdown from "../ui/NotificationDropdown";
 
 interface NearbyLocation {
   service_name: string;
@@ -33,16 +34,16 @@ interface NearbyLocation {
   map_link: string;
 }
 interface Props {
-  userName:string
-  nearbyLocations:NearbyLocation[]
+  userName: string;
+  nearbyLocations: NearbyLocation[];
 }
-export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
-
+export default function CitizenPortalMVP({ userName, nearbyLocations }: Props) {
   const [view, setView] = useState<View>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { toasts, push, remove } = useToasts();
-
+  const [notificationDropdown, setNotificationDropdown] =
+    useState<boolean>(false);
   const [reports, setReports] = useState<Report[]>([
     {
       id: "RC-1001",
@@ -70,11 +71,10 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
   }
 
   //logout handler
-  const [open,setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   function logout() {
     setOpen(true);
-
   }
 
   function updateReportStatus(id: string, status: Status) {
@@ -113,7 +113,9 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
               Citizen Government Connection Platform
             </span>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline hover:underline">Support: 999</span>
+            <span className="hidden sm:inline hover:underline">
+              Support: 999
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -143,8 +145,7 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
               )}
             </div>
 
-            <ModeToggleBtn/>
-
+            <ModeToggleBtn />
           </div>
         </div>
       </div>
@@ -173,20 +174,27 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
               New report
             </button>
 
-            <button
-              className="relative rounded-md border border-slate-200 bg-white p-2 hover:bg-slate-50 active:bg-slate-100
-                         dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800 dark:active:bg-slate-700"
-              aria-label="Notifications"
-              title="Notifications"
-              onClick={() =>
-                push({ title: "Notifications", message: "Demo only." })
-              }
-            >
-              <Bell className="h-5 w-5" />
-              <span className="absolute -right-1 -top-1 grid h-4 w-4 place-items-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
-                2
-              </span>
-            </button>
+            {/* Bell Button & Dropdown Container */}
+
+            <div className="relative">
+              <button
+                className="relative rounded-md border border-slate-200 bg-white p-2 hover:bg-slate-50 active:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800 dark:active:bg-slate-700"
+                aria-label="Notifications"
+                title="Notifications"
+                onClick={() => setNotificationDropdown((p)=> !p)}
+              >
+                <Bell className="h-5 w-5" />
+                <span className="absolute -right-1 -top-1 grid h-4 w-4 place-items-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
+                  2
+                </span>
+              </button>
+
+              {notificationDropdown && (
+                <NotificationDropdown
+                  setNotificationDropdown={setNotificationDropdown}
+                />
+              )}
+            </div>
 
             <button
               className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50 active:bg-slate-100
@@ -195,7 +203,7 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
               aria-label="Profile"
             >
               {/* <span className="h-7 w-7 rounded-full bg-slate-200 dark:bg-slate-700" /> */}
-              <User className="rounded-full h-5 w-5"/>
+              <User className="rounded-full h-5 w-5" />
               <span className="hidden sm:inline">{userName}</span>
               <ChevronDown className="h-4 w-4" />
             </button>
@@ -210,7 +218,7 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
         </aside>
 
         <main className="min-w-0">
-        <PagePath current={viewTitle(view)} />
+          <PagePath current={viewTitle(view)} />
 
           <div className="mt-3 rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
             <div className="p-4 sm:p-6">
@@ -233,15 +241,13 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
                 <MyReports reports={reports} onOpen={(r) => setSelected(r)} />
               )}
 
-              {view === "nearby" && <Nearby nearbyLocations={nearbyLocations} />}
-
-              {view === "profile" && (
-                <Profile/>
+              {view === "nearby" && (
+                <Nearby nearbyLocations={nearbyLocations} />
               )}
 
-              {view === "settings" && (
-                <SettingsPage />
-              )}
+              {view === "profile" && <Profile />}
+
+              {view === "settings" && <SettingsPage />}
 
               {view === "help" && <Help />}
             </div>
@@ -289,10 +295,8 @@ export default function CitizenPortalMVP({userName,nearbyLocations}:Props) {
         </div>
       ) : null}
 
-
       {/* logout modal */}
       {open && <LogoutModal setOpen={setOpen} />}
-
 
       {/* Floating ai Widgets */}
       <AIChatWidget />

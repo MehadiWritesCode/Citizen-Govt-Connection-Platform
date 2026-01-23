@@ -50,120 +50,49 @@ export async function NearbyServices(userId: string, address: string) {
       .trim();
   }
 
-  // ! only check name
-  function isAllowedByName(nameOrDisplay: string) {
-    const t = normalize(nameOrDisplay);
-
-    const patterns: RegExp[] = [
-      // police / thana
-      /\bpolice\s*station\b/i,
-      /\bthana\b/i,
-      /থানা/u,
-      /পুলিশ\s*স্টেশন/u,
-
-      // hospital / medical college
-      /\bhospital\b/i,
-      /\bmedical\s*college\b/i,
-      /হাসপাতাল/u,
-      /মেডিকেল\s*কলেজ/u,
-
-      //  health complex
-      /\bhealth\s*complex\b/i,
-      /\bupazila\s*health\s*complex\b/i,
-      /স্বাস্থ্য\s*কমপ্লেক্স/u,
-      /উপজেলা\s*স্বাস্থ্য\s*কমপ্লেক্স/u,
-
-      // fire service / fire station / civil defence
-      /\bfire\s*service\b/i,
-      /\bfire\s*station\b/i,
-      /\bcivil\s*defen[cs]e\b/i,
-      /ফায়ার\s*সার্ভিস/u,
-      /ফায়ার\s*সার্ভিস/u,
-      /ফায়ার\s*স্টেশন/u,
-      /ফায়ার\s*স্টেশন/u,
-      /সিভিল\s*ডিফেন্স/u,
-    ];
-
-    return patterns.some((re) => re.test(t));
-  }
 
   // ! take name and compare if includes with police,fire,hopital etc then set type
-
   function inferTypeFromName(nameOrDisplay: string): ServiceType | null {
-    const t = normalize(nameOrDisplay);
+  const t = normalize(nameOrDisplay);
 
-    const isHospital =
-      /\bhospital\b/i.test(t) ||
-      /\bmedical\s*college\b/i.test(t) ||
-      /\bhealth\s*complex\b/i.test(t) ||
-      /\bupazila\s*health\s*complex\b/i.test(t) ||
-      /হাসপাতাল/u.test(t) ||
-      /মেডিকেল\s*কলেজ/u.test(t) ||
-      /স্বাস্থ্য\s*কমপ্লেক্স/u.test(t) ||
-      /উপজেলা\s*স্বাস্থ্য\s*কমপ্লেক্স/u.test(t);  //(RegExp) it compares the words in a sentence
+  // strict hospital keywords
+  const hospitalPatterns: RegExp[] = [ // * regular expression
+    /\bhospital\b/i,
+    /\bmedical\s*college\b/i,
+    /\bhealth\s*complex\b/i,
+    /\bupazila\s*health\s*complex\b/i,
+    /হাসপাতাল/u,
+    /মেডিকেল\s*কলেজ/u,
+    /স্বাস্থ্য\s*কমপ্লেক্স/u,
+    /উপজেলা\s*স্বাস্থ্য\s*কমপ্লেক্স/u,
+  ];
 
-    const isPolice =
-      /\bpolice\s*station\b/i.test(t) ||
-      /\bthana\b/i.test(t) ||
-      /থানা/u.test(t) ||
-      /পুলিশ\s*স্টেশন/u.test(t);
+  // strict police keywords
+  const policePatterns: RegExp[] = [
+    /\bpolice\s*station\b/i,
+    /\bthana\b/i,
+    /থানা/u,
+    /পুলিশ\s*স্টেশন/u,
+  ];
 
-    const isFire =
-      /\bfire\s*service\b/i.test(t) ||
-      /\bfire\s*station\b/i.test(t) ||
-      /\bcivil\s*defen[cs]e\b/i.test(t) ||
-      /ফায়ার/u.test(t) ||
-      /ফায়ার/u.test(t) ||
-      /সিভিল\s*ডিফেন্স/u.test(t);
+  // strict fire keywords
+  const firePatterns: RegExp[] = [
+    /\bfire\s*service\b/i,
+    /\bfire\s*station\b/i,
+    /\bcivil\s*defen[cs]e\b/i,
+    /ফায়ার\s*সার্ভিস/u,
+    /ফায়ার\s*সার্ভিস/u,
+    /ফায়ার\s*স্টেশন/u,
+    /ফায়ার\s*স্টেশন/u,
+    /সিভিল\s*ডিফেন্স/u,
+  ];
 
-    if (isHospital) return "hospital";
-    if (isPolice) return "police";
-    if (isFire) return "fire_station";
-    return null;
-  }
+  if (hospitalPatterns.some((re) => re.test(t))) return "hospital";
+  if (policePatterns.some((re) => re.test(t))) return "police";
+  if (firePatterns.some((re) => re.test(t))) return "fire_station";
 
-  // ! --- future work
-//   function inferTypeFromName(nameOrDisplay: string): ServiceType | null {
-//   const t = normalize(nameOrDisplay);
-
-//   // strict hospital keywords
-//   const hospitalPatterns: RegExp[] = [
-//     /\bhospital\b/i,
-//     /\bmedical\s*college\b/i,
-//     /\bhealth\s*complex\b/i,
-//     /\bupazila\s*health\s*complex\b/i,
-//     /হাসপাতাল/u,
-//     /মেডিকেল\s*কলেজ/u,
-//     /স্বাস্থ্য\s*কমপ্লেক্স/u,
-//     /উপজেলা\s*স্বাস্থ্য\s*কমপ্লেক্স/u,
-//   ];
-
-//   // strict police keywords
-//   const policePatterns: RegExp[] = [
-//     /\bpolice\s*station\b/i,
-//     /\bthana\b/i,
-//     /থানা/u,
-//     /পুলিশ\s*স্টেশন/u,
-//   ];
-
-//   // strict fire keywords
-//   const firePatterns: RegExp[] = [
-//     /\bfire\s*service\b/i,
-//     /\bfire\s*station\b/i,
-//     /\bcivil\s*defen[cs]e\b/i,
-//     /ফায়ার\s*সার্ভিস/u,
-//     /ফায়ার\s*সার্ভিস/u,
-//     /ফায়ার\s*স্টেশন/u,
-//     /ফায়ার\s*স্টেশন/u,
-//     /সিভিল\s*ডিফেন্স/u,
-//   ];
-
-//   if (hospitalPatterns.some((re) => re.test(t))) return "hospital";
-//   if (policePatterns.some((re) => re.test(t))) return "police";
-//   if (firePatterns.some((re) => re.test(t))) return "fire_station";
-
-//   return null;
-// }
+  return null;
+}
 
 
   // ! Safely parse response JSON if response is not valid JSON, return null instead of crashing
@@ -260,8 +189,7 @@ export async function NearbyServices(userId: string, address: string) {
         const plat = p.lat;
         const plon = p.lon;
 
-        if (!isAllowedByName(rawName)) return null;
-       // const saveName = p.name ?? p.display_name ?? "Unknown";
+       //    if (!isAllowedByName(rawName)) return null;
         const inferred = inferTypeFromName(rawName);
         if (!inferred) return null;
 
