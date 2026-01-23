@@ -3,24 +3,18 @@
 import React, { useMemo, useState } from "react";
 import {
   MapPin,
-  CheckCircle2,
-  Plus,
-  Minus,
   Navigation2,
   Search,
   Info,
-  ShieldAlert,
   Moon,
   Eye,
   Zap,
-  Layers,
-  LocateFixed,
-  AlertTriangle,
   ShieldCheck,
 } from "lucide-react";
 import { SafetyNavigatorDictionary } from "../../../dict_interface/safety_navigator";
+import dynamic from "next/dynamic";
+const LeafletMap = dynamic(() => import("./LeafletMap"), { ssr: false });
 
-type MapMode = "safe-route" | "all-reports";
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -46,10 +40,8 @@ interface MapDictionary {
 }
 
 export default function SafetyNavigatorLite({ dict }: MapDictionary) {
-  const [mapMode, setMapMode] = useState<MapMode>("safe-route");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [selectedPin, setSelectedPin] = useState<null | "critical">(null);
 
   const stats = useMemo(
     () => [
@@ -109,7 +101,7 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
 
       <div className="py-10 sm:py-12 lg:py-14 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-          {/* Map */}
+          {/* Map Column */}
           <div className="lg:col-span-8">
             <div
               className={cx(
@@ -118,280 +110,14 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
                 "relative overflow-hidden h-[360px] sm:h-[440px] lg:h-[520px]",
               )}
             >
-              {/* Top bar inside map */}
-              <div
-                className={cx(
-                  "absolute inset-x-0 top-0 z-10",
-                  ui.soft,
-                  "border-b border-slate-200/70 dark:border-slate-800",
-                )}
-              >
-                <div className="px-4 sm:px-5 py-3 flex items-center justify-between gap-3">
-                  {/* Mode toggle */}
-                  <div
-                    className={cx(
-                      ui.border,
-                      "rounded-xl p-1 bg-white/70 dark:bg-slate-950/60",
-                    )}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setMapMode("safe-route")}
-                      className={cx(
-                        "px-3 py-2 rounded-lg text-xs font-semibold transition",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30",
-                        mapMode === "safe-route"
-                          ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900",
-                      )}
-                    >
-                      {dict.modeSafeRoute}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setMapMode("all-reports")}
-                      className={cx(
-                        "px-3 py-2 rounded-lg text-xs font-semibold transition",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30",
-                        mapMode === "all-reports"
-                          ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900",
-                      )}
-                    >
-                      {dict.modeAllReports}
-                    </button>
-                  </div>
-
-                  {/* Minimal legend */}
-                  <div className="hidden sm:flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
-                    <span className="inline-flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                      {dict.legendVerified}
-                    </span>
-                    <span className="inline-flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-red-600" />
-                      {dict.legendCritical}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Map base (CSS-only, super light) */}
-              <div
-                className="absolute inset-0 pt-[52px]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(148,163,184,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.22) 1px, transparent 1px)",
-                  backgroundSize: "120px 120px",
-                  backgroundColor: "rgb(241 245 249)",
-                }}
-              >
-                {/* Roads */}
-                <div className="absolute inset-x-0 top-[110px] h-[22px] bg-white/90" />
-                <div className="absolute inset-x-0 top-[110px] h-px bg-slate-300/40" />
-                <div className="absolute left-[32%] top-0 bottom-0 w-[22px] bg-white/90" />
-                <div className="absolute left-[32%] top-0 bottom-0 w-px bg-slate-300/40 translate-x-[10px]" />
-                <div className="absolute left-[62%] top-0 bottom-0 w-[22px] bg-white/90" />
-                <div className="absolute left-[62%] top-0 bottom-0 w-px bg-slate-300/40 translate-x-[10px]" />
-
-                {/* Safe route (div-based dashed line) */}
-                {mapMode === "safe-route" && (
-                  <>
-                    <div className="absolute left-[12%] top-[78%] w-[20%] h-[10px] rounded-full bg-emerald-500/15" />
-                    <div className="absolute left-[12%] top-[78%] w-[20%] h-[6px] border-t-[6px] border-emerald-600 border-dashed rounded-full opacity-90" />
-
-                    <div className="absolute left-[32%] top-[30%] w-[10px] h-[48%] rounded-full bg-emerald-500/15" />
-                    <div className="absolute left-[32%] top-[30%] w-[6px] h-[48%] border-l-[6px] border-emerald-600 border-dashed rounded-full opacity-90" />
-
-                    <div className="absolute left-[32%] top-[28%] w-[30%] h-[10px] rounded-full bg-emerald-500/15" />
-                    <div className="absolute left-[32%] top-[28%] w-[30%] h-[6px] border-t-[6px] border-emerald-600 border-dashed rounded-full opacity-90" />
-
-                    <div className="absolute left-[62%] top-[10%] w-[10px] h-[18%] rounded-full bg-emerald-500/15" />
-                    <div className="absolute left-[62%] top-[10%] w-[6px] h-[18%] border-l-[6px] border-emerald-600 border-dashed rounded-full opacity-90" />
-                  </>
-                )}
-
-                {/* Report dots (all-reports) */}
-                {mapMode === "all-reports" && (
-                  <>
-                    <div className="absolute left-[56%] top-[45%]">
-                      <div className="absolute -inset-5 rounded-full bg-red-500/10" />
-                      <div className="w-3 h-3 rounded-full bg-red-600 shadow-sm" />
-                    </div>
-                    <div className="absolute left-[64%] top-[32%]">
-                      <div className="absolute -inset-4 rounded-full bg-amber-500/10" />
-                      <div className="w-3 h-3 rounded-full bg-amber-500 shadow-sm" />
-                    </div>
-                    <div className="absolute left-[24%] top-[34%]">
-                      <div className="absolute -inset-4 rounded-full bg-blue-500/10" />
-                      <div className="w-3 h-3 rounded-full bg-blue-600 shadow-sm" />
-                    </div>
-                  </>
-                )}
-
-                {/* Markers */}
-                <div className="absolute left-[31%] top-[26%] w-5 h-5 bg-amber-500 rounded-full border-[3px] border-white shadow-sm" />
-                <div className="absolute left-[10%] top-[76%] w-9 h-9 bg-blue-600 rounded-2xl border-[3px] border-white shadow-sm flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full" />
-                </div>
-                <div className="absolute left-[60%] top-[8%] w-9 h-9 bg-emerald-600 rounded-2xl border-[3px] border-white shadow-sm flex items-center justify-center">
-                  <CheckCircle2 className="w-4 h-4 text-white" />
-                </div>
-
-                {/* Critical pin */}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSelectedPin(
-                      selectedPin === "critical" ? null : "critical",
-                    )
-                  }
-                  aria-label={`${dict.alertAriaLabel}`}
-                  className="absolute left-[56%] top-[42%]"
-                >
-                  <span className="absolute -inset-6 rounded-full bg-red-500/10 animate-pulse" />
-                  <span className="relative w-11 h-11 bg-red-600 rounded-2xl flex items-center justify-center border-[3px] border-white shadow-sm">
-                    <ShieldAlert className="w-5 h-5 text-white" />
-                  </span>
-                </button>
-
-                {/* Alert popover */}
-                <div
-                  className={cx(
-                    "absolute z-10 w-[280px] sm:w-[320px]",
-                    "left-4 sm:left-[42%]",
-                    "bottom-4 sm:top-[52%] sm:bottom-auto",
-                    selectedPin === "critical"
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-2 pointer-events-none",
-                    "transition-all duration-200",
-                  )}
-                  style={{
-                    filter: "drop-shadow(0 10px 25px rgba(15,23,42,0.12))",
-                  }}
-                >
-                  <div className={cx(ui.card, ui.border, "overflow-hidden")}>
-                    <div className="p-4 flex items-start gap-3">
-                      <div className="mt-0.5 w-10 h-10 rounded-xl bg-red-50 dark:bg-red-500/10 flex items-center justify-center text-red-700 dark:text-red-300">
-                        <AlertTriangle className="w-5 h-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className={cx("text-sm font-semibold", ui.text)}>
-                          {dict.alertTitle}
-                        </p>
-                        <p
-                          className={cx(
-                            "mt-1 text-xs leading-relaxed",
-                            ui.textSub,
-                          )}
-                        >
-                          {dict.alertDesc}
-                        </p>
-                        <div className="mt-3 flex items-center gap-2 flex-wrap">
-                          <span
-                            className={cx(
-                              ui.pill,
-                              "bg-slate-50 dark:bg-slate-900/40 text-slate-700 dark:text-slate-200",
-                            )}
-                          >
-                            {dict.alertReportedPill}
-                          </span>
-                          <span
-                            className={cx(
-                              ui.pill,
-                              "bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-200 border-red-200/60 dark:border-red-500/20",
-                            )}
-                          >
-                            {dict.alertAvoidPill}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Controls */}
-                <div className="absolute top-[68px] left-4 z-10 flex flex-col gap-2">
-                  {[
-                    {
-                      icon: <Plus className="w-5 h-5" />,
-                      label: `${dict.controlZoomIn}`,
-                    },
-                    {
-                      icon: <Minus className="w-5 h-5" />,
-                      label: `${dict.controlZoomOut}`,
-                    },
-                    {
-                      icon: <LocateFixed className="w-5 h-5" />,
-                      label: `${dict.controlLocate}`,
-                    },
-                    {
-                      icon: <Layers className="w-5 h-5" />,
-                      label: `${dict.controlLayers}`,
-                    },
-                  ].map((b) => (
-                    <button
-                      key={b.label}
-                      type="button"
-                      aria-label={b.label}
-                      className={cx(
-                        "w-11 h-11 rounded-2xl flex items-center justify-center",
-                        ui.card,
-                        ui.border,
-                        "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900",
-                        "active:scale-[0.98] transition",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50",
-                      )}
-                    >
-                      {b.icon}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Bottom bar */}
-                <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-between items-end gap-3">
-                  <div className={cx(ui.card, ui.border, "max-w-[270px] p-4")}>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
-                        <span className="text-sm font-bold text-emerald-800 dark:text-emerald-200">
-                          92
-                        </span>
-                      </div>
-                      <div>
-                        <p className={cx("text-sm font-semibold", ui.text)}>
-                          {dict.safetyScoreTitle}
-                        </p>
-                        <p className={cx("text-xs", ui.textSub)}>
-                          {dict.safetyScoreSubtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-600 w-[92%]" />
-                    </div>
-                    <p className={cx("mt-2 text-[11px]", ui.textSub)}>
-                      {dict.safetyScoreHint}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className={cx(
-                      ui.btn,
-                      ui.btnPrimary,
-                      "rounded-2xl px-4 py-3",
-                    )}
-                  >
-                    <Navigation2 className="w-5 h-5" />
-                    {dict.recalculateBtn}
-                  </button>
-                </div>
+              {/* REAL MAP INTEGRATION */}
+              <div className="absolute inset-0 z-0">
+                  <LeafletMap alertTitle={dict.alertTitle} alertDesc={dict.alertDesc} />
               </div>
             </div>
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar Column */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="space-y-2">
               <h2
@@ -411,8 +137,7 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
               </p>
             </div>
 
-            {/* Inputs (less heavy) */}
-            <div className={cx(ui.card, ui.border, "p-4 space-y-3")}>
+            <div className={cx(ui.card, ui.border, "p-4 space-y-3 shadow-sm")}>
               <Field
                 icon={<MapPin className="w-5 h-5" />}
                 value={from}
@@ -425,7 +150,6 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
                 onChange={setTo}
                 placeholder={dict.placeholderTo}
               />
-
               <button
                 type="button"
                 className={cx(ui.btn, ui.btnPrimary, "w-full py-3")}
@@ -434,17 +158,11 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
               </button>
             </div>
 
-            {/* Stats (compact) */}
+            {/* Stats & Tips */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <p className={cx("text-xs font-semibold", ui.textSub)}>
-                  {dict.routeIntelligence}
-                </p>
-                <p className={cx("text-[11px]", ui.textSub)}>
-                  {dict.routeUpdated}
-                </p>
-              </div>
-
+              <p className={cx("text-xs font-semibold", ui.textSub)}>
+                {dict.routeIntelligence}
+              </p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
                 {stats.map((stat) => (
                   <div
@@ -452,7 +170,7 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
                     className={cx(
                       ui.card,
                       ui.border,
-                      "p-4 flex items-center justify-between",
+                      "p-4 flex items-center justify-between shadow-sm",
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -473,7 +191,6 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
               </div>
             </div>
 
-            {/* Tip */}
             <div className={cx(ui.soft, ui.border, "rounded-2xl p-4")}>
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-slate-500 dark:text-slate-400" />

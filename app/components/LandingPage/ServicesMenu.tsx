@@ -9,18 +9,17 @@ type MenuItem = {
   href: string;
 };
 
-
 interface ServicesMenuProps {
   explorer:string,
   design:string
 }
 // Simple Services links (no sub-actions)
 const menu: MenuItem[] = [
-  { id: "s1", label: "Report an Issue", href: "/services/1" },
+  { id: "s1", label: "Report an Issue", href: "/user-dashboard" },
   { id: "s2", label: "Emergency Services", href: "/services/2" },
   { id: "s3", label: "Transparency Dashboard", href: "/services/3" },
-  { id: "s4", label: "AI Assistant", href: "/services/4" },
-  { id: "s5", label: "Find Safe Route", href: "/services/5" },
+  { id: "s4", label: "AI Assistant", href: "/govt-ai" },
+  { id: "s5", label: "Find Safe Route", href: "#safeRoutes" },
 ];
 
 function useOutsideClose(
