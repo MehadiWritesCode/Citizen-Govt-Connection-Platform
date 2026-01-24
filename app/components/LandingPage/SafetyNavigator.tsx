@@ -112,7 +112,10 @@ export default function SafetyNavigator({ dict }: MapDictionary) {
             >
               {/* REAL MAP INTEGRATION */}
               <div className="absolute inset-0 z-0">
-                  <LeafletMap alertTitle={dict.alertTitle} alertDesc={dict.alertDesc} />
+                <LeafletMap
+                  current={state?.current ?? [23.8103, 90.4125]}
+                  destination={state?.destination ?? null}
+                />
               </div>
             </div>
           </div>
@@ -137,13 +140,13 @@ export default function SafetyNavigator({ dict }: MapDictionary) {
               </p>
             </div>
 
-
-             {/* from destination */}
+            {/* from destination */}
             <form
-            action={formAction}
-            className={cx(ui.card, ui.border, "p-4 space-y-3 shadow-sm")}>
+              action={formAction}
+              className={cx(ui.card, ui.border, "p-4 space-y-3 shadow-sm")}
+            >
               <Field
-                 name="cureentLocation"
+                name="currentLocation"
                 icon={<MapPin className="w-5 h-5" />}
                 placeholder={dict.placeholderFrom}
               />
@@ -152,11 +155,19 @@ export default function SafetyNavigator({ dict }: MapDictionary) {
                 icon={<Navigation2 className="w-5 h-5" />}
                 placeholder={dict.placeholderTo}
               />
+              {state?.ok === false && (
+                <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                  {state.message}
+                </div>
+              )}
+
               <button
-                type="button"
+                type="submit"
+                disabled={isPending}
                 className={cx(ui.btn, ui.btnPrimary, "w-full py-3")}
               >
-                <Search className="w-4 h-4" /> {dict.searchRouteBtn}
+                {!isPending && <Search className="w-4 h-4" />}
+                {isPending ? "loading..." : dict.searchRouteBtn}
               </button>
             </form>
 
