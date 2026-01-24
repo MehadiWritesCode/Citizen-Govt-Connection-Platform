@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useMemo, useState } from "react";
+import { useActionState, useMemo} from "react";
 import {
   MapPin,
   Navigation2,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react";
 import { SafetyNavigatorDictionary } from "../../../dict_interface/safety_navigator";
 import dynamic from "next/dynamic";
+import  { handleMapLocation } from "./actions/handleMapLocation";
 const LeafletMap = dynamic(() => import("./LeafletMap"), { ssr: false });
 
 
@@ -39,9 +39,7 @@ interface MapDictionary {
   dict: SafetyNavigatorDictionary;
 }
 
-export default function SafetyNavigatorLite({ dict }: MapDictionary) {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+export default function SafetyNavigator({ dict }: MapDictionary) {
 
   const stats = useMemo(
     () => [
@@ -69,6 +67,8 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
     ],
     [dict],
   );
+
+  const [state,formAction,isPending] = useActionState(handleMapLocation,null);
 
   return (
     <section className={ui.shell} id="safeRoutes">
@@ -137,17 +137,19 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
               </p>
             </div>
 
-            <div className={cx(ui.card, ui.border, "p-4 space-y-3 shadow-sm")}>
+
+             {/* from destination */}
+            <form
+            action={formAction}
+            className={cx(ui.card, ui.border, "p-4 space-y-3 shadow-sm")}>
               <Field
+                 name="cureentLocation"
                 icon={<MapPin className="w-5 h-5" />}
-                value={from}
-                onChange={setFrom}
                 placeholder={dict.placeholderFrom}
               />
               <Field
+                name="destination"
                 icon={<Navigation2 className="w-5 h-5" />}
-                value={to}
-                onChange={setTo}
                 placeholder={dict.placeholderTo}
               />
               <button
@@ -156,7 +158,7 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
               >
                 <Search className="w-4 h-4" /> {dict.searchRouteBtn}
               </button>
-            </div>
+            </form>
 
             {/* Stats & Tips */}
             <div className="space-y-3">
@@ -211,14 +213,12 @@ export default function SafetyNavigatorLite({ dict }: MapDictionary) {
 
 function Field({
   icon,
-  value,
-  onChange,
   placeholder,
+  name
 }: {
   icon: React.ReactNode;
-  value: string;
-  onChange: (v: string) => void;
   placeholder: string;
+  name:string
 }) {
   return (
     <div className="relative">
@@ -226,9 +226,8 @@ function Field({
         {icon}
       </div>
       <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
         type="text"
+        name={name}
         placeholder={placeholder}
         className="w-full rounded-xl bg-white/70 dark:bg-slate-950/60 border border-slate-200/70 dark:border-slate-800 py-3 pl-10 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400
                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
