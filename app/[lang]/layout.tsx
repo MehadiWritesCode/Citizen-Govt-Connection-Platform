@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { ThemeProvider } from "../componentsUi/client/theme-provider";
+import { Toaster } from "sonner";
 export const metadata: Metadata = {
   title: "CGCP",
   description: "Citizen Government Connection platform",
@@ -24,6 +25,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-center" richColors/>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import logo from "@/public/images/logo.png";
+import React,{useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { ModeToggleBtn } from "../../componentsUi/client/ThemeToogleBtn";
 import { usePathname, useRouter } from "next/navigation";
@@ -63,19 +64,14 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
-                  flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
-          >
-            <Image
-              src="/images/logo.png"
-              alt="App Logo"
-              width={36}
-              height={36}
-              className="object-contain"
-              priority
-            />
-          </div>
+          <Image
+            src={logo}
+            alt="App Logo"
+            width={60}
+            height={60}
+            className="object-contain p-0"
+            priority
+          />
 
           <span className="font-semibold text-lg text-slate-900 dark:text-slate-100">
             {dict.title}
@@ -135,15 +131,17 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             <ModeToggleBtn />
 
             <button
-            onClick={async () => {
+              onClick={async () => {
                 const supabase = supabaseBrowser();
-                const {data:{user}} = await supabase.auth.getUser();
-                if(user){
+                const {
+                  data: { user },
+                } = await supabase.auth.getUser();
+                if (user) {
                   router.push(`/${lang}/user-dashboard`);
                   return;
                 }
-                router.push(`/${lang}/auth`)}}
-
+                router.push(`/${lang}/auth`);
+              }}
               className="px-3 py-2 rounded-sm text-sm font-medium
                          text-slate-700 dark:text-slate-300
                          hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
@@ -234,13 +232,15 @@ export default function Navbar({ isScrolled, lang, dict }: NavbarProps) {
             <button
               onClick={async () => {
                 const supabase = supabaseBrowser();
-                const {data:{user}} = await supabase.auth.getUser();
-                if(user){
+                const {
+                  data: { user },
+                } = await supabase.auth.getUser();
+                if (user) {
                   router.push(`/${lang}/user-dashboard`);
                   return;
                 }
-                router.push(`/${lang}/auth`)}}
-
+                router.push(`/${lang}/auth`);
+              }}
               className="px-4 py-3 text-left text-sm font-medium text-slate-700 dark:text-slate-200
                          hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >

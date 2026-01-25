@@ -1,24 +1,19 @@
 "use client";
 
 import Image from "next/image";
-
+import logo from "@/public/images/logo.png"
 export default function Brand({ compact }: { compact?: boolean }) {
 
   return (
     <div className="flex items-center gap-2">
-                <div
-                  className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
-                        flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
-                >
-                  <Image
-                    src="/images/logo.png"
-                    alt="App Logo"
-                    width={36}
-                    height={36}
-                    className="object-contain"
-                    priority
-                  />
-                </div>
+          <Image
+            src={logo}
+            alt="App Logo"
+            width={60}
+            height={60}
+            className="object-contain p-0"
+            priority
+          />
 
       {!compact ? (
         <div className="leading-tight">

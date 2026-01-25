@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import { Bell, ChevronDown, Plus, ShieldCheck, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-
 import { User } from "lucide-react";
 import { Report, Status, View } from "../../types";
 import { useToasts } from "../../hooks/useToasts";
@@ -232,7 +231,6 @@ export default function CitizenPortalMVP({ userName, nearbyLocations }: Props) {
 
               {view === "new" && (
                 <NewReport
-                  onSubmit={submitReport}
                   onBack={() => setView("dashboard")}
                 />
               )}

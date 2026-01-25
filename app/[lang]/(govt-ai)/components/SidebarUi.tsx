@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { supabaseBrowser } from "../../../../lib/supabase_postgresql/browser";
 import { useRouter } from "next/navigation";
 import { useChat } from "./chatContext";
-
+import logo from "@/public/images/logo.png"
 type Props = {
   sidebarOpen: boolean;
   setSidebarOpen: (v: boolean) => void;
@@ -69,19 +69,14 @@ export default function SidebarUI({ sidebarOpen, setSidebarOpen }: Props) {
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200/70 dark:border-[#1F2937]">
           <div className="flex items-center gap-2">
-            <div
-              className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-transparent
-                                        flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
-            >
-              <Image
-                src="/images/logo.png"
-                alt="App Logo"
-                width={36}
-                height={36}
-                className="object-contain"
-                priority
-              />
-            </div>
+          <Image
+            src={logo}
+            alt="App Logo"
+            width={60}
+            height={60}
+            className="object-contain p-0"
+            priority
+          />
 
             <span className="text-sm font-semibold">CGCP AI</span>
           </div>

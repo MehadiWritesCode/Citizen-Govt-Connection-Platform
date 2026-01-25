@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ModeToggleBtn } from "../../../../componentsUi/client/ThemeToogleBtn";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import logo from "@/public/images/logo.png"
 
 import { Dictionary } from "../../../../../dict_interface/dict_interface";
 
@@ -48,19 +49,14 @@ export default function AuthNavbar({ dict }: { dict: Dictionary }) {
       <header className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 rounded-sm overflow-hidden bg-white/80 dark:bg-slate-900
-                            flex items-center justify-center ring-1 ring-slate-200 dark:ring-slate-800"
-          >
-            <Image
-              src="/images/logo.png"
-              alt="App Logo"
-              width={36}
-              height={36}
-              className="object-contain"
-              priority
-            />
-          </div>
+          <Image
+            src={logo}
+            alt="App Logo"
+            width={60}
+            height={60}
+            className="object-contain p-0"
+            priority
+          />
 
           <div className="leading-tight">
             <p className="text-sm font-semibold">

@@ -22,9 +22,7 @@ export default function TopbarUI({ onMenu }: Props) {
         </div>
 
         <ModeToggleBtn />
-        {/* <button className="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">
-          New chat
-        </button> */}
+
       </div>
     </header>
   );
