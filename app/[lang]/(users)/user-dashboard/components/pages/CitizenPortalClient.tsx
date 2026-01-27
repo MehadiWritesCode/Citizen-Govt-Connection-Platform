@@ -143,7 +143,6 @@ export default function CitizenPortalMVP({ userName, nearbyLocations }: Props) {
                 </div>
               )}
             </div>
-
             <ModeToggleBtn />
           </div>
         </div>
@@ -220,7 +219,7 @@ export default function CitizenPortalMVP({ userName, nearbyLocations }: Props) {
           <PagePath current={viewTitle(view)} />
 
           <div className="mt-3 rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-            <div className="p-4 sm:p-6">
+            <div className="p-0 sm:p-6">
               {view === "dashboard" && (
                 <Dashboard
                   setView={setView}
@@ -230,9 +229,7 @@ export default function CitizenPortalMVP({ userName, nearbyLocations }: Props) {
               )}
 
               {view === "new" && (
-                <NewReport
-                  onBack={() => setView("dashboard")}
-                />
+                <NewReport />
               )}
 
               {view === "reports" && (

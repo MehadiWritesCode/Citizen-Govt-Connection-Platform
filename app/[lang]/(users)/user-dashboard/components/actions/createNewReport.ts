@@ -17,4 +17,3 @@ export const createNewReport = async (prevData:response,formData:FormData):Promi
 
   return {ok:true,message:"Currectly work still"}
 }
-

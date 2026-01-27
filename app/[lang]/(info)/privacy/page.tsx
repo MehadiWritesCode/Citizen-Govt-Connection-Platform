@@ -138,7 +138,6 @@ function useActiveSection(keys: SectionKey[]) {
         threshold: [0.1, 0.25, 0.5, 0.75],
       }
     );
-
     els.forEach((el) => observerRef.current?.observe(el));
 
     return () => observerRef.current?.disconnect();
