@@ -49,14 +49,14 @@ export const createNewReport = async (prevData:response,formData:FormData):Promi
   if (!Array.isArray(coordinates) || coordinates.length === 0) {
     return { ok: false, message: "Address not found" };
   }
-  const lat = coordinates[0]?.lat;
-  const lon = coordinates[0]?.lon;
+   const lat = coordinates[0]?.lat;
+   const lon = coordinates[0]?.lon;
 
   if(!lat || !lon) return {ok:false,message:"Lattitude/Logitude mot found"}
 
  // ! Check EXIF data
  let imgLat : number | undefined,imgLon : number | undefined;
-  if(file){
+  if(file && file instanceof File && file.size > 0){
     try{
      const buffer = Buffer.from(await file.arrayBuffer())
      const gps = await exifr.gps(buffer);
@@ -70,6 +70,8 @@ export const createNewReport = async (prevData:response,formData:FormData):Promi
       return {ok:false,message:"Error fetching EXIF"}
     }
 
+
+    // ! if imgae exif data get then take locatoion and add new eventLocation
     if(imgLat !== null && imgLon !== null){
     const imgLocation = await fetch(`https://us1.locationiq.com/v1/reverse?key=${apiKey}&lat=${imgLat}&lon=${imgLon}&format=json`);
     const newLocation = await imgLocation.json();
@@ -79,16 +81,50 @@ export const createNewReport = async (prevData:response,formData:FormData):Promi
     }
   }
 
-  //for debugging
-  console.log(category,eventLocation,content,division,district,upazila,union,lat,lon);
-  // ! store in database
-
+  // ! if image have then upload in supabase storage
   const supabase =  supabaseServer();
+  let media_url = "";
+  if(file && file.size > 0 ) {
+    const fileName = `${Date.now()}-${file.name}`;
+    const filePath = `reports/${fileName}`;
+
+    const {error:uploadError} = await supabase.storage.from("reports").upload(filePath,file);
+    if(!uploadError){
+      const {data:{publicUrl}} = supabase.storage
+      .from("reports")
+      .getPublicUrl(filePath);
+      media_url = publicUrl;
+    }
+  }
+
+  // ! store in database
   const {data:{user}} = await supabase.auth.getUser();
   if(!user) redirect('/auth');
 
-  const userId = await supabase.from("profiles").select("id").eq("id",user.id).single();
-  if(!userId) return {ok:false,message:"userId not found"};
 
-  return {ok:true,message:"Currectly work still"}
+  const {error} = await supabase
+  .from("reports")
+  .insert([{
+    user_id:user.id,
+    category:category,
+    location:eventLocation,
+    details:content,
+    lat:parseFloat(lat),
+    lon:parseFloat(lon),
+    media_url:media_url,
+    media_type:file?.type,
+    status:"pending",
+    division:division,
+    district:district,
+    upazila:upazila,
+    union:union
+  }])
+
+  if(error){
+    console.error(error.message);
+    return {ok:false,message:"Could not saved report"}
+  }
+
+  return {ok:true,message:"Report Uploaded ! AI is verifying your report"}
+
 }

@@ -61,23 +61,7 @@ export default function NewReport() {
           </p>
         </div>
         {/* status message */}
-        {state && (
-          <div
-            className={[
-              "mb-4 flex items-start gap-2 rounded-xl border px-3 py-3 text-sm",
-              state.ok
-                ? "border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-100"
-                : "border-rose-200 bg-rose-50 text-rose-900 dark:border-rose-900/40 dark:bg-rose-900/20 dark:text-rose-100",
-            ].join(" ")}
-          >
-            {state.ok ? (
-              <CheckCircle2 className="mt-0.5 h-4 w-4" />
-            ) : (
-              <AlertTriangle className="mt-0.5 h-4 w-4" />
-            )}
-            <div className="leading-5">{state.message}</div>
-          </div>
-        )}
+
         {/* Simple form card */}
         <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
           <form action={formAction} className="space-y-4">
@@ -120,7 +104,6 @@ export default function NewReport() {
                     const f = e.target.files?.[0] ?? null;
                     setSelectedFile(f);
                   }}
-                  required
                 />
 
                 <div className="flex flex-col gap-2 sm:flex-row">
@@ -301,6 +284,25 @@ export default function NewReport() {
                 />
               </Field>
             </div>
+
+             {/* status message */}
+                     {state && (
+          <div
+            className={[
+              "mb-4 flex items-start gap-2 rounded-xl border px-3 py-3 text-sm",
+              state.ok
+                ? "border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-100"
+                : "border-rose-200 bg-rose-50 text-rose-900 dark:border-rose-900/40 dark:bg-rose-900/20 dark:text-rose-100",
+            ].join(" ")}
+          >
+            {state.ok ? (
+              <CheckCircle2 className="mt-0.5 h-4 w-4" />
+            ) : (
+              <AlertTriangle className="mt-0.5 h-4 w-4" />
+            )}
+            <div className="leading-5">{state.message}</div>
+          </div>
+        )}
             {/* Actions */}
             <div className="flex flex-col gap-2 pt-1 sm:flex-row">
               <button
