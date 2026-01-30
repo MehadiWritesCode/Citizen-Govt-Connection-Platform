@@ -7,6 +7,7 @@ import upazilas from "@/data/upazilas.json";
 import unions from "@/data/unions.json";
 import { supabaseServer } from "../../../../../../lib/supabase_postgresql/server";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 
 type response = {
   ok:boolean,
@@ -102,7 +103,7 @@ export const createNewReport = async (prevData:response,formData:FormData):Promi
   if(!user) redirect('/auth');
 
 
-  const {error} = await supabase
+  const {data:insertedData,error:insertedError} = await supabase
   .from("reports")
   .insert([{
     user_id:user.id,
@@ -119,12 +120,35 @@ export const createNewReport = async (prevData:response,formData:FormData):Promi
     upazila:upazila,
     union:union
   }])
+  .select("id")
+  .single();
 
-  if(error){
-    console.error(error.message);
+  if(insertedError){
+    console.error(insertedError.message);
     return {ok:false,message:"Could not saved report"}
   }
 
-  return {ok:true,message:"Report Uploaded ! AI is verifying your report"}
 
+  // ! AI verified
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+after(() => {
+  fetch(`${baseUrl}/api/govt-ai/verify-report`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      category:category,
+      eventLocation:eventLocation,
+      division:division,
+      district:district,
+      upazila:upazila,
+      union:union,
+      media_url: media_url,
+      details: content,
+      reportId: insertedData.id,
+    })
+  })
+  .catch(err => console.error("AI verifying trigger Error", err));
+})
+
+  return {ok:true,message:"Report Uploaded ! AI is verifying your report"}
 }
